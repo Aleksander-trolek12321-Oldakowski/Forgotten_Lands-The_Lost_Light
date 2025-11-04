@@ -1,64 +1,108 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Item;
+using Item; // Upewnij się, że namespace Item/ item pasuje do Twojego ItemData
 
 namespace Player
 {
     public class PlayerBase : MonoBehaviour
     {
         [Header("Base stats")]
-        [SerializeField] float MaxHp = 10;
-        [SerializeField] float MaxMp = 5;
-        [SerializeField] float Strength = 1;
-        [SerializeField] float Def = 1;
+        [SerializeField] float MaxHp = 10f;
+        [SerializeField] float MaxMp = 5f;
+        [SerializeField] float Strength = 1f;
+        [SerializeField] float Def = 1f;
 
         [Header("Runtime")]
         [SerializeField] float currentHp;
         [SerializeField] float currentMp;
 
-        public GameObject player;
+        [Header("Movement")]
         public Rigidbody rb;
-        public float speed = 3f;
         public Transform cam;
+        public float speed = 3f;
+        public float rotationSpeed = 10f;
+        public float velocitySmoothTime = 0.12f;
+        public float deadZone = 0.1f;
+
+        float cachedHorizontal;
+        float cachedVertical;
+        Vector3 moveDir = Vector3.zero;
+        Vector3 velocityRef = Vector3.zero;
+
         private void Awake()
         {
-            rb = GetComponent<Rigidbody>();
+            if (rb == null) rb = GetComponent<Rigidbody>();
+
+            if (rb != null)
+            {
+                rb.interpolation = RigidbodyInterpolation.Interpolate;
+                rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+            }
+
+            currentHp = MaxHp;
+            currentMp = MaxMp;
+        }
+
+        private void OnValidate()
+        {
+            if (cam == null && Camera.main != null)
+            {
+                cam = Camera.main.transform;
+            }
         }
 
         private void Update()
         {
-            float horizontalInput = Input.GetAxis("Horizontal");
-            float verticalInput = Input.GetAxis("Vertical");
+            cachedHorizontal = Input.GetAxis("Horizontal");
+            cachedVertical = Input.GetAxis("Vertical");
 
-            if (horizontalInput == 0 && verticalInput == 0)
+            if (cam != null)
             {
-                rb.velocity = new Vector3(0, rb.velocity.y, 0);
-                return;
+                Vector3 camForward = cam.forward;
+                Vector3 camRight = cam.right;
+                camForward.y = 0f;
+                camRight.y = 0f;
+                camForward.Normalize();
+                camRight.Normalize();
+
+                moveDir = (camForward * cachedVertical + camRight * cachedHorizontal).normalized;
             }
-
-            //kamera
-            Vector3 camForward = cam.forward;
-            Vector3 camRight = cam.right;
-
-            camForward.y = 0;
-            camRight.y = 0;
-
-            camForward.Normalize();
-            camRight.Normalize();
-
-            Vector3 ForwardRelative = horizontalInput * cam.forward;
-            Vector3 RightRelative = verticalInput * cam.forward;
-
-            Vector3 moveDir = (camForward * verticalInput + camRight * horizontalInput).normalized;
-
-            Vector3 targetVelocity = moveDir * speed;
-            rb.velocity = new Vector3(targetVelocity.x, rb.velocity.y, targetVelocity.z);
-
-            if (moveDir.magnitude > 0.1f)
+            else
             {
-                Quaternion targetRot = Quaternion.LookRotation(moveDir);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 10f);
+                Vector3 forward = transform.forward;
+                Vector3 right = transform.right;
+                forward.y = 0f;
+                right.y = 0f;
+                forward.Normalize();
+                right.Normalize();
+
+                moveDir = (forward * cachedVertical + right * cachedHorizontal).normalized;
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (rb == null) return;
+
+            Vector3 desiredVel = moveDir * speed;
+            Vector3 currentVelXZ = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+            Vector3 smoothedVelXZ = Vector3.SmoothDamp(currentVelXZ, new Vector3(desiredVel.x, 0f, desiredVel.z), ref velocityRef, velocitySmoothTime);
+
+            rb.velocity = new Vector3(smoothedVelXZ.x, rb.velocity.y, smoothedVelXZ.z);
+
+            if (moveDir.magnitude >= deadZone)
+            {
+                Vector3 lookDir = new Vector3(moveDir.x, 0f, moveDir.z);
+                Quaternion targetRot = Quaternion.LookRotation(lookDir);
+
+                Quaternion newRot = Quaternion.Slerp(rb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime);
+                
+                if ((rb.constraints & RigidbodyConstraints.FreezeRotationY) == 0)
+                {
+                    rb.MoveRotation(newRot);
+                }
             }
         }
 
