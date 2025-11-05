@@ -1,16 +1,19 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class menu : MonoBehaviour
+namespace Menu
 {
-    public void Game()
+    public class menu : MonoBehaviour
     {
-        SceneManager.LoadScene("HUB");
-    }
+        public void Game()
+        {
+            SceneManager.LoadScene("HUB");
+        }
 
-    public void Quit()
-    {
-        Application.Quit();
-        Debug.Log("QUIT");
+        public void Quit()
+        {
+            Application.Quit();
+            Debug.Log("QUIT");
+        }
     }
 }
