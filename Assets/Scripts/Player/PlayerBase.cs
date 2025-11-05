@@ -30,8 +30,11 @@ namespace Player
         Vector3 moveDir = Vector3.zero;
         Vector3 velocityRef = Vector3.zero;
 
+        private bool controlsEnabled = true;
+
         private void Awake()
         {
+            Cursor.visible = false;
             if (rb == null) rb = GetComponent<Rigidbody>();
 
             if (rb != null)
@@ -54,6 +57,13 @@ namespace Player
 
         private void Update()
         {
+            if (!controlsEnabled)
+            {
+                if (rb != null)
+                    rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+                return;
+            }
+
             cachedHorizontal = Input.GetAxis("Horizontal");
             cachedVertical = Input.GetAxis("Vertical");
 
@@ -83,6 +93,13 @@ namespace Player
 
         private void FixedUpdate()
         {
+            if (!controlsEnabled)
+            {
+                if (rb != null)
+                    rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+                return;
+            }
+
             if (rb == null) return;
 
             Vector3 desiredVel = moveDir * speed;
@@ -98,7 +115,7 @@ namespace Player
                 Quaternion targetRot = Quaternion.LookRotation(lookDir);
 
                 Quaternion newRot = Quaternion.Slerp(rb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime);
-                
+
                 if ((rb.constraints & RigidbodyConstraints.FreezeRotationY) == 0)
                 {
                     rb.MoveRotation(newRot);
@@ -126,5 +143,22 @@ namespace Player
 
             Debug.Log($"Picked up item: +HP {itemData.HP} +MP {itemData.Mana} +STR {itemData.Damage} +DEF {itemData.Defense} +SPD {itemData.Speed}");
         }
+
+    public void SetControlsEnabled(bool enabled)
+    {
+        controlsEnabled = enabled;
+
+        if (!enabled)
+        {
+            if (rb != null)
+            {
+                rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+                cachedHorizontal = 0f;
+                cachedVertical = 0f;
+                moveDir = Vector3.zero;
+                velocityRef = Vector3.zero;
+            }
+        }
+    }
     }
 }
