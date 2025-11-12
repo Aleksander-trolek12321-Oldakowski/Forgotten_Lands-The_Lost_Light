@@ -144,21 +144,36 @@ namespace Player
             Debug.Log($"Picked up item: +HP {itemData.HP} +MP {itemData.Mana} +STR {itemData.Damage} +DEF {itemData.Defense} +SPD {itemData.Speed}");
         }
 
-    public void SetControlsEnabled(bool enabled)
-    {
-        controlsEnabled = enabled;
-
-        if (!enabled)
+        public void SetControlsEnabled(bool enabled)
         {
-            if (rb != null)
+            controlsEnabled = enabled;
+
+            if (!enabled)
             {
-                rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
-                cachedHorizontal = 0f;
-                cachedVertical = 0f;
-                moveDir = Vector3.zero;
-                velocityRef = Vector3.zero;
+                if (rb != null)
+                {
+                    rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+                    cachedHorizontal = 0f;
+                    cachedVertical = 0f;
+                    moveDir = Vector3.zero;
+                    velocityRef = Vector3.zero;
+                }
             }
         }
-    }
+
+        public void ModifyStats(float hpDelta, float manaDelta, float damageDelta, float defDelta, float speedDelta)
+        {
+            MaxHp += hpDelta;
+            MaxMp += manaDelta;
+            Strength += Mathf.RoundToInt(damageDelta);
+            Def += Mathf.RoundToInt(defDelta);
+            speed += speedDelta;
+
+            // adjust current values as well
+            currentHp = Mathf.Min(currentHp + hpDelta, MaxHp);
+            currentMp = Mathf.Min(currentMp + manaDelta, MaxMp);
+
+            Debug.Log($"PlayerBase: stats modified HP:{hpDelta} MP:{manaDelta} DMG:{damageDelta} DEF:{defDelta} SPD:{speedDelta}");
+        }
     }
 }
