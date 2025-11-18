@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Item; // Upewnij się, że namespace Item/ item pasuje do Twojego ItemData
+using Unity.Mathematics;
+using UnityEngine.UI;
+using Item;
+using potions;
 
 namespace Player
 {
@@ -14,8 +17,13 @@ namespace Player
         [SerializeField] float Def = 1f;
 
         [Header("Runtime")]
-        [SerializeField] float currentHp;
-        [SerializeField] float currentMp;
+        [SerializeField] float CurrentHp;
+        [SerializeField] float CurrentMp;
+        public float HpRestorePercentage = 0.2f;
+        public float MpRestorePercentage = 0.5f;
+        public float cd = 3f;
+        public int currentStack = 0;
+        public int MaxStack = 10;
 
         [Header("Movement")]
         public Rigidbody rb;
@@ -29,6 +37,13 @@ namespace Player
         float cachedVertical;
         Vector3 moveDir = Vector3.zero;
         Vector3 velocityRef = Vector3.zero;
+        private bool IsDead = false;
+        private bool IsTired = false;
+        private bool CanUse = true;
+
+        public GameObject player;
+        public UnityEngine.UI.Image HpOrb;
+        public UnityEngine.UI.Image MpOrb;        
 
         private bool controlsEnabled = true;
 
@@ -43,8 +58,10 @@ namespace Player
                 rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
             }
 
-            currentHp = MaxHp;
-            currentMp = MaxMp;
+            CurrentHp = MaxHp;
+            CurrentMp = MaxMp;
+            UpdateHpOrb();
+            UpdateMpOrb();
         }
 
         private void OnValidate()
@@ -130,35 +147,191 @@ namespace Player
             MaxHp += itemData.HP;
             MaxMp += itemData.Mana;
 
-            Strength += itemData.Damage;
-            Def += itemData.Defense;
+            Strength += Mathf.RoundToInt(itemData.Damage);
+            Def += Mathf.RoundToInt(itemData.Defense);
 
             speed += itemData.Speed;
 
-            currentHp += itemData.HP;
-            currentMp += itemData.Mana;
+            CurrentHp += itemData.HP;
+            CurrentMp += itemData.Mana;
 
-            currentHp = Mathf.Min(currentHp, MaxHp);
-            currentMp = Mathf.Min(currentMp, MaxMp);
+            CurrentHp = Mathf.Min(CurrentHp, MaxHp);
+            CurrentMp = Mathf.Min(CurrentMp, MaxMp);
 
-            Debug.Log($"Picked up item: +HP {itemData.HP} +MP {itemData.Mana} +STR {itemData.Damage} +DEF {itemData.Defense} +SPD {itemData.Speed}");
+            Debug.Log($"PlayerBase: Picked up item: +HP {itemData.HP} +MP {itemData.Mana} +STR {itemData.Damage} +DEF {itemData.Defense} +SPD {itemData.Speed}");
         }
 
-    public void SetControlsEnabled(bool enabled)
-    {
-        controlsEnabled = enabled;
-
-        if (!enabled)
+        public void ModifyStats(float hpDelta, float manaDelta, float damageDelta, float defDelta, float speedDelta)
         {
-            if (rb != null)
+            MaxHp += hpDelta;
+            MaxMp += manaDelta;
+            Strength += Mathf.RoundToInt(damageDelta);
+            Def += Mathf.RoundToInt(defDelta);
+            speed += speedDelta;
+
+            CurrentHp = Mathf.Min(CurrentHp + hpDelta, MaxHp);
+            CurrentMp = Mathf.Min(CurrentMp + manaDelta, MaxMp);
+
+            Debug.Log($"PlayerBase: stats modified HP:{hpDelta} MP:{manaDelta} DMG:{damageDelta} DEF:{defDelta} SPD:{speedDelta}");
+        }
+
+        public void SetControlsEnabled(bool enabled)
+        {
+            controlsEnabled = enabled;
+
+            if (!enabled)
             {
-                rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
-                cachedHorizontal = 0f;
-                cachedVertical = 0f;
-                moveDir = Vector3.zero;
-                velocityRef = Vector3.zero;
+                if (rb != null)
+                {
+                    rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+                    cachedHorizontal = 0f;
+                    cachedVertical = 0f;
+                    moveDir = Vector3.zero;
+                    velocityRef = Vector3.zero;
+                }
             }
         }
-    }
+
+        public void TakeDMG(float damage)
+        {
+            if (IsDead) return;
+
+            CurrentHp -= damage;
+            CurrentHp = math.clamp(CurrentHp, 0, MaxHp);
+            UpdateHpOrb();
+
+            if (CurrentHp <= 0 && !IsDead)
+            {
+                Die();
+            }
+        }
+
+        public void UseMP(float MPUsed)
+        {
+            CurrentMp -= MPUsed;
+            CurrentMp = math.clamp(CurrentMp, 0, MaxMp);
+            UpdateMpOrb();
+
+            if (CurrentHp <= 0 && !IsDead)
+            {
+                Exhaust();
+            }
+        }
+        private void UpdateHpOrb()
+        {
+            if (HpOrb != null)
+            {
+                HpOrb.fillAmount = CurrentHp / MaxHp;
+            }
+        }
+
+        private void UpdateMpOrb()
+        {
+            if (MpOrb != null)
+            {
+                MpOrb.fillAmount = CurrentMp / MaxMp;
+            }
+        }
+
+        public bool IsFullHp()
+        {
+            return CurrentHp >= MaxHp;
+        }
+
+        private bool IsFullMp()
+        {
+            return CurrentMp >= MaxMp;
+        }
+
+        public void Heal(float amount)
+        {
+            if (IsDead) return;
+
+            CurrentHp += amount;
+            CurrentHp = math.clamp(CurrentHp, 0, MaxHp);
+            UpdateHpOrb();
+        }
+
+        public void Restore(float amount)
+        {
+            if (IsTired) return;
+
+            CurrentMp += amount;
+            CurrentMp = math.clamp(CurrentMp, 0, MaxMp);
+            UpdateMpOrb();
+        }
+
+        private void Die()
+        {
+            IsDead = true;
+        }
+
+        private void Exhaust()
+        {
+            IsTired = true;
+        }
+
+        public void UseHpPotion()
+        {
+            if (!CanUse)
+                return;
+
+            if (IsFullHp())
+            {
+                return;
+            }
+
+            float HealAmount = MaxHp * HpRestorePercentage;
+            Heal(HealAmount);
+
+            currentStack--;
+
+            if (currentStack <= 0)
+            {
+                CanUse = false;
+            }
+
+            StartCoroutine(PotionCD());
+        }
+        
+        public void UseMpPotion()
+        {
+            if (!CanUse) 
+            return;    
+
+            if (IsFullMp())
+            {
+                return;
+            }
+
+            float RestoreAmount = MaxMp * MpRestorePercentage;
+            Restore(RestoreAmount);
+
+            currentStack--;
+
+            if (currentStack <= 0)
+            {
+                CanUse = false;
+            }
+
+            StartCoroutine(PotionCD());
+        }
+
+        private IEnumerator PotionCD()
+        {
+            CanUse = false;
+            yield return new WaitForSeconds(cd);
+            CanUse = true;
+        }
+
+        public bool AddToStack()
+        {
+            if (currentStack <= MaxStack)
+            {
+                currentStack++;
+                return true;
+            }
+            return false; 
+        }
     }
 }
