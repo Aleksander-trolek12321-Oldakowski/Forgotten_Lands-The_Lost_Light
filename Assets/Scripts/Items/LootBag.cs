@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Player;
@@ -11,8 +12,8 @@ namespace Item
         [Tooltip("List of items.")]
         public List<ItemData> lootTable = new List<ItemData>();
 
-        [Tooltip("Log communicate.")]
-        public string promptMessage = "Naciśnij E, aby otworzyć worek.";
+        [Tooltip("Prompt message for player.")]
+        public string promptMessage = "Press E to open bag.";
 
         private bool playerInRange = false;
         private PlayerBase nearbyPlayer;
@@ -27,30 +28,26 @@ namespace Item
 
         private void OnTriggerEnter(Collider other)
         {
-            PlayerBase player = other.GetComponent<PlayerBase>();
-            if (player == null)
-                player = other.GetComponent<PlayerBase>();
+            PlayerBase player = other.GetComponentInParent<PlayerBase>() ?? other.GetComponent<PlayerBase>();
 
             if (player != null)
             {
                 playerInRange = true;
                 nearbyPlayer = player;
                 Debug.Log(promptMessage);
-                toolTip.SetActive(true);
+                if (toolTip != null) toolTip.SetActive(true);
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            PlayerBase player = other.GetComponent<PlayerBase>();
-            if (player == null)
-                player = other.GetComponent<PlayerBase>();
+            PlayerBase player = other.GetComponentInParent<PlayerBase>() ?? other.GetComponent<PlayerBase>();
 
             if (player != null && player == nearbyPlayer)
             {
                 playerInRange = false;
                 nearbyPlayer = null;
-                toolTip.SetActive(false);
+                if (toolTip != null) toolTip.SetActive(false);
             }
         }
 
@@ -77,15 +74,33 @@ namespace Item
 
             if (selected != null)
             {
-                nearbyPlayer.PickupItem(selected);
-                Debug.Log($"Lootbag: random item is '{selected.name}'");
+                InventoryManager inv = nearbyPlayer.GetComponent<InventoryManager>() ?? FindObjectOfType<InventoryManager>();
+                bool added = false;
+                if (inv != null)
+                {
+                    added = inv.TryAddToBackpack(selected, 1);
+                }
+                else
+                {
+                    nearbyPlayer.PickupItem(selected);
+                    added = true;
+                }
+
+                if (added)
+                {
+                    Debug.Log($"LootBag: player received '{selected.itemName}'");
+                    if (toolTip != null) toolTip.SetActive(false);
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    Debug.Log("LootBag: Backpack full - cannot pick up item.");
+                }
             }
             else
             {
-                Debug.LogWarning("Lootbag: null item.");
+                Debug.LogWarning("LootBag: null item.");
             }
-
-            Destroy(gameObject);
         }
     }
 }
