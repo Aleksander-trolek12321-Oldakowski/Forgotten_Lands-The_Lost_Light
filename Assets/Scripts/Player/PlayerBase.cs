@@ -5,6 +5,7 @@ using Unity.Mathematics;
 using UnityEngine.UI;
 using Item;
 using potions;
+using Inventory;
 
 namespace Player
 {
