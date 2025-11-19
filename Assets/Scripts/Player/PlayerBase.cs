@@ -5,6 +5,7 @@ using Unity.Mathematics;
 using UnityEngine.UI;
 using Item;
 using potions;
+using Inventory;
 
 namespace Player
 {
@@ -43,7 +44,11 @@ namespace Player
 
         public GameObject player;
         public UnityEngine.UI.Image HpOrb;
-        public UnityEngine.UI.Image MpOrb;        
+        public UnityEngine.UI.Image MpOrb;
+
+        [Header("Inventory")]
+        public KeyCode inventoryKey = KeyCode.I;
+        InventoryUIController inventoryUIController;
 
         private bool controlsEnabled = true;
 
@@ -105,6 +110,19 @@ namespace Player
                 right.Normalize();
 
                 moveDir = (forward * cachedVertical + right * cachedHorizontal).normalized;
+            }
+
+            if (Input.GetKeyDown(inventoryKey))
+            {
+                if (inventoryUIController != null)
+                {
+                    inventoryUIController.ToggleInventory();
+                    Debug.Log("PlayerBase: Inventory toggle key pressed.");
+                }
+                else
+                {
+                    Debug.LogWarning("PlayerBase: InventoryUIController is null - cannot toggle inventory.");
+                }
             }
         }
 

@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b078039943a9c94c914f965b3f5417b, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
+  itemName: Weapon
   itemSprite: {fileID: 0}
+  itemType: 5
   HP: 0
   Mana: 0
   Damage: 3
   Defense: 0
   Speed: 0
+  stackSize: 1
