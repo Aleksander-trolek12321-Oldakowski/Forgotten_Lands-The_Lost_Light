@@ -26,6 +26,8 @@ namespace Inventory
         [Tooltip("Prefab of LootBag. Prefab must have public List<ItemData> lootTable (as in your LootBag script).")]
         public GameObject lootBagPrefab;
 
+        public static bool AllowRespawn = true;
+
         public event Action OnInventoryChanged;
 
         private void Awake()
@@ -238,6 +240,12 @@ namespace Inventory
             var it = backpackSlots[slotIndex];
             if (it.IsEmpty) return false;
 
+            if (!AllowRespawn)
+            {
+                Debug.Log("Inventory: drop blocked because AllowRespawn == false.");
+                return false;
+            }
+
             if (lootBagPrefab != null && player != null)
             {
                 Vector3 spawnPos = player.transform.position + player.transform.forward * 1.2f + Vector3.up * 0.2f;
@@ -278,6 +286,12 @@ namespace Inventory
             if (!equipment.ContainsKey(type)) return false;
             var eq = equipment[type];
             if (eq.IsEmpty) return false;
+
+            if (!AllowRespawn)
+            {
+                Debug.Log("Inventory: drop blocked because AllowRespawn == false.");
+                return false;
+            }
 
             if (lootBagPrefab != null && player != null)
             {

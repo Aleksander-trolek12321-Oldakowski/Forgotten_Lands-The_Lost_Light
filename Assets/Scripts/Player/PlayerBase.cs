@@ -50,6 +50,9 @@ namespace Player
         public KeyCode inventoryKey = KeyCode.I;
         InventoryUIController inventoryUIController;
 
+        [Header("Economy")]
+        public float Money = 100f;
+
         private bool controlsEnabled = true;
 
         private void Awake()
@@ -351,5 +354,27 @@ namespace Player
             }
             return false; 
         }
+
+        public void AddMoney(float amount)
+        {
+            Money += amount;
+            Money = Mathf.Max(0f, Money);
+            Debug.Log($"PlayerBase: AddMoney {amount:F1}. New balance: {Money:F1}");
+        }
+
+        public bool TrySpend(float amount)
+        {
+            if (amount <= 0f) return true;
+            if (Money + 0.0001f >= amount)
+            {
+                Money -= amount;
+                Debug.Log($"PlayerBase: Spent {amount:F1}. New balance: {Money:F1}");
+                return true;
+            }
+            Debug.Log($"PlayerBase: Not enough money to spend {amount:F1}. Balance: {Money:F1}");
+            return false;
+        }
+
+        public float GetMoney() => Money;
     }
 }

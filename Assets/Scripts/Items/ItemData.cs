@@ -32,5 +32,8 @@ namespace Item
         [Header("Inventory")]
         public int stackSize = 1;
 
+        [Header("Economy")]
+        public float Price = 10f;
+
     }
 }

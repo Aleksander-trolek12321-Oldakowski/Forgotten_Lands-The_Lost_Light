@@ -62,10 +62,12 @@ namespace chest
         public void OnPointerEnter(PointerEventData eventData)
         {
             var item = controller?.currentChest?.Peek(slotIndex);
-            if (item != null && !item.IsEmpty)
+            if (item != null && !item.IsEmpty && item.data != null)
             {
+                float buy = item.data.Price;
+                float sell = Mathf.Round((buy / 3f) * 10f) / 10f;
                 Vector2 screenPos = GetSlotTopCenterScreenPosition();
-                tooltip?.Show(item.data, screenPos);
+                tooltip?.Show(item.data, screenPos, buy, sell);
             }
         }
 
@@ -165,7 +167,6 @@ namespace chest
             }
             else if (srcChest != null && srcChest != this)
             {
-                // swap chest slots
                 var chest = controller.currentChest;
                 InventoryItem a = chest.Peek(srcChest.slotIndex);
                 InventoryItem b = chest.Peek(slotIndex);
