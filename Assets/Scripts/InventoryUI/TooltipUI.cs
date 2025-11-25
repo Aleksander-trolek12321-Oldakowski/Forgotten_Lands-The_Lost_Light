@@ -22,7 +22,7 @@ namespace Inventory
             canvas = GetComponentInParent<Canvas>();
         }
 
-        public void Show(ItemData data, Vector2 screenPosition)
+        public void Show(ItemData data, Vector2 screenPosition, float buyPrice = -1f, float sellPrice = -1f)
         {
             if (data == null || panel == null) return;
             panel.SetActive(true);
@@ -35,6 +35,19 @@ namespace Inventory
             if (Mathf.Abs(data.Damage) > 0.0001f) sb.AppendLine($"DMG: {data.Damage}");
             if (Mathf.Abs(data.Defense) > 0.0001f) sb.AppendLine($"DEF: {data.Defense}");
             if (Mathf.Abs(data.Speed) > 0.0001f) sb.AppendLine($"SPD: {data.Speed}");
+
+            if (buyPrice >= 0f)
+            {
+                if (sellPrice < 0f)
+                {
+                    sellPrice = Mathf.Round((buyPrice / 3f) * 10f) / 10f;
+                }
+
+                if (sb.Length > 0) sb.AppendLine();
+
+                sb.AppendLine($"Buy: {buyPrice:F1}");
+                sb.AppendLine($"Sell: {sellPrice:F1}");
+            }
 
             statsText.text = sb.Length > 0 ? sb.ToString().TrimEnd() : "No stats";
 

@@ -26,6 +26,8 @@ namespace Inventory
         RectTransform dragIconRect;
         Image dragIconImage;
 
+        [HideInInspector] public bool wasHandledByUI = false;
+
         private void Awake()
         {
             rect = GetComponent<RectTransform>();
@@ -48,13 +50,51 @@ namespace Inventory
             }
         }
 
+        public void RefreshFromInventory()
+        {
+            var inv = FindObjectOfType<Inventory.InventoryManager>();
+            if (inv == null)
+            {
+                Debug.LogWarning("ItemSlotUI: InventoryManager not found for RefreshFromInventory.");
+                return;
+            }
+
+            if (slotIndex < 0 || slotIndex >= inv.backpackSlots.Count)
+            {
+                if (icon != null) { icon.sprite = null; icon.enabled = false; }
+                return;
+            }
+
+            var invItem = inv.backpackSlots[slotIndex];
+            if (invItem == null || invItem.IsEmpty || invItem.data == null)
+            {
+                if (icon != null)
+                {
+                    icon.sprite = null;
+                    icon.enabled = false;
+                    icon.SetAllDirty();
+                }
+            }
+            else
+            {
+                if (icon != null)
+                {
+                    icon.sprite = invItem.data.itemSprite;
+                    icon.enabled = true;
+                    icon.SetAllDirty();
+                }
+            }
+        }
+
         public void OnPointerEnter(PointerEventData eventData)
         {
             InventoryItem item = isEquipmentSlot ? manager.equipment[slotType] : (slotIndex >= 0 ? manager.backpackSlots[slotIndex] : null);
-            if (item != null && !item.IsEmpty)
+            if (item != null && !item.IsEmpty && item.data != null)
             {
+                float buy = item.data.Price;
+                float sell = Mathf.Round((buy / 3f) * 10f) / 10f;
                 Vector2 screenPos = GetSlotTopCenterScreenPosition();
-                tooltip?.Show(item.data, screenPos);
+                tooltip?.Show(item.data, screenPos, buy, sell);
             }
         }
 
@@ -66,6 +106,8 @@ namespace Inventory
         public void OnBeginDrag(PointerEventData eventData)
         {
             canvasGroup.blocksRaycasts = false;
+
+            wasHandledByUI = false;
 
             manager?.NotifyInventoryChanged();
 
@@ -106,6 +148,25 @@ namespace Inventory
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            if (wasHandledByUI)
+            {
+                wasHandledByUI = false;
+
+                if (dragIcon != null)
+                {
+                    Destroy(dragIcon);
+                    dragIcon = null;
+                    dragIconImage = null;
+                    dragIconRect = null;
+                }
+
+                if (canvasGroup != null)
+                    canvasGroup.blocksRaycasts = true;
+
+                RefreshFromInventory();
+
+                return;
+            }
             canvasGroup.blocksRaycasts = true;
 
             GameObject pointerObject = eventData.pointerCurrentRaycast.gameObject;
