@@ -12,10 +12,17 @@ namespace Player
         [SerializeField] float MaxMp = 5f;
         [SerializeField] float Strength = 1f;
         [SerializeField] float Def = 1f;
-
+        public float DamageMultiplier = 1f;
+        public float PercentDmgTaken = 1f;
+        
         [Header("Runtime")]
         [SerializeField] float currentHp;
         [SerializeField] float currentMp;
+        public float CurrentHp => currentHp;
+        public float CurrentMp => currentMp;
+        public float MaxHP => MaxHp;
+        public float MaxMP => MaxMp;    
+        public float HpPercent => MaxHp > 0 ? currentHp / MaxHp : 0f;
 
         [Header("Movement")]
         public Rigidbody rb;
@@ -159,6 +166,16 @@ namespace Player
                 velocityRef = Vector3.zero;
             }
         }
+    }
+
+    public void Heal(float amount)
+    {
+        currentHp = Mathf.Min(currentHp + amount, MaxHp);
+    }
+
+    public void TakeDamage(float amount)
+    {
+        currentHp = Mathf.Max(currentHp - amount, 0f);
     }
     }
 }
