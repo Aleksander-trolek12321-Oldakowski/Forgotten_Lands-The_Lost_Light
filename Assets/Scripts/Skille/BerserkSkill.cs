@@ -40,7 +40,7 @@ public class BerserkSkill : Skill
         while (elapsed < Duration)
         {
             float hpLoss = playerBase.MaxHP * HpPerSecond;
-            playerBase.TakeDamage(hpLoss);
+            playerBase.TakeDMG(hpLoss);
 
             Debug.Log($"Berserk HP loss: {hpLoss}, HP = {playerBase.CurrentHp}/{playerBase.MaxHP}");
 

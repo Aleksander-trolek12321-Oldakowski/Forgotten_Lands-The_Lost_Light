@@ -46,15 +46,7 @@ namespace shop
 
         public void Open(Shop shop, PlayerBase player)
         {
-            try
-            {
-                prevCinemachineGetAxis = CinemachineCore.GetInputAxis;
-                CinemachineCore.GetInputAxis = (string name) => 0f;
-                Debug.Log("ShopUIController: Cinemachine input blocked.");
-            }
-            catch
-            {
-            }
+            InputBlocker.Block(player);
 
             if (inventoryRoot == null)
             {
@@ -79,18 +71,8 @@ namespace shop
 
         public void Close()
         {
-            try
-            {
-                if (prevCinemachineGetAxis != null)
-                {
-                    CinemachineCore.GetInputAxis = prevCinemachineGetAxis;
-                    prevCinemachineGetAxis = null;
-                    Debug.Log("ShopUIController: Cinemachine input restored.");
-                }
-            }
-            catch
-            {
-            }
+            InputBlocker.Restore(interactingPlayer);
+            
             if (inventoryRoot != null) inventoryRoot.SetActive(false);
             if (inventoryController != null) inventoryController.CloseInventory();
 
