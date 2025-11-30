@@ -223,6 +223,7 @@ namespace Inventory
         {
             if (inventoryRoot == null) return;
             inventoryRoot.SetActive(true);
+            InputBlocker.Block(player);
 
             if (player == null) player = inventoryManager?.player ?? FindObjectOfType<PlayerBase>();
             if (player != null) player.SetControlsEnabled(false);
@@ -238,6 +239,7 @@ namespace Inventory
             if (inventoryRoot == null) return;
             tooltip?.Hide();
             inventoryRoot.SetActive(false);
+            InputBlocker.Restore(player);
 
             if (player == null) player = inventoryManager?.player ?? FindObjectOfType<PlayerBase>();
             if (player != null) player.SetControlsEnabled(true);
