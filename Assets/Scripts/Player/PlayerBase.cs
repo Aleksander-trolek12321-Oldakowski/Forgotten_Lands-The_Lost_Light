@@ -16,10 +16,17 @@ namespace Player
         [SerializeField] float MaxMp = 5f;
         [SerializeField] float Strength = 1f;
         [SerializeField] float Def = 1f;
-
+        public float DamageMultiplier = 1f;
+        public float PercentDmgTaken = 1f;
+        
         [Header("Runtime")]
-        [SerializeField] float CurrentHp;
-        [SerializeField] float CurrentMp;
+        [SerializeField] float currentHp;
+        [SerializeField] float currentMp;
+        public float CurrentHp => currentHp;
+        public float CurrentMp => currentMp;
+        public float MaxHP => MaxHp;
+        public float MaxMP => MaxMp;    
+        public float HpPercent => MaxHp > 0 ? currentHp / MaxHp : 0f;
         public float HpRestorePercentage = 0.2f;
         public float MpRestorePercentage = 0.5f;
         public float cd = 3f;
@@ -211,6 +218,17 @@ namespace Player
                     velocityRef = Vector3.zero;
                 }
             }
+        }
+    }
+
+        public void Heal(float amount)
+        {
+            currentHp = Mathf.Min(currentHp + amount, MaxHp);
+        }
+
+        public void TakeDamage(float amount)
+        {
+            currentHp = Mathf.Max(currentHp - amount, 0f);
         }
 
         public void TakeDMG(float damage)
