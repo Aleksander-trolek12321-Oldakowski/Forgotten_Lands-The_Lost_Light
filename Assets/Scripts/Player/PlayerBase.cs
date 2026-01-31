@@ -16,10 +16,17 @@ namespace Player
         [SerializeField] float MaxMp = 5f;
         [SerializeField] float Strength = 1f;
         [SerializeField] float Def = 1f;
-
+        public float DamageMultiplier = 1f;
+        public float PercentDmgTaken = 1f;
+        
         [Header("Runtime")]
-        [SerializeField] float CurrentHp;
-        [SerializeField] float CurrentMp;
+        [SerializeField] float currentHp;
+        [SerializeField] float currentMp;
+        public float CurrentHp => currentHp;
+        public float CurrentMp => currentMp;
+        public float MaxHP => MaxHp;
+        public float MaxMP => MaxMp;    
+        public float HpPercent => MaxHp > 0 ? currentHp / MaxHp : 0f;
         public float HpRestorePercentage = 0.2f;
         public float MpRestorePercentage = 0.5f;
         public float cd = 3f;
@@ -66,8 +73,8 @@ namespace Player
                 rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
             }
 
-            CurrentHp = MaxHp;
-            CurrentMp = MaxMp;
+            currentHp = MaxHp;
+            currentMp = MaxMp;
             UpdateHpOrb();
             UpdateMpOrb();
         }
@@ -173,11 +180,11 @@ namespace Player
 
             speed += itemData.Speed;
 
-            CurrentHp += itemData.HP;
-            CurrentMp += itemData.Mana;
+            currentHp += itemData.HP;
+            currentMp += itemData.Mana;
 
-            CurrentHp = Mathf.Min(CurrentHp, MaxHp);
-            CurrentMp = Mathf.Min(CurrentMp, MaxMp);
+            currentHp = Mathf.Min(currentHp, MaxHp);
+            currentMp = Mathf.Min(currentMp, MaxMp);
 
             Debug.Log($"PlayerBase: Picked up item: +HP {itemData.HP} +MP {itemData.Mana} +STR {itemData.Damage} +DEF {itemData.Defense} +SPD {itemData.Speed}");
         }
@@ -190,8 +197,8 @@ namespace Player
             Def += Mathf.RoundToInt(defDelta);
             speed += speedDelta;
 
-            CurrentHp = Mathf.Min(CurrentHp + hpDelta, MaxHp);
-            CurrentMp = Mathf.Min(CurrentMp + manaDelta, MaxMp);
+            currentHp = Mathf.Min(currentHp + hpDelta, MaxHp);
+            currentMp = Mathf.Min(currentMp + manaDelta, MaxMp);
 
             Debug.Log($"PlayerBase: stats modified HP:{hpDelta} MP:{manaDelta} DMG:{damageDelta} DEF:{defDelta} SPD:{speedDelta}");
         }
@@ -217,11 +224,11 @@ namespace Player
         {
             if (IsDead) return;
 
-            CurrentHp -= damage;
-            CurrentHp = math.clamp(CurrentHp, 0, MaxHp);
+            currentHp -= damage;
+            currentHp = math.clamp(currentHp, 0, MaxHp);
             UpdateHpOrb();
 
-            if (CurrentHp <= 0 && !IsDead)
+            if (currentHp <= 0 && !IsDead)
             {
                 Die();
             }
@@ -229,11 +236,11 @@ namespace Player
 
         public void UseMP(float MPUsed)
         {
-            CurrentMp -= MPUsed;
-            CurrentMp = math.clamp(CurrentMp, 0, MaxMp);
+            currentMp -= MPUsed;
+            currentMp = math.clamp(currentMp, 0, MaxMp);
             UpdateMpOrb();
 
-            if (CurrentHp <= 0 && !IsDead)
+            if (currentHp <= 0 && !IsDead)
             {
                 Exhaust();
             }
@@ -242,7 +249,7 @@ namespace Player
         {
             if (HpOrb != null)
             {
-                HpOrb.fillAmount = CurrentHp / MaxHp;
+                HpOrb.fillAmount = currentHp / MaxHp;
             }
         }
 
@@ -250,26 +257,26 @@ namespace Player
         {
             if (MpOrb != null)
             {
-                MpOrb.fillAmount = CurrentMp / MaxMp;
+                MpOrb.fillAmount = currentMp / MaxMp;
             }
         }
 
         public bool IsFullHp()
         {
-            return CurrentHp >= MaxHp;
+            return currentHp >= MaxHp;
         }
 
         private bool IsFullMp()
         {
-            return CurrentMp >= MaxMp;
+            return currentMp >= MaxMp;
         }
 
         public void Heal(float amount)
         {
             if (IsDead) return;
 
-            CurrentHp += amount;
-            CurrentHp = math.clamp(CurrentHp, 0, MaxHp);
+            currentHp += amount;
+            currentHp = math.clamp(currentHp, 0, MaxHp);
             UpdateHpOrb();
         }
 
@@ -277,8 +284,8 @@ namespace Player
         {
             if (IsTired) return;
 
-            CurrentMp += amount;
-            CurrentMp = math.clamp(CurrentMp, 0, MaxMp);
+            currentMp += amount;
+            currentMp = math.clamp(currentMp, 0, MaxMp);
             UpdateMpOrb();
         }
 

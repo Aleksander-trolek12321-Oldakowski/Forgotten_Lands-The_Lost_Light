@@ -49,6 +49,8 @@ namespace chest
                 return;
             }
 
+            InputBlocker.Block(player);
+
             currentChest = chest;
             interactingPlayer = player;
             playerInventoryManager = FindObjectOfType<InventoryManager>();
@@ -88,6 +90,7 @@ namespace chest
                 inventoryController.CloseInventory();
             }
 
+            InputBlocker.Restore(interactingPlayer);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
 
