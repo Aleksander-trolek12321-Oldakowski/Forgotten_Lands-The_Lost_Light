@@ -1,62 +1,85 @@
-using UnityEngine.SceneManagement;
-using Player;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections;
+using Player;
+using Cinemachine;
 
 namespace Objects
 {
-[RequireComponent(typeof(Collider))]
-public class Stairs : MonoBehaviour
+    [RequireComponent(typeof(Collider))]
+    public class Stairs : MonoBehaviour
     {
         [Header("Reference to Statue (level selection)")]
         public Statue statue;
 
         [Header("Visuals")]
-        public Renderer stairsRenderer;
         public Color inactiveColor = Color.black;
-        public Color activeColor = Color.yellow;
-        public bool useMaterial = false;
-        public Material inactiveMaterial;
-        public Material activeMaterial;
+        public Color activeColor = new Color(1f, 0.85f, 0.4f);
 
-        [Header("Trigger settings")]
+        [Header("Transition settings")]
         public bool requireTrigger = true;
+        public float transitionDuration = 1.2f;
+
+        [Header("Particles & VFX")]
+        public ParticleSystem gateParticles;
+        public ParticleSystem beamParticles;
+        public ParticleSystem dustParticles;
+        public AudioSource gateAudio;
+        public Animator gateAnimator;
+        public Renderer sigilRenderer;
+
+        [Header("Cinemachine")]
+        public CinemachineVirtualCamera zoomCamera;
+        public int zoomPriority = 60;
+        public CinemachineImpulseSource impulseSource;
+
+        [Header("Gate sparks orientation (flip)")]
+        public bool flipGateSparks = false;
+        public Vector3 flipGateSparksEuler = new Vector3(0f, 180f, 0f);
 
         bool isActive = false;
         string currentChosen = "";
-        Collider collider;
+        Collider colliderRef;
+        bool isTransitioning = false;
 
         private void Reset()
         {
-            collider = GetComponent<Collider>();
-            if (collider != null && requireTrigger)
-                collider.isTrigger = true;
+            colliderRef = GetComponent<Collider>();
+            if (colliderRef != null && requireTrigger)
+                colliderRef.isTrigger = true;
         }
 
         private void Start()
         {
-            collider = GetComponent<Collider>();
-            if (collider == null)
+            colliderRef = GetComponent<Collider>();
+            if (colliderRef == null)
             {
-                Debug.LogError("Stairs: No Collider attached to the stairs object.");
+                Debug.LogError("Stairs: No Collider attached.");
             }
             else if (requireTrigger)
             {
-                collider.isTrigger = true;
+                colliderRef.isTrigger = true;
             }
 
-            // try to find a Statue instance automatically if not set
             if (statue == null)
-            {
                 statue = FindObjectOfType<Statue>();
-                if (statue == null)
-                {
-                    Debug.LogWarning("Stairs: No Statue found in the scene..");
-                }
-            }
 
             currentChosen = statue != null ? statue.ChoosenLevel : "";
             UpdateActiveState();
-            UpdateVisual(isActive);
+
+            if (flipGateSparks && gateParticles != null)
+            {
+                gateParticles.transform.localEulerAngles = gateParticles.transform.localEulerAngles + flipGateSparksEuler;
+            }
+
+            ApplyGateAndDustColor(inactiveColor);
+            ApplySigilColor(inactiveColor);
+
+            if (isActive)
+            {
+                if (beamParticles != null && !beamParticles.isPlaying) beamParticles.Play();
+                if (dustParticles != null && !dustParticles.isPlaying) dustParticles.Play();
+            }
         }
 
         private void Update()
@@ -66,7 +89,23 @@ public class Stairs : MonoBehaviour
             {
                 currentChosen = newChosen;
                 UpdateActiveState();
-                UpdateVisual(isActive);
+
+                if (isActive)
+                {
+                    ApplyGateAndDustColor(activeColor);
+                    ApplySigilColor(activeColor);
+
+                    if (beamParticles != null && !beamParticles.isPlaying && !beamParticles.main.playOnAwake) beamParticles.Play();
+                    if (dustParticles != null && !dustParticles.isPlaying) dustParticles.Play();
+                }
+                else
+                {
+                    ApplyGateAndDustColor(inactiveColor);
+                    ApplySigilColor(inactiveColor);
+
+                    if (beamParticles != null && beamParticles.isPlaying && !beamParticles.main.playOnAwake) beamParticles.Stop();
+                    if (dustParticles != null && dustParticles.isPlaying) dustParticles.Stop();
+                }
             }
         }
 
@@ -75,32 +114,135 @@ public class Stairs : MonoBehaviour
             isActive = !string.IsNullOrEmpty(currentChosen);
         }
 
-        void UpdateVisual(bool active)
+        void SetParticleStartColor(ParticleSystem ps, Color color)
         {
-            if (stairsRenderer == null) return;
+            if (ps == null) return;
+            var main = ps.main;
+            main.startColor = new ParticleSystem.MinMaxGradient(color);
 
-            if (useMaterial)
+            var rend = ps.GetComponent<ParticleSystemRenderer>();
+            if (rend != null && rend.material != null)
             {
-                if (active && activeMaterial != null)
-                    stairsRenderer.material = activeMaterial;
-                else if (!active && inactiveMaterial != null)
-                    stairsRenderer.material = inactiveMaterial;
+                Material mat = rend.material;
+                if (mat.HasProperty("_BaseColor")) mat.SetColor("_BaseColor", color);
+                else if (mat.HasProperty("_Color")) mat.SetColor("_Color", color);
+                else mat.color = color;
             }
-            else
+        }
+
+        void ApplyGateAndDustColor(Color color)
+        {
+            SetParticleStartColor(gateParticles, color);
+            SetParticleStartColor(dustParticles, color);
+        }
+
+        void ApplySigilColor(Color color)
+        {
+            if (sigilRenderer == null) return;
+            Material mat = sigilRenderer.material;
+            if (mat == null) return;
+
+            if (mat.HasProperty("_BaseColor")) mat.SetColor("_BaseColor", color);
+            else if (mat.HasProperty("_Color")) mat.SetColor("_Color", color);
+            else mat.color = color;
+
+            if (mat.HasProperty("_EmissionColor"))
             {
-                // ensure material instance exists before changing color
-                if (stairsRenderer.material != null)
+                if (color == inactiveColor) mat.SetColor("_EmissionColor", Color.black);
+                else mat.SetColor("_EmissionColor", color * 2.0f);
+            }
+        }
+
+        IEnumerator TransitionToLevel(string levelName)
+        {
+            if (isTransitioning) yield break;
+            isTransitioning = true;
+
+            if (colliderRef != null) colliderRef.enabled = false;
+
+            if (gateAnimator != null) gateAnimator.SetTrigger("Open");
+            if (gateParticles != null) gateParticles.Play(); // burst at trigger
+            if (beamParticles != null && !beamParticles.isPlaying) beamParticles.Play();
+            if (dustParticles != null && !dustParticles.isPlaying) dustParticles.Play();
+            if (gateAudio != null) gateAudio.Play();
+
+            int prevPriority = -1;
+            if (zoomCamera != null)
+            {
+                prevPriority = zoomCamera.Priority;
+                zoomCamera.Priority = zoomPriority;
+            }
+
+            if (impulseSource != null) impulseSource.GenerateImpulse();
+
+            float oldTimeScale = Time.timeScale;
+            float oldFixedDelta = Time.fixedDeltaTime;
+            Time.timeScale = 0.45f;
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+            float t = 0f;
+            Material sigilMatInstance = null;
+            bool sigilHasEmission = false;
+            if (sigilRenderer != null)
+            {
+                sigilMatInstance = sigilRenderer.material;
+                sigilHasEmission = sigilMatInstance.HasProperty("_EmissionColor");
+            }
+
+            while (t < transitionDuration)
+            {
+                t += Time.unscaledDeltaTime;
+                float norm = Mathf.Clamp01(t / transitionDuration);
+                float ease = Mathf.SmoothStep(0f, 1f, norm);
+
+                if (sigilMatInstance != null)
                 {
-                    stairsRenderer.material.color = active ? activeColor : inactiveColor;
+                    Color c = Color.Lerp(inactiveColor, activeColor, ease);
+                    if (sigilMatInstance.HasProperty("_BaseColor")) sigilMatInstance.SetColor("_BaseColor", c);
+                    else sigilMatInstance.color = c;
+
+                    if (sigilHasEmission) sigilMatInstance.SetColor("_EmissionColor", Color.Lerp(Color.black, activeColor * 2.0f, ease));
                 }
+
+                Color pcol = Color.Lerp(inactiveColor, activeColor, ease);
+                SetParticleStartColor(gateParticles, pcol);
+                SetParticleStartColor(dustParticles, pcol);
+
+                yield return null;
             }
+
+            if (sigilMatInstance != null)
+            {
+                if (sigilMatInstance.HasProperty("_BaseColor")) sigilMatInstance.SetColor("_BaseColor", activeColor);
+                else sigilMatInstance.color = activeColor;
+
+                if (sigilHasEmission) sigilMatInstance.SetColor("_EmissionColor", activeColor * 2.0f);
+            }
+
+            SetParticleStartColor(gateParticles, activeColor);
+            SetParticleStartColor(dustParticles, activeColor);
+
+            yield return new WaitForSecondsRealtime(0.25f);
+            Time.timeScale = oldTimeScale;
+            Time.fixedDeltaTime = oldFixedDelta;
+
+            if (zoomCamera != null)
+            {
+                yield return new WaitForSecondsRealtime(0.25f);
+                zoomCamera.Priority = prevPriority;
+            }
+
+            if (!string.IsNullOrEmpty(levelName))
+                SceneManager.LoadScene(levelName);
+
+            isTransitioning = false;
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!isActive)
+            if (requireTrigger && !isActive)
             {
-                Debug.Log("Stairs: stairs is inactive(no level selected) - nothing happens");
+                Debug.Log("Stairs: inactive - nothing happens");
                 return;
             }
 
@@ -109,12 +251,11 @@ public class Stairs : MonoBehaviour
 
             if (string.IsNullOrEmpty(currentChosen))
             {
-                Debug.LogWarning("Stairs: currentChosen is empty when player entered the stairs.");
+                Debug.LogWarning("Stairs: currentChosen empty when player entered the stairs.");
                 return;
             }
 
-            Debug.Log($"Stairs: player entered active stairs - loading scene '{currentChosen}'");
-            SceneManager.LoadScene(currentChosen);
+            StartCoroutine(TransitionToLevel(currentChosen));
         }
     }
 }
