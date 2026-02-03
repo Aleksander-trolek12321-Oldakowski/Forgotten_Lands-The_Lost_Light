@@ -13,27 +13,29 @@ namespace Objects
         public Statue statue;
 
         [Header("Visuals")]
-        public Renderer stairsRenderer;
         public Color inactiveColor = Color.black;
         public Color activeColor = new Color(1f, 0.85f, 0.4f);
-        public bool useMaterial = false;
-        public Material inactiveMaterial;
-        public Material activeMaterial;
 
         [Header("Transition settings")]
         public bool requireTrigger = true;
         public float transitionDuration = 1.2f;
+
+        [Header("Particles & VFX")]
         public ParticleSystem gateParticles;
         public ParticleSystem beamParticles;
         public ParticleSystem dustParticles;
         public AudioSource gateAudio;
         public Animator gateAnimator;
+        public Renderer sigilRenderer;
 
         [Header("Cinemachine")]
         public CinemachineVirtualCamera zoomCamera;
         public int zoomPriority = 60;
-        public float zoomDurationRealtime = 0.8f;
         public CinemachineImpulseSource impulseSource;
+
+        [Header("Gate sparks orientation (flip)")]
+        public bool flipGateSparks = false;
+        public Vector3 flipGateSparksEuler = new Vector3(0f, 180f, 0f);
 
         bool isActive = false;
         string currentChosen = "";
@@ -52,7 +54,7 @@ namespace Objects
             colliderRef = GetComponent<Collider>();
             if (colliderRef == null)
             {
-                Debug.LogError("Stairs: No Collider attached to the stairs object.");
+                Debug.LogError("Stairs: No Collider attached.");
             }
             else if (requireTrigger)
             {
@@ -60,15 +62,24 @@ namespace Objects
             }
 
             if (statue == null)
-            {
                 statue = FindObjectOfType<Statue>();
-                if (statue == null)
-                    Debug.LogWarning("Stairs: No Statue found in the scene..");
-            }
 
             currentChosen = statue != null ? statue.ChoosenLevel : "";
             UpdateActiveState();
-            ApplyVisualImmediate(isActive);
+
+            if (flipGateSparks && gateParticles != null)
+            {
+                gateParticles.transform.localEulerAngles = gateParticles.transform.localEulerAngles + flipGateSparksEuler;
+            }
+
+            ApplyGateAndDustColor(inactiveColor);
+            ApplySigilColor(inactiveColor);
+
+            if (isActive)
+            {
+                if (beamParticles != null && !beamParticles.isPlaying) beamParticles.Play();
+                if (dustParticles != null && !dustParticles.isPlaying) dustParticles.Play();
+            }
         }
 
         private void Update()
@@ -78,7 +89,23 @@ namespace Objects
             {
                 currentChosen = newChosen;
                 UpdateActiveState();
-                ApplyVisualImmediate(isActive);
+
+                if (isActive)
+                {
+                    ApplyGateAndDustColor(activeColor);
+                    ApplySigilColor(activeColor);
+
+                    if (beamParticles != null && !beamParticles.isPlaying && !beamParticles.main.playOnAwake) beamParticles.Play();
+                    if (dustParticles != null && !dustParticles.isPlaying) dustParticles.Play();
+                }
+                else
+                {
+                    ApplyGateAndDustColor(inactiveColor);
+                    ApplySigilColor(inactiveColor);
+
+                    if (beamParticles != null && beamParticles.isPlaying && !beamParticles.main.playOnAwake) beamParticles.Stop();
+                    if (dustParticles != null && dustParticles.isPlaying) dustParticles.Stop();
+                }
             }
         }
 
@@ -87,36 +114,42 @@ namespace Objects
             isActive = !string.IsNullOrEmpty(currentChosen);
         }
 
-        void ApplyVisualImmediate(bool active)
+        void SetParticleStartColor(ParticleSystem ps, Color color)
         {
-            if (stairsRenderer == null) return;
+            if (ps == null) return;
+            var main = ps.main;
+            main.startColor = new ParticleSystem.MinMaxGradient(color);
 
-            if (useMaterial)
+            var rend = ps.GetComponent<ParticleSystemRenderer>();
+            if (rend != null && rend.material != null)
             {
-                if (active && activeMaterial != null)
-                    stairsRenderer.material = activeMaterial;
-                else if (!active && inactiveMaterial != null)
-                    stairsRenderer.material = inactiveMaterial;
+                Material mat = rend.material;
+                if (mat.HasProperty("_BaseColor")) mat.SetColor("_BaseColor", color);
+                else if (mat.HasProperty("_Color")) mat.SetColor("_Color", color);
+                else mat.color = color;
             }
-            else
+        }
+
+        void ApplyGateAndDustColor(Color color)
+        {
+            SetParticleStartColor(gateParticles, color);
+            SetParticleStartColor(dustParticles, color);
+        }
+
+        void ApplySigilColor(Color color)
+        {
+            if (sigilRenderer == null) return;
+            Material mat = sigilRenderer.material;
+            if (mat == null) return;
+
+            if (mat.HasProperty("_BaseColor")) mat.SetColor("_BaseColor", color);
+            else if (mat.HasProperty("_Color")) mat.SetColor("_Color", color);
+            else mat.color = color;
+
+            if (mat.HasProperty("_EmissionColor"))
             {
-                if (stairsRenderer.material != null)
-                {
-                    stairsRenderer.material.color = active ? activeColor : inactiveColor;
-                    if (stairsRenderer.material.HasProperty("_EmissionColor"))
-                    {
-                        if (active)
-                        {
-                            stairsRenderer.material.EnableKeyword("_EMISSION");
-                            stairsRenderer.material.SetColor("_EmissionColor", activeColor * 1.2f);
-                        }
-                        else
-                        {
-                            stairsRenderer.material.SetColor("_EmissionColor", Color.black);
-                            stairsRenderer.material.DisableKeyword("_EMISSION");
-                        }
-                    }
-                }
+                if (color == inactiveColor) mat.SetColor("_EmissionColor", Color.black);
+                else mat.SetColor("_EmissionColor", color * 2.0f);
             }
         }
 
@@ -128,9 +161,9 @@ namespace Objects
             if (colliderRef != null) colliderRef.enabled = false;
 
             if (gateAnimator != null) gateAnimator.SetTrigger("Open");
-            if (gateParticles != null) gateParticles.Play();
-            if (beamParticles != null) beamParticles.Play();
-            if (dustParticles != null) dustParticles.Play();
+            if (gateParticles != null) gateParticles.Play(); // burst at trigger
+            if (beamParticles != null && !beamParticles.isPlaying) beamParticles.Play();
+            if (dustParticles != null && !dustParticles.isPlaying) dustParticles.Play();
             if (gateAudio != null) gateAudio.Play();
 
             int prevPriority = -1;
@@ -148,12 +181,12 @@ namespace Objects
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
             float t = 0f;
-            Material matInstance = null;
-            bool hasEmission = false;
-            if (stairsRenderer != null)
+            Material sigilMatInstance = null;
+            bool sigilHasEmission = false;
+            if (sigilRenderer != null)
             {
-                matInstance = stairsRenderer.material;
-                hasEmission = matInstance.HasProperty("_EmissionColor");
+                sigilMatInstance = sigilRenderer.material;
+                sigilHasEmission = sigilMatInstance.HasProperty("_EmissionColor");
             }
 
             while (t < transitionDuration)
@@ -162,24 +195,32 @@ namespace Objects
                 float norm = Mathf.Clamp01(t / transitionDuration);
                 float ease = Mathf.SmoothStep(0f, 1f, norm);
 
-                if (matInstance != null)
+                if (sigilMatInstance != null)
                 {
-                    matInstance.color = Color.Lerp(inactiveColor, activeColor, ease);
-                    if (hasEmission)
-                    {
-                        matInstance.EnableKeyword("_EMISSION");
-                        matInstance.SetColor("_EmissionColor", Color.Lerp(Color.black, activeColor * 2.0f, ease));
-                    }
+                    Color c = Color.Lerp(inactiveColor, activeColor, ease);
+                    if (sigilMatInstance.HasProperty("_BaseColor")) sigilMatInstance.SetColor("_BaseColor", c);
+                    else sigilMatInstance.color = c;
+
+                    if (sigilHasEmission) sigilMatInstance.SetColor("_EmissionColor", Color.Lerp(Color.black, activeColor * 2.0f, ease));
                 }
+
+                Color pcol = Color.Lerp(inactiveColor, activeColor, ease);
+                SetParticleStartColor(gateParticles, pcol);
+                SetParticleStartColor(dustParticles, pcol);
 
                 yield return null;
             }
 
-            if (matInstance != null)
+            if (sigilMatInstance != null)
             {
-                matInstance.color = activeColor;
-                if (hasEmission) matInstance.SetColor("_EmissionColor", activeColor * 2.0f);
+                if (sigilMatInstance.HasProperty("_BaseColor")) sigilMatInstance.SetColor("_BaseColor", activeColor);
+                else sigilMatInstance.color = activeColor;
+
+                if (sigilHasEmission) sigilMatInstance.SetColor("_EmissionColor", activeColor * 2.0f);
             }
+
+            SetParticleStartColor(gateParticles, activeColor);
+            SetParticleStartColor(dustParticles, activeColor);
 
             yield return new WaitForSecondsRealtime(0.25f);
             Time.timeScale = oldTimeScale;
@@ -191,16 +232,8 @@ namespace Objects
                 zoomCamera.Priority = prevPriority;
             }
 
-            yield return new WaitForSecondsRealtime(0.15f);
-
             if (!string.IsNullOrEmpty(levelName))
-            {
                 SceneManager.LoadScene(levelName);
-            }
-            else
-            {
-                Debug.LogWarning("Stairs: levelName empty on transition.");
-            }
 
             isTransitioning = false;
         }
@@ -209,7 +242,7 @@ namespace Objects
         {
             if (requireTrigger && !isActive)
             {
-                Debug.Log("Stairs: stairs inactive - nothing happens");
+                Debug.Log("Stairs: inactive - nothing happens");
                 return;
             }
 

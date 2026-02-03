@@ -83,7 +83,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _VolumetricTex:
-        m_Texture: {fileID: 2800000, guid: 4d31ec89c9a99ec4eb983c816e937723, type: 3}
+        m_Texture: {fileID: 2800000, guid: 77a979d2e8a7b8c4fbfc49869d65b4e4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -137,7 +137,7 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LightColor: {r: 0.62745106, g: 0.7215686, b: 1, a: 0.2509804}
+    - _LightColor: {r: 1, g: 1, b: 1, a: 0.101960786}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
