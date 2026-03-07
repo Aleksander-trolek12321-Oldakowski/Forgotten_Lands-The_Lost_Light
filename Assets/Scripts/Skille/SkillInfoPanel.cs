@@ -4,12 +4,12 @@ using UnityEngine.UI;
 
 public class SkillInfoPanel : MonoBehaviour
 {
+    public SkillTree skillTree;
     public TextMeshProUGUI skillNameText;
     public TextMeshProUGUI skillDescriptionText;
     public Button unlockButton;
 
     Skill currentSkill;
-    SkillTree skillTree;
 
     public void Init(SkillTree tree)
     {
@@ -29,6 +29,7 @@ public class SkillInfoPanel : MonoBehaviour
 
     public void OnUnlockClicked()
     {
+        
         if (currentSkill == null) return;
 
         if (skillTree.TryUnlockSkill(currentSkill))
