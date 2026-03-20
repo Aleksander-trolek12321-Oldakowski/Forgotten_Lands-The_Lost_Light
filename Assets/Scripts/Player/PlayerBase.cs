@@ -33,6 +33,16 @@ namespace Player
         public int currentStack = 0;
         public int MaxStack = 10;
 
+        [Header("Level System")]
+        [SerializeField] int level = 1;
+        [SerializeField] float currentExp = 0f;
+        [SerializeField] float expToNextLevel = 100f;
+        [SerializeField] int skillPoints = 0;
+        public int Level => level;
+        public float CurrentExp => currentExp;
+        public float ExpToNextLevel => expToNextLevel;
+        public int SkillPoints => skillPoints;
+
         [Header("Movement")]
         public Rigidbody rb;
         public Transform cam;
@@ -52,6 +62,7 @@ namespace Player
         public GameObject player;
         public UnityEngine.UI.Image HpOrb;
         public UnityEngine.UI.Image MpOrb;
+        public UnityEngine.UI.Image ExpBar;
 
         [Header("Inventory")]
         public KeyCode inventoryKey = KeyCode.I;
@@ -77,6 +88,7 @@ namespace Player
             currentMp = MaxMp;
             UpdateHpOrb();
             UpdateMpOrb();
+            UpdateExpBar();
         }
 
         private void OnValidate()
@@ -133,6 +145,12 @@ namespace Player
                 {
                     Debug.LogWarning("PlayerBase: InventoryUIController is null - cannot toggle inventory.");
                 }
+            }
+
+            //Dla testu
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                AddExp(200);
             }
         }
 
@@ -261,6 +279,14 @@ namespace Player
             }
         }
 
+        private void UpdateExpBar()
+        {
+            if (ExpBar != null)
+            {
+                ExpBar.fillAmount = currentExp / expToNextLevel;
+            }
+        }
+
         public bool IsFullHp()
         {
             return currentHp >= MaxHp;
@@ -368,6 +394,47 @@ namespace Player
             Money = Mathf.Max(0f, Money);
             Debug.Log($"PlayerBase: AddMoney {amount:F1}. New balance: {Money:F1}");
         }
+
+        public void AddExp(float amount)
+        {
+            if (amount <= 0) return;
+
+            currentExp += amount;
+
+            while (currentExp >= expToNextLevel)
+        {
+            currentExp -= expToNextLevel;
+            LevelUp();
+        }
+
+        void LevelUp()
+        {
+            level++;
+
+            // EXP rośnie x1.5
+            expToNextLevel *= 1.5f;
+
+            // Staty rosną x1.3
+            MaxHp *= 1.3f;
+            MaxMp *= 1.3f;
+            Strength *= 1.3f;
+            Def *= 1.3f;
+            currentHp = MaxHp;
+            currentMp = MaxMp;
+
+            UpdateHpOrb();
+            UpdateMpOrb();
+
+            // Skill point co 5 leveli
+            if (level % 5 == 0)
+            {
+                skillPoints++;
+                Debug.Log("Skill Point Gained!");
+            }
+
+            Debug.Log($"LEVEL UP! Level: {level}");
+        }
+}
 
         public bool TrySpend(float amount)
         {
