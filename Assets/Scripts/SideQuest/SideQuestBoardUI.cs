@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Player;
+using TMPro;
 
 namespace SideQuests
 {
@@ -10,7 +11,7 @@ namespace SideQuests
         public GameObject root;
 
         [Header("UI")]
-        public Text infoText;
+        public TextMeshProUGUI infoText;
         public SideQuestOfferSlotUI[] offerSlots = new SideQuestOfferSlotUI[3];
 
         private PlayerBase currentPlayer;

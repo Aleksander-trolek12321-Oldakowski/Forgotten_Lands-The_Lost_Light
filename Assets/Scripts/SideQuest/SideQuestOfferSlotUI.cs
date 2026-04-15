@@ -1,14 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace SideQuests
 {
     public class SideQuestOfferSlotUI : MonoBehaviour
     {
         [Header("UI")]
-        public Text titleText;
-        public Text objectiveText;
-        public Text rewardText;
+        public TextMeshProUGUI titleText;
+        public TextMeshProUGUI objectiveText;
+        public TextMeshProUGUI rewardText;
         public Button selectButton;
 
         private int questIndex = -1;

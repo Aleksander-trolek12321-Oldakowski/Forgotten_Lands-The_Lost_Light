@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace SideQuests
 {
@@ -9,11 +10,11 @@ namespace SideQuests
         public GameObject root;
 
         [Header("UI")]
-        public Text titleText;
-        public Text descriptionText;
-        public Text progressText;
-        public Text rewardText;
-        public Text statusText;
+        public TextMeshProUGUI titleText;
+        public TextMeshProUGUI descriptionText;
+        public TextMeshProUGUI progressText;
+        public TextMeshProUGUI rewardText;
+        public TextMeshProUGUI statusText;
 
         private void Awake()
         {
