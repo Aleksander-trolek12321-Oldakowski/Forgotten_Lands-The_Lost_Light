@@ -148,7 +148,6 @@ namespace Player
                 }
             }
 
-            //Dla testu
             if (Input.GetKeyDown(KeyCode.L))
             {
                 AddExp(200);

@@ -1570,7 +1570,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &673375055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2205,6 +2205,7 @@ MonoBehaviour:
   attackTrigger: Attack
   deathTrigger: Die
   destroyAfterDeath: 3
+  questCategory: 0
 --- !u!195 &980055204
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2914,7 +2915,7 @@ MonoBehaviour:
   rb: {fileID: 1352115417}
   cam: {fileID: 1373113779}
   speed: 10
-  rotationSpeed: 10
+  rotationSpeed: 1
   velocitySmoothTime: 0.12
   deadZone: 0.1
   player: {fileID: 1352115411}
@@ -4318,6 +4319,7 @@ MonoBehaviour:
   attackTrigger: Attack
   deathTrigger: Die
   destroyAfterDeath: 3
+  questCategory: 0
 --- !u!1001 &1915310351
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4923,6 +4925,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 49.468636
       objectReference: {fileID: 0}
+    - target: {fileID: 75493480999110893, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d253849c33f64b04998d893428dcf0b2, type: 2}
     - target: {fileID: 736676359940303359, guid: 2ce36082595ef8a458ceaa3d23f0807c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5367,6 +5374,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1915310353}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1915310359}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1915310358}
   m_SourcePrefab: {fileID: 100100000, guid: 2ce36082595ef8a458ceaa3d23f0807c, type: 3}
 --- !u!1 &1915310352 stripped
 GameObject:
@@ -5466,6 +5481,7 @@ MonoBehaviour:
   attackTrigger: Attack
   deathTrigger: Die
   destroyAfterDeath: 3
+  questCategory: 0
 --- !u!95 &1915310357
 Animator:
   serializedVersion: 7
@@ -5488,6 +5504,58 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!23 &1915310358
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915310352}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1915310359
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915310352}
+  m_Mesh: {fileID: -1562275218897716241, guid: 2ce36082595ef8a458ceaa3d23f0807c, type: 3}
 --- !u!1 &1927896017
 GameObject:
   m_ObjectHideFlags: 0
