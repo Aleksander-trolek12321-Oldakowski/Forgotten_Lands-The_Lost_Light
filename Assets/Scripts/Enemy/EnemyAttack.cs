@@ -17,7 +17,7 @@ public class EnemyAttack : MonoBehaviour
 
             if (player != null)
             {
-                player.TakeDMG(enemyStats.Attack);
+                player.TakeDMG(enemyStats.attackDamage);
             }
         }
     }
