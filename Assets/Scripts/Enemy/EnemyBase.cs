@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using Player;
+using SideQuests;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class EnemyBase : MonoBehaviour
     private PlayerBase player;
     private NavMeshAgent agent;
     private Animator animator;
+
+    public QuestEnemyCategory questCategory = QuestEnemyCategory.Generic;
 
     private enum State
     {
@@ -163,6 +166,8 @@ public class EnemyBase : MonoBehaviour
             agent.enabled = false;
         }
 
+        SideQuestManager.Instance?.ReportEnemyKilled(questCategory);
+        
         if (player != null)
         {
             player.AddExp(expValue);

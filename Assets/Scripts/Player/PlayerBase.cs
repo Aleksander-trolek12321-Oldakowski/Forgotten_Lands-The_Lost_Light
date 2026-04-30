@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Item;
 using potions;
 using Inventory;
+using SideQuests;
 
 namespace Player
 {
@@ -397,44 +398,49 @@ namespace Player
 
         public void AddExp(float amount)
         {
-            if (amount <= 0) return;
+            if (amount <= 0f) return;
 
             currentExp += amount;
 
             while (currentExp >= expToNextLevel)
-        {
-            currentExp -= expToNextLevel;
-            LevelUp();
+            {
+                currentExp -= expToNextLevel;
+                LevelUp();
+            }
+
+            UpdateExpBar();
         }
 
-        void LevelUp()
+        private void LevelUp()
         {
             level++;
 
-            // EXP rośnie x1.5
+            // EXP grows x1.5
             expToNextLevel *= 1.5f;
 
-            // Staty rosną x1.3
+            // Stats grow x1.3
             MaxHp *= 1.3f;
             MaxMp *= 1.3f;
             Strength *= 1.3f;
             Def *= 1.3f;
+
             currentHp = MaxHp;
             currentMp = MaxMp;
 
             UpdateHpOrb();
             UpdateMpOrb();
 
-            // Skill point co 5 leveli
+            // Skill point every 5 levels
             if (level % 5 == 0)
             {
                 skillPoints++;
                 Debug.Log("Skill Point Gained!");
             }
 
+            SideQuestManager.Instance?.NotifyPlayerLevelUp();
+
             Debug.Log($"LEVEL UP! Level: {level}");
         }
-}
 
         public bool TrySpend(float amount)
         {
