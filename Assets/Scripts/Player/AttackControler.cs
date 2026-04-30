@@ -2,14 +2,20 @@ using UnityEngine;
 
 public class AttackController : MonoBehaviour
 {
-    public Animator anim;
-    public float AttackCd = 0.5f;
 
-    private bool CanAttack = true;
+    public float attackCd = 0.5f;
+
+    private bool canAttack = true;
+    private Animator anim;
+
+void Start()
+    {
+    anim = GetComponent<Animator>();
+    }
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && CanAttack)
+        if (Input.GetButtonDown("Fire1") && canAttack)
         {
             Attack();
         }
@@ -17,13 +23,13 @@ public class AttackController : MonoBehaviour
 
     void Attack()
     {
-        CanAttack = false;
+        canAttack = false;
         anim.SetTrigger("Attack");
-        Invoke(nameof(ResetAttack), AttackCd);
+        Invoke(nameof(ResetAttack), attackCd);
     }
 
     void ResetAttack()
     {
-        CanAttack = true;
+        canAttack = true;
     }
 }

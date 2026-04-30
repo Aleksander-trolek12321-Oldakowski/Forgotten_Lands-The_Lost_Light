@@ -7,9 +7,9 @@ public class EnemyBase : MonoBehaviour
 {
     [Header("Stats")]
     public float maxHp = 20f;
-    float currentHp;
+    private float currentHp;
 
-    [SerializeField] float expValue = 50f;
+    [SerializeField] private float expValue = 50f;
 
     [Header("Combat")]
     public float attackDamage = 5f;
@@ -19,7 +19,16 @@ public class EnemyBase : MonoBehaviour
     [Header("Detection")]
     public float detectionRange = 10f;
 
-    private float lastAttackTime;
+    [Header("Animation Parameters")]
+    public string speedParam = "Speed";
+    public string attackTrigger = "Attack";
+    public string deathTrigger = "Die";
+
+    [Header("Death")]
+    public float destroyAfterDeath = 3f;
+
+    private float lastAttackTime = -999f;
+    private bool isDead = false;
 
     private PlayerBase player;
     private NavMeshAgent agent;
@@ -31,7 +40,8 @@ public class EnemyBase : MonoBehaviour
     {
         Idle,
         Chase,
-        Attack
+        Attack,
+        Dead
     }
 
     private State currentState;
@@ -49,6 +59,7 @@ public class EnemyBase : MonoBehaviour
 
     void Update()
     {
+        if (isDead) return;
         if (player == null || agent == null) return;
 
         float distance = Vector3.Distance(transform.position, player.transform.position);
@@ -56,6 +67,8 @@ public class EnemyBase : MonoBehaviour
         switch (currentState)
         {
             case State.Idle:
+
+                SetSpeed(0f);
 
                 if (distance <= detectionRange)
                 {
@@ -66,8 +79,10 @@ public class EnemyBase : MonoBehaviour
 
             case State.Chase:
 
+                agent.isStopped = false;
                 agent.SetDestination(player.transform.position);
-                animator.SetFloat("Speed", agent.velocity.magnitude);
+
+                SetSpeed(agent.velocity.magnitude);
 
                 if (distance <= attackRange)
                 {
@@ -78,8 +93,12 @@ public class EnemyBase : MonoBehaviour
 
             case State.Attack:
 
+                agent.isStopped = true;
                 agent.SetDestination(transform.position);
-                animator.SetFloat("Speed", 0f);
+
+                SetSpeed(0f);
+
+                LookAtPlayer();
 
                 if (distance > attackRange)
                 {
@@ -95,32 +114,40 @@ public class EnemyBase : MonoBehaviour
 
     void TryAttack()
     {
-        if (Time.time < lastAttackTime + attackCooldown) return;
+        if (Time.time < lastAttackTime + attackCooldown)
+            return;
 
         lastAttackTime = Time.time;
 
-       // if (animator != null)
-       // {
-       //     animator.SetTrigger("Attack");
-       // }
+        if (animator != null)
+        {
+            animator.SetTrigger(attackTrigger);
+        }
 
-        Debug.Log("Enemy attack triggered");
+        Debug.Log(name + " attack triggered");
     }
 
     public void DealDamage()
     {
-        if (player != null)
+        if (isDead) return;
+        if (player == null) return;
+
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+
+        if (distance <= attackRange + 0.5f)
         {
             player.TakeDMG(attackDamage);
-            Debug.Log("Enemy dealt damage!");
+            Debug.Log(name + " attacked");
         }
     }
 
     public void TakeDamage(float dmg)
     {
+        if (isDead) return;
+
         currentHp -= dmg;
 
-        if (currentHp <= 0)
+        if (currentHp <= 0f)
         {
             Die();
         }
@@ -128,6 +155,17 @@ public class EnemyBase : MonoBehaviour
 
     void Die()
     {
+        if (isDead) return;
+
+        isDead = true;
+        currentState = State.Dead;
+
+        if (agent != null)
+        {
+            agent.isStopped = true;
+            agent.enabled = false;
+        }
+
         SideQuestManager.Instance?.ReportEnemyKilled(questCategory);
         
         if (player != null)
@@ -135,6 +173,37 @@ public class EnemyBase : MonoBehaviour
             player.AddExp(expValue);
         }
 
-        Destroy(gameObject);
+        if (animator != null)
+        {
+            animator.SetTrigger(deathTrigger);
+        }
+
+        Destroy(gameObject, destroyAfterDeath);
+    }
+
+    void SetSpeed(float value)
+    {
+        if (animator != null)
+        {
+            animator.SetFloat(speedParam, value);
+        }
+    }
+
+    void LookAtPlayer()
+    {
+        if (player == null) return;
+
+        Vector3 dir = player.transform.position - transform.position;
+        dir.y = 0f;
+
+        if (dir.sqrMagnitude > 0.01f)
+        {
+            Quaternion targetRot = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRot,
+                8f * Time.deltaTime
+            );
+        }
     }
 }

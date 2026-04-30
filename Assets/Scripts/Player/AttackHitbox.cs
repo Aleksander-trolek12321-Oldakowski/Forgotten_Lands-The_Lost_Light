@@ -6,9 +6,6 @@ public class AttackHitbox : MonoBehaviour
     [Header("Damage")]
     public float damage = 30f;
 
-    [Header("Allowed Target Tag")]
-    public string targetTag = "Enemy";   // Póki co na tagu
-
     [Header("State")]
     public bool hitboxActive = false;
 
@@ -17,34 +14,30 @@ public class AttackHitbox : MonoBehaviour
     public void EnableHitbox()
     {
         hitboxActive = true;
-        alreadyHit.Clear();  
+        alreadyHit.Clear();
+        Debug.Log("Hitbox ON");
     }
 
     public void DisableHitbox()
     {
         hitboxActive = false;
+        Debug.Log("Hitbox OFF");
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (!hitboxActive) return;
 
-        if (!other.CompareTag(targetTag)) return;
-
-        // Zapobieganie wielokrotnym trafieniom podczas jednego zamachu, ewentualnie można zmienić
         if (alreadyHit.Contains(other)) return;
 
         alreadyHit.Add(other);
 
-        DoDmg dmg = other.GetComponentInParent<DoDmg>();
-        if (dmg != null)
+        EnemyBase enemy = other.GetComponentInParent<EnemyBase>();
+
+        if (enemy != null)
         {
-            dmg.TakeDmg(damage);
-            Debug.Log($"Trafiono obiekt: {other.name} tag: {other.tag} za {damage} dmg.");
-        }
-        else
-        {
-            Debug.Log($"Trafiono tag {targetTag}, ale nie ma DoDmg: {other.name}");
+            enemy.TakeDamage(damage);
+            Debug.Log($"Hit enemy: {other.name} for {damage}");
         }
     }
 }
