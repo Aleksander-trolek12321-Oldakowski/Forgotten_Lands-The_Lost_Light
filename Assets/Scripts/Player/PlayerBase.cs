@@ -179,7 +179,7 @@ namespace Player
 
                 Quaternion newRot = Quaternion.Slerp(rb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime);
 
-                if ((rb.constraints & RigidbodyConstraints.FreezeRotationY) == 0)
+                if (rb.constraints == 0)
                 {
                     rb.MoveRotation(newRot);
                 }
