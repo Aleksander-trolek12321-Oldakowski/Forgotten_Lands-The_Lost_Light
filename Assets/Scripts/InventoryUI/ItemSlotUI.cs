@@ -20,8 +20,6 @@ namespace Inventory
         TooltipUI tooltip;
         InventoryManager manager;
 
-        Vector3 originalLocalPos;
-
         GameObject dragIcon;
         RectTransform dragIconRect;
         Image dragIconImage;
@@ -35,7 +33,6 @@ namespace Inventory
             canvasGroup = gameObject.GetComponent<CanvasGroup>() ?? gameObject.AddComponent<CanvasGroup>();
             tooltip = FindObjectOfType<TooltipUI>();
             manager = FindObjectOfType<InventoryManager>();
-            originalLocalPos = rect.localPosition;
         }
 
         public void Refresh(InventoryItem invItem)
@@ -208,8 +205,6 @@ namespace Inventory
             }
 
             manager?.NotifyInventoryChanged();
-
-            rect.localPosition = originalLocalPos;
         }
 
         public void OnDrop(PointerEventData eventData)
@@ -231,8 +226,9 @@ namespace Inventory
             }
             else if (!isEquipmentSlot && src.isEquipmentSlot)
             {
-                if (manager?.Unequip(src.slotType) == true)
-                    Debug.Log($"ItemSlotUI: Unequipped {src.slotType} to backpack");
+                // Unequip into the specific backpack slot we dropped on.
+                if (manager?.UnequipToBackpack(src.slotType, slotIndex) == true)
+                    Debug.Log($"ItemSlotUI: Unequipped {src.slotType} to backpack slot {slotIndex}");
             }
 
             manager?.NotifyInventoryChanged();

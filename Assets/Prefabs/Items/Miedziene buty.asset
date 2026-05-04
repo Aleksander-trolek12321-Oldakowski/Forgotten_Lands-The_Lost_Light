@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b078039943a9c94c914f965b3f5417b, type: 3}
-  m_Name: Sword
+  m_Name: Miedziene buty
   m_EditorClassIdentifier: 
-  itemName: Weapon
+  itemName: Miedziane buty
   itemSprite: {fileID: 0}
-  itemType: 5
-  HP: 0
+  itemType: 4
+  HP: 20
   Mana: 0
-  Damage: 3
-  Defense: 0
+  Damage: 0
+  Defense: 5
   Speed: 0
   stackSize: 1
+  Price: 60

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b078039943a9c94c914f965b3f5417b, type: 3}
+  m_Name: "Pier\u015Bcie\u0144 szybko\u015Bci"
+  m_EditorClassIdentifier: 
+  itemName: "Pier\u015Bcie\u0144 szybko\u015Bci"
+  itemSprite: {fileID: 0}
+  itemType: 7
+  HP: 0
+  Mana: 0
+  Damage: 0
+  Defense: 0
+  Speed: 1
+  stackSize: 1
+  Price: 150

@@ -20696,7 +20696,7 @@ MonoBehaviour:
     FieldOfView: 90
     OrthographicSize: 10
     NearClipPlane: 0.1
-    FarClipPlane: 5000
+    FarClipPlane: 200
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
@@ -32730,7 +32730,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 5000
+  far clip plane: 200
   field of view: 90
   orthographic: 0
   orthographic size: 10
@@ -48252,6 +48252,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Conifer_more_shallow_2 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742473837712756890, guid: 867f1cc5928fabc4d95a37c0e2fdcb36,
+        type: 3}
+      propertyPath: m_LODs.Array.data[1].renderers.Array.data[0].renderer
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742473837712756890, guid: 867f1cc5928fabc4d95a37c0e2fdcb36,
+        type: 3}
+      propertyPath: m_LODs.Array.data[2].renderers.Array.data[0].renderer
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5291618246142490075, guid: 867f1cc5928fabc4d95a37c0e2fdcb36,
         type: 3}
