@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Miedziene buty
   m_EditorClassIdentifier: 
   itemName: Miedziane buty
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 37ef4a39e1cd13b429dcc92ab44efbcc, type: 3}
   itemType: 4
   HP: 20
   Mana: 0

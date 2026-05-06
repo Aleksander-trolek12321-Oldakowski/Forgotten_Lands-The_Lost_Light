@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "\u017Belazny miecz"
   m_EditorClassIdentifier: 
   itemName: "\u017Belazny miecz"
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: c57c257f9e4988045a2e6f77a4da2c58, type: 3}
   itemType: 5
   HP: 0
   Mana: 0

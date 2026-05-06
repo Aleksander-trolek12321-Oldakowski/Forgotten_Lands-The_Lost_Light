@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "Sk\xF3rzana zbroja"
   m_EditorClassIdentifier: 
   itemName: "Sk\xF3rzana zbroja"
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: d279bc8c30d04a84a98fcbf2236a8e48, type: 3}
   itemType: 2
   HP: 10
   Mana: 0

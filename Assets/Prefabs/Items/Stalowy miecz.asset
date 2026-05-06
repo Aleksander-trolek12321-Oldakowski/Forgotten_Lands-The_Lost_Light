@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stalowy miecz
   m_EditorClassIdentifier: 
   itemName: Stalowy miecz
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 85f5b89860b354b4589c2bfc65123542, type: 3}
   itemType: 5
   HP: 0
   Mana: 0

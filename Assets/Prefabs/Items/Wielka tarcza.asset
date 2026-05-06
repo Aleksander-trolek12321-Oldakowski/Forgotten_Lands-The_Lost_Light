@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wielka tarcza
   m_EditorClassIdentifier: 
   itemName: Wielka tarcza
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 92de4af701add114bb09c02473f02848, type: 3}
   itemType: 6
   HP: 0
   Mana: 0

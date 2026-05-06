@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "Zardzewia\u0142y miecz"
   m_EditorClassIdentifier: 
   itemName: "Zardzewia\u0142y miecz"
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 34c3167828be84a4b943011f25199793, type: 3}
   itemType: 5
   HP: 0
   Mana: 0

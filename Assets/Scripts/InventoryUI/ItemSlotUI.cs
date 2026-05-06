@@ -10,6 +10,8 @@ namespace Inventory
         IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerClickHandler
     {
         public Image icon;
+        [Tooltip("Optional slot-type overlay icon (e.g. helmet/chest marker). Hidden when slot has an item.")]
+        public Image slotTypeOverlayIcon;
         public int slotIndex = -1;
         public ItemType slotType = ItemType.Misc;
         public bool isEquipmentSlot = false;
@@ -31,8 +33,9 @@ namespace Inventory
             rect = GetComponent<RectTransform>();
             canvas = GetComponentInParent<Canvas>();
             canvasGroup = gameObject.GetComponent<CanvasGroup>() ?? gameObject.AddComponent<CanvasGroup>();
-            tooltip = FindObjectOfType<TooltipUI>();
+            tooltip = GetComponentInParent<InventoryUIController>()?.tooltip ?? FindObjectOfType<TooltipUI>();
             manager = FindObjectOfType<InventoryManager>();
+            AutoAssignSlotTypeOverlayIcon();
         }
 
         public void Refresh(InventoryItem invItem)
@@ -40,10 +43,12 @@ namespace Inventory
             if (invItem == null || invItem.IsEmpty || invItem.data == null)
             {
                 if (icon != null) { icon.enabled = false; icon.sprite = null; }
+                UpdateSlotTypeOverlayVisibility(true);
             }
             else
             {
                 if (icon != null) { icon.enabled = true; icon.sprite = invItem.data.itemSprite; }
+                UpdateSlotTypeOverlayVisibility(false);
             }
         }
 
@@ -59,6 +64,7 @@ namespace Inventory
             if (slotIndex < 0 || slotIndex >= inv.backpackSlots.Count)
             {
                 if (icon != null) { icon.sprite = null; icon.enabled = false; }
+                UpdateSlotTypeOverlayVisibility(true);
                 return;
             }
 
@@ -71,6 +77,7 @@ namespace Inventory
                     icon.enabled = false;
                     icon.SetAllDirty();
                 }
+                UpdateSlotTypeOverlayVisibility(true);
             }
             else
             {
@@ -80,6 +87,7 @@ namespace Inventory
                     icon.enabled = true;
                     icon.SetAllDirty();
                 }
+                UpdateSlotTypeOverlayVisibility(false);
             }
         }
 
@@ -135,8 +143,9 @@ namespace Inventory
             SetDragIconScreenPosition(slotCenter);
 
             if (icon != null) icon.enabled = false;
+            tooltip?.Hide();
         }
-
+        
         public void OnDrag(PointerEventData eventData)
         {
             if (dragIconRect == null || canvas == null) return;
@@ -160,7 +169,7 @@ namespace Inventory
                 if (canvasGroup != null)
                     canvasGroup.blocksRaycasts = true;
 
-                RefreshFromInventory();
+                RefreshSelfFromManager();
 
                 return;
             }
@@ -194,8 +203,6 @@ namespace Inventory
                 }
             }
 
-            if (icon != null) icon.enabled = true;
-
             if (dragIcon != null)
             {
                 Destroy(dragIcon);
@@ -204,6 +211,7 @@ namespace Inventory
                 dragIconImage = null;
             }
 
+            RefreshSelfFromManager();
             manager?.NotifyInventoryChanged();
         }
 
@@ -288,6 +296,64 @@ namespace Inventory
             RectTransform rt = root as RectTransform;
             if (rt == null) return false;
             return RectTransformUtility.RectangleContainsScreenPoint(rt, screenPos, canvas.worldCamera);
+        }
+
+        private void OnDisable()
+        {
+            tooltip?.Hide();
+        }
+
+        private void RefreshSelfFromManager()
+        {
+            if (manager == null)
+            {
+                if (icon != null) { icon.sprite = null; icon.enabled = false; }
+                UpdateSlotTypeOverlayVisibility(true);
+                return;
+            }
+
+            if (isEquipmentSlot)
+            {
+                if (manager.equipment != null && manager.equipment.TryGetValue(slotType, out InventoryItem eq))
+                    Refresh(eq);
+                else
+                    Refresh(new InventoryItem(null, 0));
+                return;
+            }
+
+            if (slotIndex < 0 || manager.backpackSlots == null || slotIndex >= manager.backpackSlots.Count)
+            {
+                if (icon != null) { icon.sprite = null; icon.enabled = false; }
+                UpdateSlotTypeOverlayVisibility(true);
+                return;
+            }
+
+            Refresh(manager.backpackSlots[slotIndex]);
+        }
+
+        private void AutoAssignSlotTypeOverlayIcon()
+        {
+            if (slotTypeOverlayIcon != null || !isEquipmentSlot) return;
+
+            Image[] images = GetComponentsInChildren<Image>(true);
+            foreach (var image in images)
+            {
+                if (image == null || image == icon) continue;
+                string lowerName = image.gameObject.name.ToLowerInvariant();
+                if (lowerName.Contains("type") || lowerName.Contains("slot") || lowerName.Contains("overlay") || lowerName.Contains("equip"))
+                {
+                    slotTypeOverlayIcon = image;
+                    break;
+                }
+            }
+        }
+
+        private void UpdateSlotTypeOverlayVisibility(bool shouldShow)
+        {
+            if (!isEquipmentSlot) return;
+            if (slotTypeOverlayIcon == null) AutoAssignSlotTypeOverlayIcon();
+            if (slotTypeOverlayIcon == null) return;
+            slotTypeOverlayIcon.enabled = shouldShow;
         }
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "He\u0142m z kutej stali"
   m_EditorClassIdentifier: 
   itemName: "He\u0142m z kutej stali"
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 501248168206af445993f6a7afc7c224, type: 3}
   itemType: 1
   HP: 40
   Mana: 0

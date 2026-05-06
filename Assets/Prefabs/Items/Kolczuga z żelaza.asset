@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "Kolczuga z \u017Celaza"
   m_EditorClassIdentifier: 
   itemName: "Kolczuga z \u017Celaza"
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: dcb533954ed44f844b516f23abe66792, type: 3}
   itemType: 2
   HP: 30
   Mana: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "Pier\u015Bcie\u0144 si\u0142y"
   m_EditorClassIdentifier: 
   itemName: "Pier\u015Bcie\u0144 si\u0142y"
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 37b96e5a2e26d064d94361341005b9cf, type: 3}
   itemType: 7
   HP: 0
   Mana: 0

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b078039943a9c94c914f965b3f5417b, type: 3}
   m_Name: Miedziene spodnie
   m_EditorClassIdentifier: 
-  itemName: Miedziane spodnie
-  itemSprite: {fileID: 0}
+  itemName: "R\u0119cznie robione spodnie"
+  itemSprite: {fileID: 21300000, guid: f1d3902ea0d0ae54887128a101cebe41, type: 3}
   itemType: 3
   HP: 20
   Mana: 0

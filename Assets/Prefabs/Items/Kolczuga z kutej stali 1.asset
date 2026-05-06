@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Kolczuga z kutej stali 1
   m_EditorClassIdentifier: 
   itemName: Kolczuga z kutej stali
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: b9d8f466b75e3ce42b6bb3ff8916323a, type: 3}
   itemType: 2
   HP: 40
   Mana: 0

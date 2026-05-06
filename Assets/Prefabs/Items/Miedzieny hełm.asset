@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "Miedzieny he\u0142m"
   m_EditorClassIdentifier: 
   itemName: "Miedziany he\u0142m"
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 4bda75fa8c2aef846960d8a7a005c07e, type: 3}
   itemType: 1
   HP: 20
   Mana: 0

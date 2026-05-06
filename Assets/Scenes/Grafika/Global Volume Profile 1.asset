@@ -21,10 +21,10 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.28
+    m_Value: 0.306
   smoothness:
     m_OverrideState: 1
-    m_Value: 0.75
+    m_Value: 1
   rounded:
     m_OverrideState: 1
     m_Value: 1
@@ -135,41 +135,6 @@ MonoBehaviour:
   - {fileID: -7300956629209018539}
   - {fileID: -5399646562576507705}
   - {fileID: -2187766298058331765}
-  - {fileID: 3245639141389824162}
---- !u!114 &3245639141389824162
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31acafc6894d48748b3a134f49bf8cab, type: 3}
-  m_Name: Fog
-  m_EditorClassIdentifier: 
-  active: 1
-  fogColor:
-    m_OverrideState: 1
-    m_Value: {r: 0.1490565, g: 0.99506027, b: 1, a: 1}
-  density:
-    m_OverrideState: 1
-    m_Value: 0.03
-  start:
-    m_OverrideState: 1
-    m_Value: 30
-  end:
-    m_OverrideState: 1
-    m_Value: 12
-  height:
-    m_OverrideState: 1
-    m_Value: 0
-  heightDensity:
-    m_OverrideState: 1
-    m_Value: 1
-  excludeSkybox:
-    m_OverrideState: 1
-    m_Value: 1
 --- !u!114 &3284539971564198205
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -185,7 +150,7 @@ MonoBehaviour:
   active: 1
   temperature:
     m_OverrideState: 1
-    m_Value: -12
+    m_Value: -18
   tint:
     m_OverrideState: 1
     m_Value: -3
@@ -207,7 +172,7 @@ MonoBehaviour:
     m_Value: -0.15
   contrast:
     m_OverrideState: 1
-    m_Value: 18
+    m_Value: 24.4
   colorFilter:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}

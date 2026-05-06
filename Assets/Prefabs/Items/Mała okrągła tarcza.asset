@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "Ma\u0142a okr\u0105g\u0142a tarcza"
   m_EditorClassIdentifier: 
   itemName: "Ma\u0142a okr\u0105g\u0142a tarcza"
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 0c0a890a66c45b7428ed3eefbe1b5755, type: 3}
   itemType: 6
   HP: 0
   Mana: 0

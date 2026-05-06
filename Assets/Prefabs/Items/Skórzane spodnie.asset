@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "Sk\xF3rzane spodnie"
   m_EditorClassIdentifier: 
   itemName: "Sk\xF3rzane spodnie"
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 2b8c10f11c4cd2a4588a333aa8b91efa, type: 3}
   itemType: 3
   HP: 10
   Mana: 0

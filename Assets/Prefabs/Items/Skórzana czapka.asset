@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "Sk\xF3rzana czapka"
   m_EditorClassIdentifier: 
   itemName: "Sk\xF3rzana czapka"
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: cb6b04c18639cac4088d0e09519e6954, type: 3}
   itemType: 1
   HP: 10
   Mana: 0

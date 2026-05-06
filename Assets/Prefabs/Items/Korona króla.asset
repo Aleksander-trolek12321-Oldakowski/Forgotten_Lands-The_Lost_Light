@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: "Korona kr\xF3la"
   m_EditorClassIdentifier: 
   itemName: "Korona kr\xF3la"
-  itemSprite: {fileID: 0}
-  itemType: 5
+  itemSprite: {fileID: 21300000, guid: 19fdd8bd9b55b8641b0e0020a792cf51, type: 3}
+  itemType: 1
   HP: 50
   Mana: 20
   Damage: 5

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "\u017Bakiet Radnego"
   m_EditorClassIdentifier: 
   itemName: "\u017Bakiet Radnego"
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 3304fecefd5615940a5e7d48d86a5675, type: 3}
   itemType: 2
   HP: 0
   Mana: 0
