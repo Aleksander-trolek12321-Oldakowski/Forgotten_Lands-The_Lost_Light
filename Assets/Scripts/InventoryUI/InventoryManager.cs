@@ -204,6 +204,56 @@ namespace Inventory
             return true;
         }
 
+        // Unequips into a specific backpack slot (used by drag&drop UI).
+        // If the destination slot is occupied, we try to swap if the backpack item can be equipped into this equipment slot.
+        public bool UnequipToBackpack(ItemType equipmentSlotType, int destBackpackIndex)
+        {
+            if (!equipment.ContainsKey(equipmentSlotType)) return false;
+            if (destBackpackIndex < 0 || destBackpackIndex >= backpackSlots.Count) return false;
+
+            var equippedItem = equipment[equipmentSlotType];
+            if (equippedItem == null || equippedItem.IsEmpty) return false;
+
+            var destItem = backpackSlots[destBackpackIndex];
+
+            // If target slot empty: simple move.
+            if (destItem == null || destItem.IsEmpty)
+            {
+                backpackSlots[destBackpackIndex] = equippedItem;
+
+                if (equippedItem.data != null && equippedItem.data.itemType != ItemType.Consumable)
+                    ApplyStatsToPlayer(equippedItem.data, remove: true);
+
+                equipment[equipmentSlotType] = new InventoryItem(null, 0);
+                NotifyInventoryChanged();
+                Debug.Log($"Inventory: Unequipped {equippedItem.data?.itemName} from {equipmentSlotType} to backpack slot {destBackpackIndex}");
+                return true;
+            }
+
+            // Destination occupied: swap only if the backpack item can be equipped into this equipment slot.
+            if (destItem.data == null || destItem.IsEmpty) return false;
+            if (destItem.data.itemType != equipmentSlotType)
+            {
+                Debug.Log($"Inventory: cannot swap unequip into slot {destBackpackIndex} because item '{destItem.data.itemName}' cannot go into equipment slot {equipmentSlotType}");
+                return false;
+            }
+
+            // Remove stats of the currently equipped item.
+            if (equippedItem.data != null && equippedItem.data.itemType != ItemType.Consumable)
+                ApplyStatsToPlayer(equippedItem.data, remove: true);
+
+            // Apply stats of the incoming item.
+            if (destItem.data != null && destItem.data.itemType != ItemType.Consumable)
+                ApplyStatsToPlayer(destItem.data, remove: false);
+
+            equipment[equipmentSlotType] = destItem;
+            backpackSlots[destBackpackIndex] = equippedItem;
+
+            NotifyInventoryChanged();
+            Debug.Log($"Inventory: Swapped equipment {equipmentSlotType} with backpack slot {destBackpackIndex}");
+            return true;
+        }
+
         public void SwapBackpackSlots(int indexA, int indexB)
         {
             if (indexA < 0 || indexA >= backpackSlots.Count || indexB < 0 || indexB >= backpackSlots.Count) return;

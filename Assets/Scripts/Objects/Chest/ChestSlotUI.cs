@@ -22,16 +22,23 @@ namespace chest
         Image dragIconImage;
         CanvasGroup canvasGroup;
 
+        private void Awake()
+        {
+            rect = GetComponent<RectTransform>();
+            canvas = GetComponentInParent<Canvas>();
+            canvasGroup = gameObject.GetComponent<CanvasGroup>() ?? gameObject.AddComponent<CanvasGroup>();
+            if (tooltip == null)
+                tooltip = GetComponentInParent<ChestUIController>()?.tooltip ?? FindObjectOfType<TooltipUI>();
+        }
+
         public void Initialize(ChestUIController owner, int index, TooltipUI tooltipInstance = null)
         {
             controller = owner;
             slotIndex = index;
-            tooltip = tooltipInstance;
-            rect = GetComponent<RectTransform>();
-            canvas = GetComponentInParent<Canvas>();
-
-            canvasGroup = gameObject.GetComponent<CanvasGroup>();
-            if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
+            tooltip = tooltipInstance ?? tooltip;
+            rect = rect ?? GetComponent<RectTransform>();
+            canvas = canvas ?? GetComponentInParent<Canvas>();
+            canvasGroup = canvasGroup ?? gameObject.GetComponent<CanvasGroup>() ?? gameObject.AddComponent<CanvasGroup>();
 
             if (icon == null)
             {
@@ -107,6 +114,7 @@ namespace chest
             SetDragIconScreenPosition(GetSlotCenterScreenPosition());
 
             if (icon != null) icon.enabled = false;
+            tooltip?.Hide();
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -125,6 +133,10 @@ namespace chest
 
             if (destChestSlot != null || playerSlot != null)
             {
+                if (playerSlot != null)
+                {
+                    controller.TransferFromChestToPlayer(slotIndex, playerSlot.slotIndex);
+                }
             }
             else
             {
@@ -149,6 +161,11 @@ namespace chest
             }
 
             if (controller != null) controller.RefreshAllSlots();
+        }
+
+        private void OnDisable()
+        {
+            tooltip?.Hide();
         }
 
         public void OnDrop(PointerEventData eventData)

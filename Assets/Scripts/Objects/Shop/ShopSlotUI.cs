@@ -22,28 +22,33 @@ namespace shop
         Image dragIconImage;
         CanvasGroup canvasGroup;
 
+        private void Awake()
+        {
+            rect = GetComponent<RectTransform>();
+            canvas = GetComponentInParent<Canvas>();
+            canvasGroup = gameObject.GetComponent<CanvasGroup>() ?? gameObject.AddComponent<CanvasGroup>();
+            if (tooltip == null)
+                tooltip = GetComponentInParent<ShopUIController>()?.tooltip ?? FindObjectOfType<TooltipUI>();
+        }
+
         public void Initialize(ShopUIController owner, int index, TooltipUI tooltipInstance = null)
         {
             controller = owner;
             slotIndex = index;
-            tooltip = tooltipInstance;
-            rect = GetComponent<RectTransform>();
-            canvas = GetComponentInParent<Canvas>();
+            tooltip = tooltipInstance ?? tooltip;
+            rect = rect ?? GetComponent<RectTransform>();
+            canvas = canvas ?? GetComponentInParent<Canvas>();
+            canvasGroup = canvasGroup ?? gameObject.GetComponent<CanvasGroup>() ?? gameObject.AddComponent<CanvasGroup>();
 
-            canvasGroup = gameObject.GetComponent<CanvasGroup>();
-            if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
-
-            if (icon == null)
-            {
-                var ic = transform.Find("Icon")?.GetComponent<Image>();
-                if (ic != null) icon = ic;
-            }
+            ResolveItemIconReference();
         }
 
         public void Refresh(InventoryItem invItem)
         {
+            ResolveItemIconReference();
             if (icon == null) return;
-            if (invItem == null || invItem.IsEmpty || invItem.data == null)
+
+            if (invItem == null || invItem.IsEmpty || invItem.data == null || invItem.data.itemSprite == null)
             {
                 icon.sprite = null;
                 icon.enabled = false;
@@ -103,6 +108,7 @@ namespace shop
             SetDragIconScreenPosition(GetSlotCenterScreenPosition());
 
             if (icon != null) icon.enabled = false;
+            tooltip?.Hide();
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -145,6 +151,11 @@ namespace shop
             if (dragIcon != null) Destroy(dragIcon);
 
             controller.RefreshAllSlots();
+        }
+
+        private void OnDisable()
+        {
+            tooltip?.Hide();
         }
 
         public void OnDrop(PointerEventData eventData)
@@ -207,6 +218,27 @@ namespace shop
             var rt = controller.inventoryRoot.GetComponent<RectTransform>();
             if (rt == null) return false;
             return RectTransformUtility.RectangleContainsScreenPoint(rt, screenPos, canvas.worldCamera);
+        }
+
+        private void ResolveItemIconReference()
+        {
+            var childIcon = transform.Find("Icon")?.GetComponent<Image>();
+            if (childIcon != null)
+            {
+                icon = childIcon;
+                return;
+            }
+
+            if (icon == null)
+            {
+                var images = GetComponentsInChildren<Image>(true);
+                foreach (var image in images)
+                {
+                    if (image == null || image.gameObject == gameObject) continue;
+                    icon = image;
+                    break;
+                }
+            }
         }
     }
 }

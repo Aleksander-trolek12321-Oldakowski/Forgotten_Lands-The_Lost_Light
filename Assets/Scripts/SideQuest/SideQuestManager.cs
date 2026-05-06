@@ -374,7 +374,8 @@ namespace SideQuests
             if (quest.expReward > 0f)
                 parts.Add($"{quest.expReward:0} exp");
 
-            return string.Join(", ", parts);
+            string body = string.Join(", ", parts);
+            return string.IsNullOrWhiteSpace(body) ? "Nagroda:" : $"Nagroda: {body}";
         }
 
         public string GetOfferObjectiveText(SideQuestDefinition quest)
