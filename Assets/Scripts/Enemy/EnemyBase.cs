@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using Player;
@@ -16,8 +17,23 @@ public class EnemyBase : MonoBehaviour
     public float attackRange = 2f;
     public float attackCooldown = 2f;
 
+    [Header("Attack Window")]
+    public float hitWindowStart = 0.3f;
+    public float hitWindowEnd = 0.8f;
+
     [Header("Detection")]
     public float detectionRange = 10f;
+
+    [Header("Stagger")]
+    public bool canBeStaggered = true;
+
+    [Tooltip("Jak długo enemy jest zatrzymany po trafieniu")]
+    public float staggerDuration = 1f;
+
+    [Tooltip("Czy enemy ma animację staggera")]
+    public bool useStaggerAnimation = false;
+
+    public string staggerTrigger = "Stagger";
 
     [Header("Animation Parameters")]
     public string speedParam = "Speed";
@@ -28,7 +44,10 @@ public class EnemyBase : MonoBehaviour
     public float destroyAfterDeath = 3f;
 
     private float lastAttackTime = -999f;
+
     private bool isDead = false;
+    private bool isAttacking = false;
+    private bool isStaggered = false;
 
     private PlayerBase player;
     private NavMeshAgent agent;
@@ -60,6 +79,7 @@ public class EnemyBase : MonoBehaviour
     void Update()
     {
         if (isDead) return;
+        if (isStaggered) return;
         if (player == null || agent == null) return;
 
         float distance = Vector3.Distance(transform.position, player.transform.position);
@@ -80,6 +100,7 @@ public class EnemyBase : MonoBehaviour
             case State.Chase:
 
                 agent.isStopped = false;
+
                 agent.SetDestination(player.transform.position);
 
                 SetSpeed(agent.velocity.magnitude);
@@ -94,13 +115,12 @@ public class EnemyBase : MonoBehaviour
             case State.Attack:
 
                 agent.isStopped = true;
-                agent.SetDestination(transform.position);
 
                 SetSpeed(0f);
 
                 LookAtPlayer();
 
-                if (distance > attackRange)
+                if (distance > attackRange + 1f)
                 {
                     currentState = State.Chase;
                     break;
@@ -114,6 +134,9 @@ public class EnemyBase : MonoBehaviour
 
     void TryAttack()
     {
+        if (isAttacking) return;
+        if (isStaggered) return;
+
         if (Time.time < lastAttackTime + attackCooldown)
             return;
 
@@ -124,21 +147,57 @@ public class EnemyBase : MonoBehaviour
             animator.SetTrigger(attackTrigger);
         }
 
-        Debug.Log(name + " attack triggered");
+        StartCoroutine(AttackRoutine());
+    }
+
+    IEnumerator AttackRoutine()
+    {
+        isAttacking = true;
+
+        yield return new WaitForSeconds(hitWindowStart);
+
+        bool hitDone = false;
+
+        float timer = 0f;
+        float duration = hitWindowEnd - hitWindowStart;
+
+        while (timer < duration)
+        {
+            if (isDead || isStaggered)
+            {
+                isAttacking = false;
+                yield break;
+            }
+
+            LookAtPlayer();
+
+            if (!hitDone && player != null)
+            {
+                float distance = Vector3.Distance(transform.position, player.transform.position);
+
+                if (distance <= attackRange)
+                {
+                    DealDamage();
+                    hitDone = true;
+                }
+            }
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        isAttacking = false;
     }
 
     public void DealDamage()
     {
         if (isDead) return;
+        if (isStaggered) return;
         if (player == null) return;
 
-        float distance = Vector3.Distance(transform.position, player.transform.position);
+        player.TakeDMG(attackDamage);
 
-        if (distance <= attackRange + 0.5f)
-        {
-            player.TakeDMG(attackDamage);
-            Debug.Log(name + " attacked");
-        }
+        Debug.Log(name + " attacked player");
     }
 
     public void TakeDamage(float dmg)
@@ -147,9 +206,56 @@ public class EnemyBase : MonoBehaviour
 
         currentHp -= dmg;
 
+        // 🔥 śmierć ma priorytet nad staggerem
         if (currentHp <= 0f)
         {
             Die();
+            return;
+        }
+
+        // 🔥 stagger tylko jeśli enemy przeżył
+        if (canBeStaggered)
+        {
+            StartCoroutine(StaggerRoutine());
+        }
+    }
+
+    IEnumerator StaggerRoutine()
+    {
+        // 🔥 zabezpieczenie przed spamem
+        if (isStaggered) yield break;
+
+        isStaggered = true;
+
+        // 🔥 przerywa atak
+        isAttacking = false;
+
+        if (agent != null)
+        {
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+        }
+
+        SetSpeed(0f);
+
+        // 🔥 opcjonalna animacja
+        if (useStaggerAnimation && animator != null)
+        {
+            animator.SetTrigger(staggerTrigger);
+        }
+
+        yield return new WaitForSeconds(staggerDuration);
+
+        if (isDead) yield break;
+
+        isStaggered = false;
+
+        // 🔥 reset AI po staggerze
+        currentState = State.Chase;
+
+        if (agent != null)
+        {
+            agent.isStopped = false;
         }
     }
 
@@ -160,14 +266,17 @@ public class EnemyBase : MonoBehaviour
         isDead = true;
         currentState = State.Dead;
 
+        StopAllCoroutines();
+
         if (agent != null)
         {
             agent.isStopped = true;
+            agent.velocity = Vector3.zero;
             agent.enabled = false;
         }
 
         SideQuestManager.Instance?.ReportEnemyKilled(questCategory);
-        
+
         if (player != null)
         {
             player.AddExp(expValue);
@@ -192,18 +301,20 @@ public class EnemyBase : MonoBehaviour
     void LookAtPlayer()
     {
         if (player == null) return;
+        if (isStaggered) return;
 
         Vector3 dir = player.transform.position - transform.position;
         dir.y = 0f;
 
-        if (dir.sqrMagnitude > 0.01f)
-        {
-            Quaternion targetRot = Quaternion.LookRotation(dir);
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRot,
-                8f * Time.deltaTime
-            );
-        }
+        if (dir.sqrMagnitude < 0.01f)
+            return;
+
+        Quaternion targetRot = Quaternion.LookRotation(dir);
+
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            targetRot,
+            8f * Time.deltaTime
+        );
     }
 }
