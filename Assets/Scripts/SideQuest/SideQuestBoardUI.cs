@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Player;
 using TMPro;
+using Inventory;
 
 namespace SideQuests
 {
@@ -33,11 +34,7 @@ namespace SideQuests
             currentPlayer = player;
 
             root.SetActive(true);
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-
-            if (currentPlayer != null)
-                currentPlayer.SetControlsEnabled(false);
+            InputBlocker.Block(currentPlayer);
 
             if (SideQuestManager.Instance != null)
             {
@@ -52,11 +49,7 @@ namespace SideQuests
             if (root != null)
                 root.SetActive(false);
 
-            if (currentPlayer != null)
-                currentPlayer.SetControlsEnabled(true);
-
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            InputBlocker.Restore(currentPlayer);
 
             currentPlayer = null;
         }
