@@ -95,6 +95,7 @@ public class BossEncounterZone : MonoBehaviour
             arenaBlocker.SetActive(false);
 
         SpawnPortal();
+        portalPrefab.SetActive(true);
     }
 
     private void SpawnPortal()
