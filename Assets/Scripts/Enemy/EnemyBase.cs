@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Item;
 using Player;
 using SideQuests;
 
@@ -50,6 +53,12 @@ public class EnemyBase : MonoBehaviour
     [Header("Death")]
     public float destroyAfterDeath = 3f;
 
+    [Header("Loot Drop")]
+    [Range(0f, 1f)] public float lootDropChance = 0.25f;
+    public GameObject lootBagPrefab;
+    public List<ItemData> lootDropTable = new List<ItemData>();
+    public float lootSpawnHeightOffset = 0.2f;
+
     private float lastAttackTime = -999f;
 
     private bool isDead = false;
@@ -59,6 +68,12 @@ public class EnemyBase : MonoBehaviour
     private PlayerBase player;
     private NavMeshAgent agent;
     private Animator animator;
+
+    public event Action<EnemyBase> Died;
+
+    public bool IsDead => isDead;
+    public float MaxHp => maxHp;
+    public float CurrentHp => currentHp;
 
     public QuestEnemyCategory questCategory = QuestEnemyCategory.Generic;
 
@@ -165,9 +180,9 @@ public class EnemyBase : MonoBehaviour
             Bounds bounds = wanderArea.bounds;
 
             Vector3 randomPoint = new Vector3(
-                Random.Range(bounds.min.x, bounds.max.x),
+                UnityEngine.Random.Range(bounds.min.x, bounds.max.x),
                 transform.position.y,
-                Random.Range(bounds.min.z, bounds.max.z)
+                UnityEngine.Random.Range(bounds.min.z, bounds.max.z)
             );
 
             NavMeshHit hit;
@@ -406,7 +421,27 @@ public class EnemyBase : MonoBehaviour
             animator.SetTrigger(deathTrigger);
         }
 
+        TryDropLootBag();
+
+        Died?.Invoke(this);
+
         Destroy(gameObject, destroyAfterDeath);
+    }
+
+    void TryDropLootBag()
+    {
+        if (lootBagPrefab == null) return;
+        if (lootDropChance <= 0f) return;
+        if (UnityEngine.Random.value > lootDropChance) return;
+
+        Vector3 spawnPos = transform.position + Vector3.up * lootSpawnHeightOffset;
+        GameObject bag = Instantiate(lootBagPrefab, spawnPos, Quaternion.identity);
+
+        LootBag lootBag = bag.GetComponent<LootBag>();
+        if (lootBag != null && lootDropTable != null && lootDropTable.Count > 0)
+        {
+            lootBag.lootTable = new List<ItemData>(lootDropTable);
+        }
     }
 
     void SetSpeed(float value)

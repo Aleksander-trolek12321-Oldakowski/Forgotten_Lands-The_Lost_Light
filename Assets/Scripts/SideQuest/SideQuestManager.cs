@@ -237,33 +237,7 @@ namespace SideQuests
         {
             if (activeQuest == null) return;
 
-            bool complete = false;
-
-            switch (activeQuest.kind)
-            {
-                case SideQuestKind.KillEnemies:
-                    complete = (totalEnemyKills - startEnemyKills) >= activeQuest.targetAmount;
-                    break;
-
-                case SideQuestKind.KillBoss:
-                    complete = (totalBossKills - startBossKills) >= activeQuest.targetAmount;
-                    break;
-
-                case SideQuestKind.KillSpiders:
-                    complete = (totalSpiderKills - startSpiderKills) >= activeQuest.targetAmount;
-                    break;
-
-                case SideQuestKind.KillSkeletons:
-                    complete = (totalSkeletonKills - startSkeletonKills) >= activeQuest.targetAmount;
-                    break;
-
-                case SideQuestKind.LevelUps:
-                    complete = (totalLevelUps - startLevelUps) >= activeQuest.targetAmount;
-                    break;
-
-                case SideQuestKind.SurviveTime:
-                    break;
-            }
+            bool complete = IsActiveQuestObjectiveComplete();
 
             if (complete)
             {
@@ -277,14 +251,63 @@ namespace SideQuests
         {
             if (activeQuest == null) return;
 
-            Debug.Log($"SideQuestManager: Quest completed '{activeQuest.title}'");
+            bool timedQuest = IsTimedQuest(activeQuest);
+            bool inTime = IsWithinTimeLimit(activeQuest);
 
-            GrantRewards(activeQuest);
+            if (!timedQuest || inTime)
+            {
+                Debug.Log($"SideQuestManager: Quest completed '{activeQuest.title}'");
+                GrantRewards(activeQuest);
+            }
+            else
+            {
+                Debug.Log($"SideQuestManager: Quest failed by time limit '{activeQuest.title}'");
+            }
 
             activeQuest = null;
 
             EnsureOffers();
             RefreshAllUI();
+        }
+
+        private bool IsActiveQuestObjectiveComplete()
+        {
+            if (activeQuest == null) return false;
+
+            switch (activeQuest.kind)
+            {
+                case SideQuestKind.KillEnemies:
+                    return (totalEnemyKills - startEnemyKills) >= activeQuest.targetAmount;
+                case SideQuestKind.KillBoss:
+                    return (totalBossKills - startBossKills) >= activeQuest.targetAmount;
+                case SideQuestKind.KillSpiders:
+                    return (totalSpiderKills - startSpiderKills) >= activeQuest.targetAmount;
+                case SideQuestKind.KillSkeletons:
+                    return (totalSkeletonKills - startSkeletonKills) >= activeQuest.targetAmount;
+                case SideQuestKind.LevelUps:
+                    return (totalLevelUps - startLevelUps) >= activeQuest.targetAmount;
+                case SideQuestKind.SurviveTime:
+                {
+                    float limitSeconds = activeQuest.timeLimitMinutes * 60f;
+                    return limitSeconds > 0f && (Time.time - activeQuestStartedAt) >= limitSeconds;
+                }
+            }
+
+            return false;
+        }
+
+        private bool IsTimedQuest(SideQuestDefinition quest)
+        {
+            return quest != null && quest.timeLimitMinutes > 0f;
+        }
+
+        private bool IsWithinTimeLimit(SideQuestDefinition quest)
+        {
+            if (!IsTimedQuest(quest)) return true;
+
+            float limitSeconds = quest.timeLimitMinutes * 60f;
+            float elapsed = Time.time - activeQuestStartedAt;
+            return elapsed <= limitSeconds;
         }
 
         private void GrantRewards(SideQuestDefinition quest)
@@ -419,10 +442,17 @@ namespace SideQuests
 
             if (activeQuest.kind == SideQuestKind.SurviveTime)
             {
-                return "Timer działa w tle.";
+                return "Timer dziala w tle.";
             }
 
-            return "Postęp liczony od momentu przyjęcia questa.";
+            if (IsTimedQuest(activeQuest))
+            {
+                float limitSeconds = activeQuest.timeLimitMinutes * 60f;
+                float left = Mathf.Max(0f, limitSeconds - (Time.time - activeQuestStartedAt));
+                return $"Limit czasu: {Mathf.CeilToInt(left)}s";
+            }
+
+            return "Postep liczony od momentu przyjecia questa.";
         }
     }
 }
