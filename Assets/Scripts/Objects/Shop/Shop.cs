@@ -49,6 +49,9 @@ namespace shop
 
         private void Awake()
         {
+            if (shopUIController == null)
+                shopUIController = FindObjectOfType<ShopUIController>();
+
             shopSlots = new List<InventoryItem>(shopSize);
             for (int i = 0; i < shopSize; i++)
                 shopSlots.Add(new InventoryItem(null, 0));
@@ -101,6 +104,9 @@ namespace shop
 
         public void OpenShopUI()
         {
+            if (shopUIController == null)
+                shopUIController = FindObjectOfType<ShopUIController>();
+
             if (shopUIController == null)
             {
                 Debug.LogWarning("Shop: shopUIController not assigned.");

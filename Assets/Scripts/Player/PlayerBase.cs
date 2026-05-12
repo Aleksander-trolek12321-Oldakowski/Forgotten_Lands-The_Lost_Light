@@ -7,6 +7,7 @@ using Item;
 using potions;
 using Inventory;
 using SideQuests;
+using GameSave;
 
 namespace Player
 {
@@ -318,6 +319,7 @@ namespace Player
         private void Die()
         {
             IsDead = true;
+            SaveService.DeleteSave();
         }
 
         private void Exhaust()
@@ -455,5 +457,62 @@ namespace Player
         }
 
         public float GetMoney() => Money;
+
+        public SavedPlayerStats CreateSaveSnapshot()
+        {
+            return new SavedPlayerStats
+            {
+                maxHp = MaxHp,
+                maxMp = MaxMp,
+                strength = Strength,
+                defense = Def,
+                damageMultiplier = DamageMultiplier,
+                percentDmgTaken = PercentDmgTaken,
+                currentHp = currentHp,
+                currentMp = currentMp,
+                hpRestorePercentage = HpRestorePercentage,
+                mpRestorePercentage = MpRestorePercentage,
+                potionCooldown = cd,
+                currentStack = currentStack,
+                maxStack = MaxStack,
+                level = level,
+                currentExp = currentExp,
+                expToNextLevel = expToNextLevel,
+                skillPoints = skillPoints,
+                speed = speed,
+                money = Money
+            };
+        }
+
+        public void ApplySaveSnapshot(SavedPlayerStats state)
+        {
+            if (state == null) return;
+
+            MaxHp = Mathf.Max(1f, state.maxHp);
+            MaxMp = Mathf.Max(0f, state.maxMp);
+            Strength = state.strength;
+            Def = state.defense;
+            DamageMultiplier = state.damageMultiplier;
+            PercentDmgTaken = state.percentDmgTaken;
+
+            currentHp = Mathf.Clamp(state.currentHp, 0f, MaxHp);
+            currentMp = Mathf.Clamp(state.currentMp, 0f, MaxMp);
+            HpRestorePercentage = state.hpRestorePercentage;
+            MpRestorePercentage = state.mpRestorePercentage;
+            cd = Mathf.Max(0f, state.potionCooldown);
+            currentStack = Mathf.Max(0, state.currentStack);
+            MaxStack = Mathf.Max(0, state.maxStack);
+
+            level = Mathf.Max(1, state.level);
+            currentExp = Mathf.Max(0f, state.currentExp);
+            expToNextLevel = Mathf.Max(1f, state.expToNextLevel);
+            skillPoints = Mathf.Max(0, state.skillPoints);
+            speed = state.speed;
+            Money = Mathf.Max(0f, state.money);
+
+            UpdateHpOrb();
+            UpdateMpOrb();
+            UpdateExpBar();
+        }
     }
 }

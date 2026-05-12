@@ -1,5 +1,6 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using GameSave;
 
 namespace Menu
 {
@@ -7,7 +8,11 @@ namespace Menu
     {
         public void Game()
         {
-            SceneManager.LoadScene("HUB");
+            string targetScene = SaveService.HasInitializedSave()
+                ? SaveService.GetContinueSceneOrDefault("HUB")
+                : "HUB";
+
+            SceneManager.LoadScene(targetScene);
         }
 
         public void Quit()

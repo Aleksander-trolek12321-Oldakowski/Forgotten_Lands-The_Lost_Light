@@ -8995,7 +8995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea40cce265a8b674b8b0311dab1b8ab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopUIController: {fileID: 1536346605}
+  shopUIController: {fileID: 0}
   shopSize: 20
   possibleItems:
   - {fileID: 11400000, guid: 57693f7f905abd44085f5ac99eb421f7, type: 2}
@@ -13186,7 +13186,7 @@ PrefabInstance:
         type: 3}
       propertyPath: zoomCamera
       value: 
-      objectReference: {fileID: 1961931496}
+      objectReference: {fileID: 0}
     - target: {fileID: 899979318151082852, guid: e5033d7be9f235b48aa06c3b86b9245c,
         type: 3}
       propertyPath: gateAnimator
@@ -16584,8 +16584,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 458161677}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -5.376928, y: 0.17999995, z: 11.622065}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.4740001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16710,7 +16710,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 90
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -23507,7 +23507,6 @@ GameObject:
   - component: {fileID: 619326808}
   - component: {fileID: 619326813}
   - component: {fileID: 619326812}
-  - component: {fileID: 619326809}
   - component: {fileID: 619326810}
   - component: {fileID: 619326811}
   - component: {fileID: 619326818}
@@ -23547,47 +23546,6 @@ Transform:
   - {fileID: 1077795809}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &619326809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 619326807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9d7c4d687a06624496fbe7ccf9487b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHp: 10
-  MaxMp: 5
-  Strength: 1
-  Def: 1
-  DamageMultiplier: 1
-  PercentDmgTaken: 1
-  currentHp: 0
-  currentMp: 0
-  HpRestorePercentage: 0.2
-  MpRestorePercentage: 0.5
-  cd: 3
-  currentStack: 0
-  MaxStack: 10
-  level: 1
-  currentExp: 0
-  expToNextLevel: 100
-  skillPoints: 0
-  rb: {fileID: 619326810}
-  cam: {fileID: 458161678}
-  speed: 10
-  rotationSpeed: 10
-  velocitySmoothTime: 0.12
-  deadZone: 0.1
-  player: {fileID: 619326807}
-  HpOrb: {fileID: 1546397095}
-  MpOrb: {fileID: 1909941534}
-  ExpBar: {fileID: 708171354}
-  inventoryKey: 105
-  Money: 100
 --- !u!54 &619326810
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -23729,7 +23687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillPoints: 1
-  playerBase: {fileID: 619326809}
+  playerBase: {fileID: 0}
   dashSkill:
     skillId: dash
     skillName: Dash
@@ -25728,7 +25686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d1bd9ca5cfb0d4b84a6a3ae6b898b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardUI: {fileID: 142964971}
+  boardUI: {fileID: 0}
 --- !u!65 &687376069
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -37388,8 +37346,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1077795808}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.17999995, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.4740001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37514,7 +37472,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 90
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -37635,7 +37593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af4d9cce98cfd004ca46b847faa422d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 619326809}
+  player: {fileID: 1165417139}
   backpackSize: 20
   backpackSlots: []
   allowedEquipmentOrder: 0100000002000000030000000400000005000000060000000700000008000000
@@ -51230,7 +51188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af4d9cce98cfd004ca46b847faa422d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 619326809}
+  player: {fileID: 0}
   backpackSize: 20
   backpackSlots: []
   allowedEquipmentOrder: 0100000002000000030000000400000005000000060000000700000008000000
@@ -51349,7 +51307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc05162dcb07bbe4e9ad67dc9271d11b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StatueUI: {fileID: 284296215}
+  StatueUI: {fileID: 328676134}
   ChoosenLevel: 
 --- !u!65 &1538587651
 BoxCollider:
@@ -66106,7 +66064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chestSize: 20
-  chestUIController: {fileID: 1536346606}
+  chestUIController: {fileID: 0}
   promptMessage: Press E to open chest.
   chestSlots: []
 --- !u!65 &1856862244
@@ -66544,7 +66502,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1870831233}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -74195,7 +74153,7 @@ PrefabInstance:
         type: 3}
       propertyPath: zoomCamera
       value: 
-      objectReference: {fileID: 1961931496}
+      objectReference: {fileID: 0}
     - target: {fileID: 899979318151082852, guid: e5033d7be9f235b48aa06c3b86b9245c,
         type: 3}
       propertyPath: gateAnimator
@@ -74926,8 +74884,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67e1acd68a4f20d42adb8d9fb611ee22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 619326809}
-  inventoryManager: {fileID: 1536346608}
+  player: {fileID: 0}
+  inventoryManager: {fileID: 0}
   allQuests:
   - title: "Zabij przeciwnik\xF3w"
     description: "Zabij 15 przeciwnik\xF3w"
@@ -75083,8 +75041,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 545eac702b3656c4fb2fa48f9b9abdc5, type: 2}
   - {fileID: 11400000, guid: c31c8bffb21d29340995661d0009a249, type: 2}
   - {fileID: 11400000, guid: 07afe795b43af714a8f52ff0b03c931c, type: 2}
-  boardUI: {fileID: 142964971}
-  activeQuestHUD: {fileID: 1652685282}
+  boardUI: {fileID: 0}
+  activeQuestHUD: {fileID: 0}
   offersCount: 3
 --- !u!4 &2080710277
 Transform:

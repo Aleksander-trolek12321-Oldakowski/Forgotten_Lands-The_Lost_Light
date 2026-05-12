@@ -4,6 +4,7 @@ using UnityEngine;
 using Item;
 using Inventory;
 using Player;
+using GameSave;
 
 namespace SideQuests
 {
@@ -374,6 +375,95 @@ namespace SideQuests
 
             if (activeQuestHUD != null)
                 activeQuestHUD.Refresh();
+        }
+
+        public SavedSideQuestState CreateSaveSnapshot()
+        {
+            SavedSideQuestState state = new SavedSideQuestState
+            {
+                hasActiveQuest = activeQuest != null,
+                activeQuestIndex = GetQuestIndex(activeQuest),
+                activeQuestElapsedSeconds = activeQuest != null ? Mathf.Max(0f, Time.time - activeQuestStartedAt) : 0f,
+                startEnemyKills = startEnemyKills,
+                startBossKills = startBossKills,
+                startSpiderKills = startSpiderKills,
+                startSkeletonKills = startSkeletonKills,
+                startLevelUps = startLevelUps,
+                totalEnemyKills = totalEnemyKills,
+                totalBossKills = totalBossKills,
+                totalSpiderKills = totalSpiderKills,
+                totalSkeletonKills = totalSkeletonKills,
+                totalLevelUps = totalLevelUps,
+                offerQuestIndices = new List<int>()
+            };
+
+            for (int i = 0; i < currentOffers.Count; i++)
+            {
+                int idx = GetQuestIndex(currentOffers[i]);
+                if (idx >= 0)
+                    state.offerQuestIndices.Add(idx);
+            }
+
+            return state;
+        }
+
+        public void ApplySaveSnapshot(SavedSideQuestState state)
+        {
+            if (state == null)
+                return;
+
+            totalEnemyKills = Mathf.Max(0, state.totalEnemyKills);
+            totalBossKills = Mathf.Max(0, state.totalBossKills);
+            totalSpiderKills = Mathf.Max(0, state.totalSpiderKills);
+            totalSkeletonKills = Mathf.Max(0, state.totalSkeletonKills);
+            totalLevelUps = Mathf.Max(0, state.totalLevelUps);
+
+            startEnemyKills = Mathf.Max(0, state.startEnemyKills);
+            startBossKills = Mathf.Max(0, state.startBossKills);
+            startSpiderKills = Mathf.Max(0, state.startSpiderKills);
+            startSkeletonKills = Mathf.Max(0, state.startSkeletonKills);
+            startLevelUps = Mathf.Max(0, state.startLevelUps);
+
+            activeQuest = null;
+            if (state.hasActiveQuest)
+            {
+                activeQuest = GetQuestByIndex(state.activeQuestIndex);
+                activeQuestStartedAt = Time.time - Mathf.Max(0f, state.activeQuestElapsedSeconds);
+            }
+
+            currentOffers.Clear();
+            if (state.offerQuestIndices != null)
+            {
+                for (int i = 0; i < state.offerQuestIndices.Count; i++)
+                {
+                    SideQuestDefinition offer = GetQuestByIndex(state.offerQuestIndices[i]);
+                    if (offer != null && !currentOffers.Contains(offer))
+                        currentOffers.Add(offer);
+                }
+            }
+
+            RebuildPoolIfNeeded();
+            for (int i = 0; i < currentOffers.Count; i++)
+            {
+                availablePool.Remove(currentOffers[i]);
+            }
+
+            if (!HasActiveQuest && currentOffers.Count == 0)
+                EnsureOffers();
+
+            RefreshAllUI();
+        }
+
+        private int GetQuestIndex(SideQuestDefinition quest)
+        {
+            if (quest == null) return -1;
+            return allQuests.IndexOf(quest);
+        }
+
+        private SideQuestDefinition GetQuestByIndex(int questIndex)
+        {
+            if (questIndex < 0 || questIndex >= allQuests.Count) return null;
+            return allQuests[questIndex];
         }
 
         public string GetRewardText(SideQuestDefinition quest)

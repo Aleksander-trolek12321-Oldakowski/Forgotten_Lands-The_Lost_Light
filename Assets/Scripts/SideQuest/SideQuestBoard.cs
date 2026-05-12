@@ -16,6 +16,12 @@ namespace SideQuests
             if (c != null) c.isTrigger = true;
         }
 
+        private void Awake()
+        {
+            if (boardUI == null)
+                boardUI = FindObjectOfType<SideQuestBoardUI>();
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             PlayerBase player = other.GetComponent<PlayerBase>();
@@ -59,6 +65,9 @@ namespace SideQuests
                 Debug.Log("SideQuestBoard: Board is locked because player already has an active side quest.");
                 return;
             }
+
+            if (boardUI == null)
+                boardUI = FindObjectOfType<SideQuestBoardUI>();
 
             if (boardUI == null)
             {

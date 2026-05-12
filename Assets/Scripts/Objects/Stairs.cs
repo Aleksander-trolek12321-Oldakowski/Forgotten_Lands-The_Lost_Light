@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using Player;
 using Cinemachine;
+using GameSave;
 
 namespace Objects
 {
@@ -247,6 +248,7 @@ namespace Objects
             }
 
             PlayerBase player = other.GetComponent<PlayerBase>();
+            if (player == null) player = other.GetComponentInParent<PlayerBase>();
             if (player == null) return;
 
             if (string.IsNullOrEmpty(currentChosen))
@@ -254,6 +256,14 @@ namespace Objects
                 Debug.LogWarning("Stairs: currentChosen empty when player entered the stairs.");
                 return;
             }
+
+            bool inHub = string.Equals(SceneManager.GetActiveScene().name, SaveService.HubSceneName);
+            SaveService.CaptureAndSave(
+                targetSceneName: currentChosen,
+                includeHubPosition: inHub,
+                clearCurrentSceneChestState: false,
+                clearHubPositionWhenNotIncluded: false
+            );
 
             StartCoroutine(TransitionToLevel(currentChosen));
         }
