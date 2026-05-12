@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Item;
 using potions;
 using Inventory;
@@ -73,7 +74,12 @@ namespace Player
         [Header("Economy")]
         public float Money = 100f;
 
+        [Header("Out Of Combat Regen")]
+        [SerializeField] private float outOfCombatDelaySeconds = 20f;
+        [SerializeField] private float outOfCombatRegenPercentPerSecond = 0.01f;
+
         private bool controlsEnabled = true;
+        private float lastCombatActivityTime = -999f;
 
         private void Awake()
         {
@@ -103,6 +109,8 @@ namespace Player
 
         private void Update()
         {
+            HandleSceneBasedRegeneration();
+
             if (!controlsEnabled)
             {
                 if (rb != null)
@@ -242,6 +250,7 @@ namespace Player
         public void TakeDMG(float damage)
         {
             if (IsDead) return;
+            RegisterCombatActivity();
 
             currentHp -= damage;
             currentHp = math.clamp(currentHp, 0, MaxHp);
@@ -458,6 +467,11 @@ namespace Player
 
         public float GetMoney() => Money;
 
+        public void RegisterCombatActivity()
+        {
+            lastCombatActivityTime = Time.time;
+        }
+
         public SavedPlayerStats CreateSaveSnapshot()
         {
             return new SavedPlayerStats
@@ -513,6 +527,65 @@ namespace Player
             UpdateHpOrb();
             UpdateMpOrb();
             UpdateExpBar();
+        }
+
+        private void HandleSceneBasedRegeneration()
+        {
+            string sceneName = SceneManager.GetActiveScene().name;
+
+            if (string.Equals(sceneName, SaveService.MenuSceneName, System.StringComparison.OrdinalIgnoreCase))
+                return;
+
+            if (string.Equals(sceneName, SaveService.HubSceneName, System.StringComparison.OrdinalIgnoreCase))
+            {
+                bool changed = false;
+
+                if (currentHp < MaxHp)
+                {
+                    currentHp = MaxHp;
+                    changed = true;
+                }
+
+                if (currentMp < MaxMp)
+                {
+                    currentMp = MaxMp;
+                    changed = true;
+                }
+
+                if (changed)
+                {
+                    UpdateHpOrb();
+                    UpdateMpOrb();
+                }
+
+                return;
+            }
+
+            if (Time.time < lastCombatActivityTime + outOfCombatDelaySeconds)
+                return;
+
+            float hpRegenPerSecond = MaxHp * outOfCombatRegenPercentPerSecond;
+            float mpRegenPerSecond = MaxMp * outOfCombatRegenPercentPerSecond;
+            float hpAmount = hpRegenPerSecond * Time.deltaTime;
+            float mpAmount = mpRegenPerSecond * Time.deltaTime;
+
+            bool hpChanged = false;
+            bool mpChanged = false;
+
+            if (currentHp < MaxHp && hpAmount > 0f)
+            {
+                currentHp = Mathf.Min(MaxHp, currentHp + hpAmount);
+                hpChanged = true;
+            }
+
+            if (currentMp < MaxMp && mpAmount > 0f)
+            {
+                currentMp = Mathf.Min(MaxMp, currentMp + mpAmount);
+                mpChanged = true;
+            }
+
+            if (hpChanged) UpdateHpOrb();
+            if (mpChanged) UpdateMpOrb();
         }
     }
 }

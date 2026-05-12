@@ -6,6 +6,13 @@ namespace Menu
 {
     public class menu : MonoBehaviour
     {
+        private void Awake()
+        {
+            Time.timeScale = 1f;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
         public void Game()
         {
             string targetScene = SaveService.HasInitializedSave()
