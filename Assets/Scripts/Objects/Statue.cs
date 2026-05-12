@@ -25,6 +25,8 @@ namespace Objects
         private void OnTriggerEnter(Collider other)
         {
             PlayerBase player = other.GetComponent<PlayerBase>();
+            if (player == null)
+                player = other.GetComponentInParent<PlayerBase>();
             if (player != null)
             {
                 playerInRange = true;
@@ -35,6 +37,8 @@ namespace Objects
         private void OnTriggerExit(Collider other)
         {
             PlayerBase player = other.GetComponent<PlayerBase>();
+            if (player == null)
+                player = other.GetComponentInParent<PlayerBase>();
             if (player != null && player == nearbyPlayer)
             {
                 playerInRange = false;

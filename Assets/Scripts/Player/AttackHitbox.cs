@@ -10,6 +10,12 @@ public class AttackHitbox : MonoBehaviour
     public bool hitboxActive = false;
 
     private HashSet<Collider> alreadyHit = new HashSet<Collider>();
+    private Player.PlayerBase ownerPlayer;
+
+    private void Awake()
+    {
+        ownerPlayer = GetComponentInParent<Player.PlayerBase>();
+    }
 
     public void EnableHitbox()
     {
@@ -36,6 +42,12 @@ public class AttackHitbox : MonoBehaviour
 
         if (enemy != null)
         {
+            if (ownerPlayer == null)
+                ownerPlayer = GetComponentInParent<Player.PlayerBase>();
+
+            if (ownerPlayer != null)
+                ownerPlayer.RegisterCombatActivity();
+
             enemy.TakeDamage(damage);
             Debug.Log($"Hit enemy: {other.name} for {damage}");
         }

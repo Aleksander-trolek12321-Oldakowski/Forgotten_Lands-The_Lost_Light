@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Item;
 using potions;
 using Inventory;
 using SideQuests;
+using GameSave;
 
 namespace Player
 {
@@ -72,7 +74,12 @@ namespace Player
         [Header("Economy")]
         public float Money = 100f;
 
+        [Header("Out Of Combat Regen")]
+        [SerializeField] private float outOfCombatDelaySeconds = 20f;
+        [SerializeField] private float outOfCombatRegenPercentPerSecond = 0.01f;
+
         private bool controlsEnabled = true;
+        private float lastCombatActivityTime = -999f;
 
         private void Awake()
         {
@@ -102,6 +109,8 @@ namespace Player
 
         private void Update()
         {
+            HandleSceneBasedRegeneration();
+
             if (!controlsEnabled)
             {
                 if (rb != null)
@@ -241,6 +250,7 @@ namespace Player
         public void TakeDMG(float damage)
         {
             if (IsDead) return;
+            RegisterCombatActivity();
 
             currentHp -= damage;
             currentHp = math.clamp(currentHp, 0, MaxHp);
@@ -318,6 +328,7 @@ namespace Player
         private void Die()
         {
             IsDead = true;
+            SaveService.DeleteSave();
         }
 
         private void Exhaust()
@@ -455,5 +466,126 @@ namespace Player
         }
 
         public float GetMoney() => Money;
+
+        public void RegisterCombatActivity()
+        {
+            lastCombatActivityTime = Time.time;
+        }
+
+        public SavedPlayerStats CreateSaveSnapshot()
+        {
+            return new SavedPlayerStats
+            {
+                maxHp = MaxHp,
+                maxMp = MaxMp,
+                strength = Strength,
+                defense = Def,
+                damageMultiplier = DamageMultiplier,
+                percentDmgTaken = PercentDmgTaken,
+                currentHp = currentHp,
+                currentMp = currentMp,
+                hpRestorePercentage = HpRestorePercentage,
+                mpRestorePercentage = MpRestorePercentage,
+                potionCooldown = cd,
+                currentStack = currentStack,
+                maxStack = MaxStack,
+                level = level,
+                currentExp = currentExp,
+                expToNextLevel = expToNextLevel,
+                skillPoints = skillPoints,
+                speed = speed,
+                money = Money
+            };
+        }
+
+        public void ApplySaveSnapshot(SavedPlayerStats state)
+        {
+            if (state == null) return;
+
+            MaxHp = Mathf.Max(1f, state.maxHp);
+            MaxMp = Mathf.Max(0f, state.maxMp);
+            Strength = state.strength;
+            Def = state.defense;
+            DamageMultiplier = state.damageMultiplier;
+            PercentDmgTaken = state.percentDmgTaken;
+
+            currentHp = Mathf.Clamp(state.currentHp, 0f, MaxHp);
+            currentMp = Mathf.Clamp(state.currentMp, 0f, MaxMp);
+            HpRestorePercentage = state.hpRestorePercentage;
+            MpRestorePercentage = state.mpRestorePercentage;
+            cd = Mathf.Max(0f, state.potionCooldown);
+            currentStack = Mathf.Max(0, state.currentStack);
+            MaxStack = Mathf.Max(0, state.maxStack);
+
+            level = Mathf.Max(1, state.level);
+            currentExp = Mathf.Max(0f, state.currentExp);
+            expToNextLevel = Mathf.Max(1f, state.expToNextLevel);
+            skillPoints = Mathf.Max(0, state.skillPoints);
+            speed = state.speed;
+            Money = Mathf.Max(0f, state.money);
+
+            UpdateHpOrb();
+            UpdateMpOrb();
+            UpdateExpBar();
+        }
+
+        private void HandleSceneBasedRegeneration()
+        {
+            string sceneName = SceneManager.GetActiveScene().name;
+
+            if (string.Equals(sceneName, SaveService.MenuSceneName, System.StringComparison.OrdinalIgnoreCase))
+                return;
+
+            if (string.Equals(sceneName, SaveService.HubSceneName, System.StringComparison.OrdinalIgnoreCase))
+            {
+                bool changed = false;
+
+                if (currentHp < MaxHp)
+                {
+                    currentHp = MaxHp;
+                    changed = true;
+                }
+
+                if (currentMp < MaxMp)
+                {
+                    currentMp = MaxMp;
+                    changed = true;
+                }
+
+                if (changed)
+                {
+                    UpdateHpOrb();
+                    UpdateMpOrb();
+                }
+
+                return;
+            }
+
+            if (Time.time < lastCombatActivityTime + outOfCombatDelaySeconds)
+                return;
+
+            float hpRegenPerSecond = MaxHp * outOfCombatRegenPercentPerSecond;
+            float mpRegenPerSecond = MaxMp * outOfCombatRegenPercentPerSecond;
+            float hpAmount = hpRegenPerSecond * Time.deltaTime;
+            float mpAmount = mpRegenPerSecond * Time.deltaTime;
+
+            bool hpChanged = false;
+            bool mpChanged = false;
+
+            if (currentHp < MaxHp && hpAmount > 0f)
+            {
+                currentHp = Mathf.Min(MaxHp, currentHp + hpAmount);
+                hpChanged = true;
+            }
+
+            if (currentMp < MaxMp && mpAmount > 0f)
+            {
+                currentMp = Mathf.Min(MaxMp, currentMp + mpAmount);
+                mpChanged = true;
+            }
+
+            if (hpChanged) UpdateHpOrb();
+            if (mpChanged) UpdateMpOrb();
+        }
     }
 }

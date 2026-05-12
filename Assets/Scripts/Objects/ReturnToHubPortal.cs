@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Player;
+using GameSave;
 
 namespace Objects
 {
@@ -30,6 +31,13 @@ namespace Objects
                 Debug.LogWarning("ReturnToHubPortal: hubSceneName is empty.");
                 return;
             }
+
+            SaveService.CaptureAndSave(
+                targetSceneName: hubSceneName,
+                includeHubPosition: false,
+                clearCurrentSceneChestState: false,
+                clearHubPositionWhenNotIncluded: true
+            );
 
             SceneManager.LoadScene(hubSceneName);
         }

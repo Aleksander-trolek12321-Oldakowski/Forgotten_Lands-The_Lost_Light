@@ -32,6 +32,9 @@ namespace chest
 
         private void Awake()
         {
+            if (chestUIController == null)
+                chestUIController = FindObjectOfType<ChestUIController>();
+
             chestSlots = new List<InventoryItem>(chestSize);
             for (int i = 0; i < chestSize; i++)
                 chestSlots.Add(new InventoryItem(null, 0));
@@ -41,9 +44,11 @@ namespace chest
         {
             var player = other.GetComponent<PlayerBase>();
             if (player == null) player = other.GetComponentInParent<PlayerBase>();
+            Debug.Log(player);
             if (player != null)
             {
                 playerInRange = true;
+                Debug.Log(playerInRange);
                 nearbyPlayer = player;
                 Debug.Log(promptMessage);
             }
@@ -72,6 +77,9 @@ namespace chest
 
         public void OpenChestUI()
         {
+            if (chestUIController == null)
+                chestUIController = FindObjectOfType<ChestUIController>();
+
             if (chestUIController == null)
             {
                 Debug.LogWarning("Chest: chestUIController is not assigned. Please assign it in inspector (Canvas -> ChestUIController).");

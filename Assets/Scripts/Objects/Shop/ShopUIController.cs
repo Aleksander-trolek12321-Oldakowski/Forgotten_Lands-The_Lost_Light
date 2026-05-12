@@ -38,7 +38,7 @@ namespace shop
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (inventoryRoot != null && inventoryRoot.activeSelf && Input.GetKeyDown(KeyCode.Escape))
             {
                 Close();
             }
@@ -71,6 +71,10 @@ namespace shop
 
         public void Close()
         {
+            bool isShopOpen = inventoryRoot != null && inventoryRoot.activeSelf;
+            if (!isShopOpen && currentShop == null && interactingPlayer == null)
+                return;
+
             InputBlocker.Restore(interactingPlayer);
             
             if (inventoryRoot != null) inventoryRoot.SetActive(false);
