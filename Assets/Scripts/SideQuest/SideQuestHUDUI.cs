@@ -16,6 +16,8 @@ namespace SideQuests
         public TextMeshProUGUI rewardText;
         public TextMeshProUGUI statusText;
 
+        private SideQuestManager subscribedManager;
+
         private void Awake()
         {
             Refresh();
@@ -23,14 +25,42 @@ namespace SideQuests
 
         private void OnEnable()
         {
-            if (SideQuestManager.Instance != null)
-                SideQuestManager.Instance.OnQuestDataChanged += Refresh;
+            TryBindToManager();
+            Refresh();
         }
 
         private void OnDisable()
         {
-            if (SideQuestManager.Instance != null)
-                SideQuestManager.Instance.OnQuestDataChanged -= Refresh;
+            UnbindFromManager();
+        }
+
+        private void Update()
+        {
+            if (subscribedManager == null && SideQuestManager.Instance != null)
+            {
+                TryBindToManager();
+                Refresh();
+            }
+        }
+
+        private void TryBindToManager()
+        {
+            SideQuestManager manager = SideQuestManager.Instance;
+            if (manager == null || subscribedManager == manager)
+                return;
+
+            UnbindFromManager();
+            subscribedManager = manager;
+            subscribedManager.OnQuestDataChanged += Refresh;
+        }
+
+        private void UnbindFromManager()
+        {
+            if (subscribedManager == null)
+                return;
+
+            subscribedManager.OnQuestDataChanged -= Refresh;
+            subscribedManager = null;
         }
 
         public void Refresh()

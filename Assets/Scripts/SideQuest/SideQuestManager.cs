@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Item;
 using Inventory;
 using Player;
@@ -109,15 +110,26 @@ namespace SideQuests
             }
 
             Instance = this;
+            DontDestroyOnLoad(gameObject);
 
-            if (player == null) player = FindObjectOfType<PlayerBase>();
-            if (inventoryManager == null) inventoryManager = FindObjectOfType<InventoryManager>();
+            RebindSceneReferences();
 
             RebuildPoolIfNeeded();
         }
 
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
         private void Start()
         {
+            RebindSceneReferences();
             EnsureOffers();
             RefreshAllUI();
         }
@@ -140,6 +152,42 @@ namespace SideQuests
                     CompleteActiveQuest();
                 }
             }
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            RebindSceneReferences();
+            RefreshAllUI();
+        }
+
+        private void RebindSceneReferences()
+        {
+            player = FindSceneObjectIncludingInactive<PlayerBase>() ?? player;
+            inventoryManager = FindSceneObjectIncludingInactive<InventoryManager>() ?? inventoryManager;
+            boardUI = FindSceneObjectIncludingInactive<SideQuestBoardUI>() ?? boardUI;
+            activeQuestHUD = FindSceneObjectIncludingInactive<SideQuestHUDUI>() ?? activeQuestHUD;
+        }
+
+        private static T FindSceneObjectIncludingInactive<T>() where T : Component
+        {
+            Scene activeScene = SceneManager.GetActiveScene();
+            T[] found = Resources.FindObjectsOfTypeAll<T>();
+
+            for (int i = 0; i < found.Length; i++)
+            {
+                T candidate = found[i];
+                if (candidate == null) continue;
+
+                GameObject go = candidate.gameObject;
+                if (!go.scene.IsValid() || !go.scene.isLoaded) continue;
+                if (go.scene != activeScene) continue;
+                if ((go.hideFlags & HideFlags.NotEditable) != 0) continue;
+                if ((go.hideFlags & HideFlags.HideAndDontSave) != 0) continue;
+
+                return candidate;
+            }
+
+            return null;
         }
 
         private void RebuildPoolIfNeeded()
@@ -206,6 +254,18 @@ namespace SideQuests
 
             RefreshAllUI();
             return true;
+        }
+
+        public void ResetActiveTimedQuestTimer()
+        {
+            if (activeQuest == null)
+                return;
+
+            if (!IsTimedQuest(activeQuest))
+                return;
+
+            activeQuestStartedAt = Time.time;
+            RefreshAllUI();
         }
 
         public void ReportEnemyKilled(QuestEnemyCategory category)
@@ -411,6 +471,8 @@ namespace SideQuests
         {
             if (state == null)
                 return;
+
+            RebindSceneReferences();
 
             totalEnemyKills = Mathf.Max(0, state.totalEnemyKills);
             totalBossKills = Mathf.Max(0, state.totalBossKills);

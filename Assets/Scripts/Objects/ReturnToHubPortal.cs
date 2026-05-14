@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Player;
 using GameSave;
+using SideQuests;
 
 namespace Objects
 {
@@ -31,6 +32,8 @@ namespace Objects
                 Debug.LogWarning("ReturnToHubPortal: hubSceneName is empty.");
                 return;
             }
+            
+            SideQuestManager.Instance?.ResetActiveTimedQuestTimer();
 
             SaveService.CaptureAndSave(
                 targetSceneName: hubSceneName,
