@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using Player;
 using Inventory;
 using GameSave;
+using SideQuests;
 using shop;
 using chest;
 
@@ -214,6 +215,7 @@ namespace Menu
             if (player == null) player = FindObjectOfType<PlayerBase>();
             InputBlocker.Restore(player);
             if (player != null) player.SetControlsEnabled(true);
+            SideQuestManager.Instance?.ResetActiveTimedQuestTimer();
 
             string currentScene = SceneManager.GetActiveScene().name;
             bool inHub = string.Equals(currentScene, hubSceneName, System.StringComparison.OrdinalIgnoreCase);

@@ -328,6 +328,7 @@ namespace Player
         private void Die()
         {
             IsDead = true;
+            SideQuestManager.Instance?.ResetActiveTimedQuestTimer();
             SaveService.DeleteSave();
         }
 
