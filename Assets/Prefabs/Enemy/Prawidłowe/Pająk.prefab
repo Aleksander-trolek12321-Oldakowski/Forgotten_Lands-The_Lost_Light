@@ -1,0 +1,248 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2508707769191728123
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.14805713
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.14805713
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.14805713
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -15.014
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.26664
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -21.887
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      propertyPath: m_Name
+      value: "Paj\u0105k"
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8014779924694318052}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4193564845796777522}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9147906971781265869}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9008202269186386016}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2201618100694822130}
+  m_SourcePrefab: {fileID: 100100000, guid: 2ce36082595ef8a458ceaa3d23f0807c, type: 3}
+--- !u!1 &3319665011233832618 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2508707769191728123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8014779924694318052
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3319665011233832618}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 2ce36082595ef8a458ceaa3d23f0807c, type: 3}
+  m_Controller: {fileID: 9100000, guid: 965690be227eabf40bde12f02617909d, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4193564845796777522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3319665011233832618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ef89b4a12163a64c995f404f74c362a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 20
+  expValue: 50
+  attackDamage: 5
+  attackRange: 4
+  attackCooldown: 2
+  hitWindowStart: 0.3
+  hitWindowEnd: 0.8
+  detectionRange: 10
+  useWander: 1
+  wanderArea: {fileID: 0}
+  wanderInterval: 4
+  canBeStaggered: 1
+  staggerDuration: 1
+  useStaggerAnimation: 0
+  staggerTrigger: Stagger
+  isBoss: 0
+  normalAttackAnimations: 1
+  bossAttackAnimations: 1
+  invertModelForward: 1
+  speedParam: Speed
+  attackTrigger: Attack
+  deathTrigger: Die
+  destroyAfterDeath: 3
+  lootDropChance: 0.25
+  lootBagPrefab: {fileID: 0}
+  lootDropTable: []
+  lootSpawnHeightOffset: 0.2
+  questCategory: 0
+--- !u!65 &9147906971781265869
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3319665011233832618}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.8127525, y: 4.7126217, z: 5.4926763}
+  m_Center: {x: -0.21572347, y: 1.5047966, z: 1.2390385}
+--- !u!195 &9008202269186386016
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3319665011233832618}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!54 &2201618100694822130
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3319665011233832618}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

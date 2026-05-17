@@ -742,6 +742,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2ce36082595ef8a458ceaa3d23f0807c,
         type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
@@ -1257,10 +1262,18 @@ MonoBehaviour:
   staggerDuration: 1
   useStaggerAnimation: 0
   staggerTrigger: Stagger
+  isBoss: 0
+  normalAttackAnimations: 1
+  bossAttackAnimations: 1
+  invertModelForward: 0
   speedParam: Speed
   attackTrigger: Attack
   deathTrigger: Die
   destroyAfterDeath: 3
+  lootDropChance: 0.25
+  lootBagPrefab: {fileID: 0}
+  lootDropTable: []
+  lootSpawnHeightOffset: 0.2
   questCategory: 3
 --- !u!65 &7470119162341978194
 BoxCollider:

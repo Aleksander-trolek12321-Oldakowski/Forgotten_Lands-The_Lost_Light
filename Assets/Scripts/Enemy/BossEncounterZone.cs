@@ -5,7 +5,7 @@ using Player;
 public class BossEncounterZone : MonoBehaviour
 {
     [Header("Boss Spawn")]
-    public EnemyBase bossPrefab;
+    public GameObject bossPrefab;
     public Transform bossSpawnPoint;
     public string bossDisplayName = "Boss";
 
@@ -22,7 +22,7 @@ public class BossEncounterZone : MonoBehaviour
     public Transform encounterCenterPoint;
     public float portalHeightOffset = 0f;
 
-    private EnemyBase spawnedBoss;
+    public EnemyBase spawnedBoss;
     private bool encounterStarted;
     private bool encounterCompleted;
     private bool portalSpawned;
@@ -72,8 +72,7 @@ public class BossEncounterZone : MonoBehaviour
             return;
         }
 
-        Transform spawn = bossSpawnPoint != null ? bossSpawnPoint : transform;
-        spawnedBoss = Instantiate(bossPrefab, spawn.position, spawn.rotation);
+        bossPrefab.SetActive(true);
         spawnedBoss.Died += OnBossDied;
 
         if (bossHealthBar != null)
