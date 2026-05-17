@@ -5453,7 +5453,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &1813692590
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6285,6 +6285,11 @@ PrefabInstance:
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 420273090}
+    - target: {fileID: 5003964701397259655, guid: e4be7ed46b55a94409541148e456b71c,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6677326254699613370, guid: e4be7ed46b55a94409541148e456b71c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6353,6 +6358,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4394976490010106611, guid: 9c0165d15659b704aa79037d8e978e26,
+        type: 3}
+      propertyPath: detectionRange
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 8438494596301870964, guid: 9c0165d15659b704aa79037d8e978e26,
         type: 3}
       propertyPath: m_LocalPosition.x
