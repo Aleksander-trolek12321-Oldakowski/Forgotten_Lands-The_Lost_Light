@@ -29,34 +29,47 @@ public class EnemyBase : MonoBehaviour
 
     [Header("Wander")]
     public bool useWander = true;
-
     public BoxCollider wanderArea;
-
     public float wanderInterval = 4f;
 
     private float wanderTimer;
 
     [Header("Stagger")]
     public bool canBeStaggered = true;
-
     public float staggerDuration = 1f;
 
     public bool useStaggerAnimation = false;
-
     public string staggerTrigger = "Stagger";
+
+    [Header("Boss")]
+    public bool isBoss = false;
+
+    [Tooltip("Ilość normalnych animacji ataku")]
+    public int normalAttackAnimations = 1;
+
+    [Tooltip("Ilość bossowych animacji ataku")]
+    public int bossAttackAnimations = 1;
+
+    [Header("Model Fix")]
+    public bool invertModelForward = false;
 
     [Header("Animation")]
     public string speedParam = "Speed";
     public string attackTrigger = "Attack";
-    public string deathTrigger = "Death";
+    public string deathTrigger = "Die";
 
     [Header("Death")]
     public float destroyAfterDeath = 3f;
 
     [Header("Loot Drop")]
-    [Range(0f, 1f)] public float lootDropChance = 0.25f;
+    [Range(0f, 1f)]
+    public float lootDropChance = 0.25f;
+
     public GameObject lootBagPrefab;
-    public List<ItemData> lootDropTable = new List<ItemData>();
+
+    public List<ItemData> lootDropTable =
+        new List<ItemData>();
+
     public float lootSpawnHeightOffset = 0.2f;
 
     private float lastAttackTime = -999f;
@@ -68,6 +81,7 @@ public class EnemyBase : MonoBehaviour
     private PlayerBase player;
     private NavMeshAgent agent;
     private Animator animator;
+    [SerializeField] private GameObject Target;
 
     public event Action<EnemyBase> Died;
 
@@ -75,7 +89,8 @@ public class EnemyBase : MonoBehaviour
     public float MaxHp => maxHp;
     public float CurrentHp => currentHp;
 
-    public QuestEnemyCategory questCategory = QuestEnemyCategory.Generic;
+    public QuestEnemyCategory questCategory =
+        QuestEnemyCategory.Generic;
 
     private enum State
     {
@@ -99,9 +114,15 @@ public class EnemyBase : MonoBehaviour
 
         animator = GetComponent<Animator>();
 
+        if (agent != null)
+        {
+            agent.updateRotation = false;
+        }
+
         wanderTimer = wanderInterval;
 
-        currentState = useWander ? State.Wander : State.Idle;
+        currentState =
+            useWander ? State.Wander : State.Idle;
     }
 
     void Update()
@@ -110,7 +131,9 @@ public class EnemyBase : MonoBehaviour
         if (player == null || agent == null) return;
 
         float distance =
-            Vector3.Distance(transform.position, player.transform.position);
+            Vector3.Distance(
+                transform.position,
+                player.transform.position);
 
         switch (currentState)
         {
@@ -173,17 +196,26 @@ public class EnemyBase : MonoBehaviour
 
         wanderTimer += Time.deltaTime;
 
-        SetSpeed(agent.velocity.magnitude);
+        LookAtMovementDirection();
+
+        SetSpeed(agent.desiredVelocity.magnitude);
 
         if (wanderTimer >= wanderInterval)
         {
             Bounds bounds = wanderArea.bounds;
 
-            Vector3 randomPoint = new Vector3(
-                UnityEngine.Random.Range(bounds.min.x, bounds.max.x),
-                transform.position.y,
-                UnityEngine.Random.Range(bounds.min.z, bounds.max.z)
-            );
+            Vector3 randomPoint =
+                new Vector3(
+                    UnityEngine.Random.Range(
+                        bounds.min.x,
+                        bounds.max.x),
+
+                    transform.position.y,
+
+                    UnityEngine.Random.Range(
+                        bounds.min.z,
+                        bounds.max.z)
+                );
 
             NavMeshHit hit;
 
@@ -208,6 +240,8 @@ public class EnemyBase : MonoBehaviour
 
         agent.SetDestination(player.transform.position);
 
+        LookAtPlayer();
+
         SetSpeed(agent.velocity.magnitude);
 
         if (distance <= attackRange)
@@ -224,9 +258,9 @@ public class EnemyBase : MonoBehaviour
 
         agent.velocity = Vector3.zero;
 
-        SetSpeed(0f);
-
         LookAtPlayer();
+
+        SetSpeed(0f);
 
         if (distance > attackRange + 1f)
         {
@@ -258,23 +292,65 @@ public class EnemyBase : MonoBehaviour
 
         isAttacking = true;
 
-        if (animator != null)
-        {
-            animator.SetTrigger(attackTrigger);
-        }
+        PlayAttackAnimation();
 
         StartCoroutine(AttackRoutine());
     }
 
+    void PlayAttackAnimation()
+    {
+        if (animator == null)
+            return;
+
+        int attackIndex;
+
+        if (isBoss)
+        {
+            int totalAnimations =
+                normalAttackAnimations +
+                bossAttackAnimations;
+
+            int random =
+                UnityEngine.Random.Range(
+                    0,
+                    totalAnimations);
+
+            if (random < normalAttackAnimations)
+            {
+                attackIndex = random + 1;
+            }
+            else
+            {
+                attackIndex = 100;
+            }
+        }
+        else
+        {
+            attackIndex =
+                UnityEngine.Random.Range(
+                    1,
+                    normalAttackAnimations + 1
+                );
+        }
+
+        animator.SetInteger(
+            "AttackIndex",
+            attackIndex);
+
+        animator.SetTrigger(attackTrigger);
+    }
+
     IEnumerator AttackRoutine()
     {
-        yield return new WaitForSeconds(hitWindowStart);
+        yield return new WaitForSeconds(
+            hitWindowStart);
 
         bool hitDone = false;
 
         float timer = 0f;
 
-        float duration = hitWindowEnd - hitWindowStart;
+        float duration =
+            hitWindowEnd - hitWindowStart;
 
         while (timer < duration)
         {
@@ -283,6 +359,8 @@ public class EnemyBase : MonoBehaviour
                 isAttacking = false;
                 yield break;
             }
+
+            LookAtPlayer();
 
             if (!hitDone && player != null)
             {
@@ -294,6 +372,7 @@ public class EnemyBase : MonoBehaviour
                 if (distance <= attackRange)
                 {
                     DealDamage();
+
                     hitDone = true;
                 }
             }
@@ -369,7 +448,8 @@ public class EnemyBase : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(staggerDuration);
+        yield return new WaitForSeconds(
+            staggerDuration);
 
         if (isDead)
             yield break;
@@ -402,7 +482,8 @@ public class EnemyBase : MonoBehaviour
             agent.enabled = false;
         }
 
-        SideQuestManager.Instance?.ReportEnemyKilled(questCategory);
+        SideQuestManager.Instance
+            ?.ReportEnemyKilled(questCategory);
 
         if (player != null)
         {
@@ -415,7 +496,8 @@ public class EnemyBase : MonoBehaviour
 
             if (useStaggerAnimation)
             {
-                animator.ResetTrigger(staggerTrigger);
+                animator.ResetTrigger(
+                    staggerTrigger);
             }
 
             animator.SetTrigger(deathTrigger);
@@ -431,16 +513,33 @@ public class EnemyBase : MonoBehaviour
     void TryDropLootBag()
     {
         if (lootBagPrefab == null) return;
+
         if (lootDropChance <= 0f) return;
-        if (UnityEngine.Random.value > lootDropChance) return;
 
-        Vector3 spawnPos = transform.position + Vector3.up * lootSpawnHeightOffset;
-        GameObject bag = Instantiate(lootBagPrefab, spawnPos, Quaternion.identity);
+        if (UnityEngine.Random.value >
+            lootDropChance)
+            return;
 
-        LootBag lootBag = bag.GetComponent<LootBag>();
-        if (lootBag != null && lootDropTable != null && lootDropTable.Count > 0)
+        Vector3 spawnPos =
+            transform.position +
+            Vector3.up * lootSpawnHeightOffset;
+
+        GameObject bag =
+            Instantiate(
+                lootBagPrefab,
+                spawnPos,
+                Quaternion.identity);
+
+        LootBag lootBag =
+            bag.GetComponent<LootBag>();
+
+        if (lootBag != null &&
+            lootDropTable != null &&
+            lootDropTable.Count > 0)
         {
-            lootBag.lootTable = new List<ItemData>(lootDropTable);
+            lootBag.lootTable =
+                new List<ItemData>(
+                    lootDropTable);
         }
     }
 
@@ -448,7 +547,9 @@ public class EnemyBase : MonoBehaviour
     {
         if (animator != null)
         {
-            animator.SetFloat(speedParam, value);
+            animator.SetFloat(
+                speedParam,
+                value);
         }
     }
 
@@ -457,7 +558,8 @@ public class EnemyBase : MonoBehaviour
         if (player == null) return;
 
         Vector3 dir =
-            player.transform.position - transform.position;
+            player.transform.position -
+            transform.position;
 
         dir.y = 0f;
 
@@ -467,10 +569,43 @@ public class EnemyBase : MonoBehaviour
         Quaternion targetRot =
             Quaternion.LookRotation(dir);
 
-        transform.rotation = Quaternion.Slerp(
-            transform.rotation,
-            targetRot,
-            8f * Time.deltaTime
-        );
+        if (invertModelForward)
+        {
+            targetRot *=
+                Quaternion.Euler(0f, 180f, 0f);
+        }
+
+        transform.rotation =
+            Quaternion.Slerp(
+                transform.rotation,
+                targetRot,
+                8f * Time.deltaTime
+            );
+    }
+
+    void LookAtMovementDirection()
+    {
+        Vector3 dir = agent.desiredVelocity;
+
+        dir.y = 0f;
+
+        if (dir.sqrMagnitude < 0.01f)
+            return;
+
+        Quaternion targetRot =
+            Quaternion.LookRotation(dir);
+
+        if (invertModelForward)
+        {
+            targetRot *=
+                Quaternion.Euler(0f, 180f, 0f);
+        }
+
+        transform.rotation =
+            Quaternion.Slerp(
+                transform.rotation,
+                targetRot,
+                8f * Time.deltaTime
+            );
     }
 }
