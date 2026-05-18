@@ -58,7 +58,7 @@ namespace shop
             interactingPlayer = player;
             playerInventoryManager = FindObjectOfType<InventoryManager>();
 
-            if (inventoryController != null) inventoryController.OpenInventory();
+            if (inventoryController != null) inventoryController.OpenInventory(false);
 
             inventoryRoot.SetActive(true);
             AutoCollectSlots();

@@ -28,7 +28,9 @@ namespace Player
         public float CurrentHp => currentHp;
         public float CurrentMp => currentMp;
         public float MaxHP => MaxHp;
-        public float MaxMP => MaxMp;    
+        public float MaxMP => MaxMp;
+        public float Damage => Strength;
+        public float Defense => Def;
         public float HpPercent => MaxHp > 0 ? currentHp / MaxHp : 0f;
         public float HpRestorePercentage = 0.2f;
         public float MpRestorePercentage = 0.5f;
@@ -330,6 +332,7 @@ namespace Player
             IsDead = true;
             SideQuestManager.Instance?.ResetActiveTimedQuestTimer();
             SaveService.DeleteSave();
+            SceneManager.LoadScene("DEATH");
         }
 
         private void Exhaust()

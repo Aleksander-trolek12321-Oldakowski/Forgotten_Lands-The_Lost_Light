@@ -61,7 +61,7 @@ namespace chest
             }
             if (inventoryController != null)
             {
-                inventoryController.OpenInventory();
+                inventoryController.OpenInventory(false);
             }
 
             inventoryRoot.SetActive(true);
