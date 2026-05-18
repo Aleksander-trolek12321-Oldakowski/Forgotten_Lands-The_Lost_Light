@@ -1,4 +1,6 @@
 using UnityEngine;
+using Inventory;
+using Player;
 
 public class SkillTreeUI : MonoBehaviour
 {
@@ -6,6 +8,8 @@ public class SkillTreeUI : MonoBehaviour
     public SkillTree skillTree;
 
     bool isOpen;
+    float previousTimeScale = 1f;
+    bool hasCapturedTimeScale = false;
 
     void Update()
     {
@@ -15,14 +19,68 @@ public class SkillTreeUI : MonoBehaviour
 
     void Toggle()
     {
-        isOpen = !isOpen;
-        skillTreePanel.SetActive(isOpen);
+        if (isOpen) Close();
+        else Open();
+    }
 
-        Cursor.visible = isOpen;
-        Cursor.lockState = isOpen ? CursorLockMode.None : CursorLockMode.Locked;
+    void Open()
+    {
+        if (isOpen) return;
+        isOpen = true;
 
-        skillTree.playerBase.SetControlsEnabled(!isOpen);
+        if (skillTreePanel != null)
+            skillTreePanel.SetActive(true);
 
-        Debug.Log("SkillTree UI: " + (isOpen ? "OPEN" : "CLOSED"));
+        PlayerBase player = ResolvePlayer();
+        InputBlocker.Block(player);
+
+        if (!hasCapturedTimeScale)
+        {
+            previousTimeScale = Time.timeScale;
+            hasCapturedTimeScale = true;
+        }
+
+        Time.timeScale = 0f;
+
+        Debug.Log("SkillTree UI: OPEN");
+    }
+
+    void Close()
+    {
+        if (!isOpen) return;
+        isOpen = false;
+
+        if (skillTreePanel != null)
+            skillTreePanel.SetActive(false);
+
+        PlayerBase player = ResolvePlayer();
+        InputBlocker.Restore(player);
+
+        Time.timeScale = hasCapturedTimeScale ? previousTimeScale : 1f;
+        hasCapturedTimeScale = false;
+
+        Debug.Log("SkillTree UI: CLOSED");
+    }
+
+    PlayerBase ResolvePlayer()
+    {
+        if (skillTree != null && skillTree.playerBase != null)
+            return skillTree.playerBase;
+
+        if (skillTree == null)
+            skillTree = FindObjectOfType<SkillTree>();
+
+        if (skillTree != null && skillTree.playerBase != null)
+            return skillTree.playerBase;
+
+        return FindObjectOfType<PlayerBase>();
+    }
+
+    void OnDisable()
+    {
+        if (!isOpen)
+            return;
+
+        Close();
     }
 }

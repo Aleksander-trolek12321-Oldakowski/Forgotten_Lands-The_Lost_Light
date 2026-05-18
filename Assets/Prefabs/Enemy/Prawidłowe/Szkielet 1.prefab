@@ -274,6 +274,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 27.678312
       objectReference: {fileID: 0}
+    - target: {fileID: -7288807699830577034, guid: 07ad1c7b5e7cde94d96f25cbac2f2b79,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 611f39bc39a8aeb4ca497a4f53ad3a68, type: 2}
     - target: {fileID: -7021166564157339263, guid: 07ad1c7b5e7cde94d96f25cbac2f2b79,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1629,6 +1634,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -128.17197
       objectReference: {fileID: 0}
+    - target: {fileID: 1221882862339798305, guid: 07ad1c7b5e7cde94d96f25cbac2f2b79,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e0d66272be77b0d43ad65730f1f0b5b6, type: 2}
     - target: {fileID: 1738062932260832553, guid: 07ad1c7b5e7cde94d96f25cbac2f2b79,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2378,6 +2388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 100
+  currentHp: 0
   expValue: 50
   attackDamage: 5
   attackRange: 2
@@ -2385,6 +2396,13 @@ MonoBehaviour:
   hitWindowStart: 0.3
   hitWindowEnd: 0.8
   detectionRange: 10
+  fallbackChaseSpeed: 10
+  fallbackWanderSpeed: 4
+  fallbackWanderReachDistance: 0.25
+  minimumEnemySeparation: 1.1
+  minimumPlayerSeparation: 1
+  separationResolveSpeed: 4
+  forceSolidBodyCollider: 1
   useWander: 1
   wanderArea: {fileID: 8903312032511340475}
   wanderInterval: 4
@@ -2404,6 +2422,7 @@ MonoBehaviour:
   lootBagPrefab: {fileID: 0}
   lootDropTable: []
   lootSpawnHeightOffset: 0.2
+  Target: {fileID: 0}
   questCategory: 0
 --- !u!54 &1691752916775998332
 Rigidbody:

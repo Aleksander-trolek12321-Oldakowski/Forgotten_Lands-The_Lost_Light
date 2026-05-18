@@ -21,6 +21,8 @@ namespace Objects
         private bool prevCursorVisible;
         private CursorLockMode prevCursorLockState;
         private Behaviour savedCinemachineBrain = null;
+        private bool isUiOpen = false;
+        private float reopenBlockUntilUnscaledTime = 0f;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -49,6 +51,8 @@ namespace Objects
         private void Update()
         {
             if (!playerInRange || nearbyPlayer == null) return;
+            if (isUiOpen) return;
+            if (Time.unscaledTime < reopenBlockUntilUnscaledTime) return;
 
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -65,6 +69,7 @@ namespace Objects
             }
 
             StatueUI.SetActive(true);
+            isUiOpen = true;
 
             prevCursorVisible = Cursor.visible;
             prevCursorLockState = Cursor.lockState;
@@ -87,6 +92,10 @@ namespace Objects
         {
             if (StatueUI != null)
                 StatueUI.SetActive(false);
+
+            isUiOpen = false;
+            // Prevent immediate re-open in the same / next frame on some build input orders.
+            reopenBlockUntilUnscaledTime = Time.unscaledTime + 0.15f;
 
             Cursor.visible = prevCursorVisible;
             Cursor.lockState = prevCursorLockState;
@@ -117,6 +126,7 @@ namespace Objects
 
         private void OnDisable()
         {
+            isUiOpen = false;
             if (nearbyPlayer != null)
             {
                 nearbyPlayer.SetControlsEnabled(true);

@@ -27,6 +27,7 @@ public class SceneMusicManager : MonoBehaviour
     private readonly Dictionary<string, SceneMusicEntry> sceneTrackMap = new Dictionary<string, SceneMusicEntry>(StringComparer.OrdinalIgnoreCase);
     private bool bossMusicActive;
     private float nextAttachRetryTime;
+    private Transform followedPlayer;
 
     private void Awake()
     {
@@ -40,10 +41,7 @@ public class SceneMusicManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         if (musicSource == null)
-            musicSource = FindObjectOfType<AudioSource>();
-
-        if (musicSource == null)
-            musicSource = GetComponent<AudioSource>();
+            musicSource = GetComponentInChildren<AudioSource>(true);
 
         if (musicSource == null)
             musicSource = gameObject.AddComponent<AudioSource>();
@@ -72,7 +70,7 @@ public class SceneMusicManager : MonoBehaviour
     private void OnValidate()
     {
         if (musicSource == null)
-            musicSource = GetComponent<AudioSource>();
+            musicSource = GetComponentInChildren<AudioSource>(true);
 
         RebuildSceneTrackMap();
     }
@@ -82,17 +80,23 @@ public class SceneMusicManager : MonoBehaviour
         if (!attachAudioSourceToPlayer)
             return;
 
+        EnsureMusicSourceAvailable();
+
         if (musicSource == null)
             return;
 
-        if (musicSource.transform.parent != null)
-            return;
+        if (followedPlayer == null || !followedPlayer.gameObject.activeInHierarchy)
+        {
+            if (Time.unscaledTime >= nextAttachRetryTime)
+            {
+                nextAttachRetryTime = Time.unscaledTime + 0.5f;
+                TryAttachAudioSourceToPlayer(false);
+            }
 
-        if (Time.time < nextAttachRetryTime)
             return;
+        }
 
-        nextAttachRetryTime = Time.time + 0.5f;
-        TryAttachAudioSourceToPlayer(false);
+        musicSource.transform.position = followedPlayer.position;
     }
 
     public void PlayBossMusic(AudioClip clip, float volume = 1f)
@@ -130,6 +134,8 @@ public class SceneMusicManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         bossMusicActive = false;
+        followedPlayer = null;
+        EnsureMusicSourceAvailable();
         TryAttachAudioSourceToPlayer(true);
         PlaySceneMusic(scene.name);
     }
@@ -139,21 +145,17 @@ public class SceneMusicManager : MonoBehaviour
         if (!attachAudioSourceToPlayer || musicSource == null)
             return;
 
+        if (musicSource.transform.parent != transform)
+            musicSource.transform.SetParent(transform, false);
+
+        if (!forceFind && followedPlayer != null && followedPlayer.gameObject.activeInHierarchy)
+            return;
+
         PlayerBase player = FindObjectOfType<PlayerBase>();
-        if (player == null)
-        {
-            if (forceFind)
-                musicSource.transform.SetParent(transform, false);
-            return;
-        }
+        if (player == null) return;
 
-        Transform playerTransform = player.transform;
-        if (musicSource.transform.parent == playerTransform)
-            return;
-
-        musicSource.transform.SetParent(playerTransform, false);
-        musicSource.transform.localPosition = Vector3.zero;
-        musicSource.transform.localRotation = Quaternion.identity;
+        followedPlayer = player.transform;
+        musicSource.transform.position = followedPlayer.position;
     }
 
     private void EnsureReparentableMusicSource()
@@ -161,7 +163,7 @@ public class SceneMusicManager : MonoBehaviour
         if (musicSource == null)
             return;
 
-        if (musicSource.transform != transform)
+        if (musicSource.transform.parent == transform && musicSource.transform != transform)
             return;
 
         GameObject audioChild = new GameObject("MusicAudioSource");
@@ -169,12 +171,39 @@ public class SceneMusicManager : MonoBehaviour
         AudioSource newSource = audioChild.AddComponent<AudioSource>();
         CopyAudioSourceSettings(musicSource, newSource);
 
-        if (Application.isPlaying)
-            Destroy(musicSource);
-        else
-            DestroyImmediate(musicSource);
+        bool sourceBelongsToManager =
+            musicSource.gameObject == gameObject ||
+            musicSource.transform.parent == transform;
+
+        if (sourceBelongsToManager)
+        {
+            if (Application.isPlaying)
+                Destroy(musicSource);
+            else
+                DestroyImmediate(musicSource);
+        }
 
         musicSource = newSource;
+    }
+
+    private void EnsureMusicSourceAvailable()
+    {
+        if (musicSource != null)
+            return;
+
+        Transform existing = transform.Find("MusicAudioSource");
+        if (existing != null)
+            musicSource = existing.GetComponent<AudioSource>();
+
+        if (musicSource != null)
+            return;
+
+        GameObject audioChild = new GameObject("MusicAudioSource");
+        audioChild.transform.SetParent(transform, false);
+        musicSource = audioChild.AddComponent<AudioSource>();
+        musicSource.playOnAwake = false;
+        musicSource.loop = true;
+        musicSource.spatialBlend = 0f;
     }
 
     private static void CopyAudioSourceSettings(AudioSource from, AudioSource to)
