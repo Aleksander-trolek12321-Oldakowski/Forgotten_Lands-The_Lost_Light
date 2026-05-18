@@ -50,6 +50,20 @@ namespace GameSave
     }
 
     [Serializable]
+    public class SavedSkillState
+    {
+        public string skillId = "";
+        public bool unlocked = false;
+    }
+
+    [Serializable]
+    public class SavedSkillTreeState
+    {
+        public int skillPoints = 0;
+        public List<SavedSkillState> skills = new List<SavedSkillState>();
+    }
+
+    [Serializable]
     public class SavedSideQuestState
     {
         public bool hasActiveQuest = false;
@@ -98,6 +112,7 @@ namespace GameSave
         public List<SavedItemStack> backpackSlots = new List<SavedItemStack>();
         public List<SavedEquipmentSlot> equipmentSlots = new List<SavedEquipmentSlot>();
         public List<SavedChestState> chestStates = new List<SavedChestState>();
+        public SavedSkillTreeState skillTree = new SavedSkillTreeState();
         public SavedSideQuestState sideQuest = new SavedSideQuestState();
     }
 }

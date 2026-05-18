@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 using Item;
 using potions;
 using Inventory;
@@ -28,7 +29,9 @@ namespace Player
         public float CurrentHp => currentHp;
         public float CurrentMp => currentMp;
         public float MaxHP => MaxHp;
-        public float MaxMP => MaxMp;    
+        public float MaxMP => MaxMp;
+        public float Damage => Strength;
+        public float Defense => Def;
         public float HpPercent => MaxHp > 0 ? currentHp / MaxHp : 0f;
         public float HpRestorePercentage = 0.2f;
         public float MpRestorePercentage = 0.5f;
@@ -66,6 +69,7 @@ namespace Player
         public UnityEngine.UI.Image HpOrb;
         public UnityEngine.UI.Image MpOrb;
         public UnityEngine.UI.Image ExpBar;
+        public TextMeshProUGUI levelText;
 
         [Header("Inventory")]
         public KeyCode inventoryKey = KeyCode.I;
@@ -79,6 +83,7 @@ namespace Player
         [SerializeField] private float outOfCombatRegenPercentPerSecond = 0.01f;
 
         private bool controlsEnabled = true;
+        private bool zeroVelocityWhenControlsDisabled = true;
         private float lastCombatActivityTime = -999f;
 
         private void Awake()
@@ -97,6 +102,7 @@ namespace Player
             UpdateHpOrb();
             UpdateMpOrb();
             UpdateExpBar();
+            UpdateLevelText();
         }
 
         private void OnValidate()
@@ -113,7 +119,7 @@ namespace Player
 
             if (!controlsEnabled)
             {
-                if (rb != null)
+                if (rb != null && zeroVelocityWhenControlsDisabled)
                     rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
                 return;
             }
@@ -156,18 +162,13 @@ namespace Player
                     Debug.LogWarning("PlayerBase: InventoryUIController is null - cannot toggle inventory.");
                 }
             }
-
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                AddExp(200);
-            }
         }
 
         private void FixedUpdate()
         {
             if (!controlsEnabled)
             {
-                if (rb != null)
+                if (rb != null && zeroVelocityWhenControlsDisabled)
                     rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
                 return;
             }
@@ -230,21 +231,40 @@ namespace Player
             Debug.Log($"PlayerBase: stats modified HP:{hpDelta} MP:{manaDelta} DMG:{damageDelta} DEF:{defDelta} SPD:{speedDelta}");
         }
 
-        public void SetControlsEnabled(bool enabled)
+        public void SetControlsEnabled(bool enabled, bool stopHorizontalMovement = true)
         {
             controlsEnabled = enabled;
+            zeroVelocityWhenControlsDisabled = stopHorizontalMovement;
 
             if (!enabled)
             {
                 if (rb != null)
                 {
-                    rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+                    if (stopHorizontalMovement)
+                    {
+                        rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+                    }
                     cachedHorizontal = 0f;
                     cachedVertical = 0f;
                     moveDir = Vector3.zero;
                     velocityRef = Vector3.zero;
                 }
             }
+        }
+
+        public void AddSkillPoints(int amount)
+        {
+            if (amount <= 0) return;
+            skillPoints += amount;
+        }
+
+        public bool TryConsumeSkillPoint()
+        {
+            if (skillPoints <= 0)
+                return false;
+
+            skillPoints--;
+            return true;
         }
 
         public void TakeDMG(float damage)
@@ -297,6 +317,14 @@ namespace Player
             }
         }
 
+        private void UpdateLevelText()
+        {
+            if (levelText != null)
+            {
+                levelText.text = $"LEVEL {level}";
+            }
+        }
+
         public bool IsFullHp()
         {
             return currentHp >= MaxHp;
@@ -330,6 +358,7 @@ namespace Player
             IsDead = true;
             SideQuestManager.Instance?.ResetActiveTimedQuestTimer();
             SaveService.DeleteSave();
+            SceneManager.LoadScene("DEATH");
         }
 
         private void Exhaust()
@@ -449,6 +478,7 @@ namespace Player
             }
 
             SideQuestManager.Instance?.NotifyPlayerLevelUp();
+            UpdateLevelText();
 
             Debug.Log($"LEVEL UP! Level: {level}");
         }
@@ -528,6 +558,7 @@ namespace Player
             UpdateHpOrb();
             UpdateMpOrb();
             UpdateExpBar();
+            UpdateLevelText();
         }
 
         private void HandleSceneBasedRegeneration()

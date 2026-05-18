@@ -22,6 +22,11 @@ namespace Menu
             SceneManager.LoadScene(targetScene);
         }
 
+        public void Menu()
+        {
+            SceneManager.LoadScene("Menu");
+        }
+
         public void Quit()
         {
             Application.Quit();
