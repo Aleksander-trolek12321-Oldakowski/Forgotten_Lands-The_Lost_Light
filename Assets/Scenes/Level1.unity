@@ -205,8 +205,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -690,8 +721,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -818,8 +880,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -2469,9 +2562,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: maxHp
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: expValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: wanderArea
       value: 
       objectReference: {fileID: 1703219516}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: questCategory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: useStaggerAnimation
@@ -4150,6 +4274,7 @@ Transform:
   - {fileID: 1396074114}
   - {fileID: 1628925605}
   - {fileID: 71916212}
+  - {fileID: 1723489134}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &94483711
@@ -4173,7 +4298,10 @@ MonoBehaviour:
     unlocked: 0
     requires: []
     dashForce: 10
+    dashDistance: 3
+    dashDuration: 0.18
     dashCooldown: 2
+    wallPadding: 0.05
   berserkSkill:
     skillId: 
     skillName: 
@@ -4213,6 +4341,9 @@ MonoBehaviour:
     extraMultiplier: 0.1
     HpActivePercent: 0.3
     PlayerBase: {fileID: 94483712}
+  unlockedSkillImages:
+  - {fileID: 235342972}
+  - {fileID: 1117516289}
 --- !u!114 &94483712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4225,10 +4356,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d7c4d687a06624496fbe7ccf9487b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 10
-  MaxMp: 5
-  Strength: 1
-  Def: 1
+  MaxHp: 100
+  MaxMp: 100
+  Strength: 20
+  Def: 10
   DamageMultiplier: 1
   PercentDmgTaken: 1
   currentHp: 0
@@ -4241,7 +4372,7 @@ MonoBehaviour:
   level: 1
   currentExp: 0
   expToNextLevel: 100
-  skillPoints: 0
+  skillPoints: 1
   rb: {fileID: 94483713}
   cam: {fileID: 907029101}
   speed: 20
@@ -4252,6 +4383,7 @@ MonoBehaviour:
   HpOrb: {fileID: 1639807761}
   MpOrb: {fileID: 756867841}
   ExpBar: {fileID: 1335871357}
+  levelText: {fileID: 1349971317}
   inventoryKey: 105
   Money: 100
   outOfCombatDelaySeconds: 20
@@ -4264,7 +4396,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 94483709}
   serializedVersion: 4
-  m_Mass: 10000
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -11277,7 +11409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &220710058
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11761,7 +11893,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &235342973
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11769,16 +11901,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 235342972}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.000013489}
-  m_LocalScale: {x: 0.94038975, y: 0.94038975, z: 0.94038975}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00016784672}
+  m_LocalScale: {x: 0.65697736, y: 0.65497017, z: 0.98681694}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 271656183}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -170, y: -447}
+  m_AnchoredPosition: {x: -169.99979, y: -446.99994}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &235342974
@@ -12284,8 +12416,10 @@ RectTransform:
   - {fileID: 1335871359}
   - {fileID: 220710058}
   - {fileID: 1201442735}
-  - {fileID: 235342973}
   - {fileID: 1117516290}
+  - {fileID: 1925842132}
+  - {fileID: 235342973}
+  - {fileID: 1940539678}
   - {fileID: 1916553882}
   - {fileID: 1639807760}
   - {fileID: 965621807}
@@ -13364,8 +13498,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -15809,8 +15974,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -17166,9 +17362,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: maxHp
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: expValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: wanderArea
       value: 
       objectReference: {fileID: 407936977}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: questCategory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: useStaggerAnimation
@@ -17810,7 +18037,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -17837,7 +18064,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44.75
+  m_fontSize: 20
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -18092,9 +18319,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: maxHp
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: expValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: wanderArea
       value: 
       objectReference: {fileID: 1781979682}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: questCategory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: useStaggerAnimation
@@ -19576,13 +19834,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4394976490010106611, guid: 9c0165d15659b704aa79037d8e978e26,
         type: 3}
+      propertyPath: maxHp
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394976490010106611, guid: 9c0165d15659b704aa79037d8e978e26,
+        type: 3}
       propertyPath: attackRange
       value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 4394976490010106611, guid: 9c0165d15659b704aa79037d8e978e26,
         type: 3}
+      propertyPath: attackDamage
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394976490010106611, guid: 9c0165d15659b704aa79037d8e978e26,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: f2fc9f5c3f84d484fa230f6b15383ae5,
+        type: 3}
+    - target: {fileID: 4394976490010106611, guid: 9c0165d15659b704aa79037d8e978e26,
+        type: 3}
       propertyPath: detectionRange
       value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394976490010106611, guid: 9c0165d15659b704aa79037d8e978e26,
+        type: 3}
+      propertyPath: lootDropChance
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5358539839332363104, guid: 9c0165d15659b704aa79037d8e978e26,
         type: 3}
@@ -19702,7 +19981,7 @@ PrefabInstance:
     - target: {fileID: 9101878805677477326, guid: 9c0165d15659b704aa79037d8e978e26,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -27227,7 +27506,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: SKILLE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -32496,8 +32775,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -33819,6 +34129,11 @@ MonoBehaviour:
   inventoryRoot: {fileID: 1433199401}
   equipPanel: {fileID: 1502845594}
   backpackPanel: {fileID: 1730614852}
+  playerStatsPanel: {fileID: 0}
+  maxHpText: {fileID: 0}
+  maxManaText: {fileID: 0}
+  damageText: {fileID: 0}
+  defenseText: {fileID: 0}
   equipmentOrderFallback: 010000000200000003000000040000000500000006000000070000000800000008000000
   toggleKey: 105
   startClosed: 1
@@ -34158,8 +34473,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -35118,8 +35464,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -35411,9 +35788,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: maxHp
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: expValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: wanderArea
       value: 
       objectReference: {fileID: 31331666}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: questCategory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: useStaggerAnimation
@@ -39481,8 +39889,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -39728,8 +40167,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -41992,9 +42462,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: maxHp
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: expValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: wanderArea
       value: 
       objectReference: {fileID: 1615859493}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: questCategory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: useStaggerAnimation
@@ -48726,8 +49227,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -50462,9 +50994,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: maxHp
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: expValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: wanderArea
       value: 
       objectReference: {fileID: 2002818428}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: questCategory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: useStaggerAnimation
@@ -57869,7 +58432,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1117516290
 RectTransform:
   m_ObjectHideFlags: 0
@@ -57877,16 +58440,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1117516289}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.000022122}
-  m_LocalScale: {x: 1.0493702, y: 1.0493702, z: 1.0493702}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00015068057}
+  m_LocalScale: {x: 0.6986224, y: 0.69648796, z: 1.0493702}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 271656183}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 13, y: -448}
+  m_AnchoredPosition: {x: 10.9, y: -446.9}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1117516291
@@ -59631,8 +60194,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -61933,7 +62527,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1201442735
 RectTransform:
   m_ObjectHideFlags: 0
@@ -62316,9 +62910,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: maxHp
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: expValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: wanderArea
       value: 
       objectReference: {fileID: 518026842}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: questCategory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: useStaggerAnimation
@@ -70622,8 +71247,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -74941,9 +75597,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: maxHp
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: expValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: wanderArea
       value: 
       objectReference: {fileID: 2086838632}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: questCategory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: useStaggerAnimation
@@ -75267,9 +75954,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: maxHp
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: expValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: wanderArea
       value: 
       objectReference: {fileID: 1394719184}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: questCategory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: useStaggerAnimation
@@ -77204,6 +77922,9 @@ MonoBehaviour:
   portalSpawnPoint: {fileID: 1495588936}
   encounterCenterPoint: {fileID: 688458721}
   portalHeightOffset: 0
+  bossMusicClip: {fileID: 8300000, guid: 0072ab2ae8f8e7c45907e8148a5229a4, type: 3}
+  bossMusicVolume: 0.3
+  restoreSceneMusicOnBossDeath: 1
   spawnedBoss: {fileID: 965669714}
 --- !u!65 &1461287040
 BoxCollider:
@@ -77529,9 +78250,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: maxHp
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: expValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: wanderArea
       value: 
       objectReference: {fileID: 896425440}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: questCategory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: useStaggerAnimation
@@ -80263,9 +81015,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: maxHp
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: expValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: wanderArea
       value: 
       objectReference: {fileID: 1263418568}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: questCategory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: useStaggerAnimation
@@ -80324,7 +81107,6 @@ RectTransform:
   - {fileID: 689167920}
   - {fileID: 1080300996}
   - {fileID: 1704283398}
-  - {fileID: 1891320329}
   m_Father: {fileID: 841852087}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -80981,8 +81763,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -81089,9 +81902,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: maxHp
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: expValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: wanderArea
       value: 
       objectReference: {fileID: 1156293311}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: questCategory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: useStaggerAnimation
@@ -82181,8 +83025,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -83398,8 +84273,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -87926,8 +88832,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -91565,8 +92502,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -93743,6 +94711,135 @@ CapsuleCollider:
   m_Height: 5.2587843
   m_Direction: 1
   m_Center: {x: 0.11728381, y: 2.3845582, z: -0.0019395351}
+--- !u!1 &1723489133
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1723489134}
+  - component: {fileID: 1723489135}
+  m_Layer: 0
+  m_Name: Audio Source
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1723489134
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723489133}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.349, y: -0.02, z: 0.58}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 94483710}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1723489135
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723489133}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.2
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &1725773055
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -94449,8 +95546,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -98347,8 +99475,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -100822,160 +101981,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1889726525}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1891320328
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1502845594}
-    m_Modifications:
-    - target: {fileID: 974620408126749437, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: slotType
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 974620408126749437, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: isEquipmentSlot
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 1500
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -880
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3918132863077337269, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_Type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3918132863077337269, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 94c1cc3169a0ab5438262ace0a05d1b9,
-        type: 3}
-    - target: {fileID: 3918132863077337269, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.87058824
-      objectReference: {fileID: 0}
-    - target: {fileID: 7376829214739501098, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      propertyPath: m_Name
-      value: SlotPrefab (7)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2137901071}
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 54ed19adb72f47748b3b09d81b768b50, type: 3}
---- !u!224 &1891320329 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2391236214328276376, guid: 54ed19adb72f47748b3b09d81b768b50,
-    type: 3}
-  m_PrefabInstance: {fileID: 1891320328}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1891340308
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101041,9 +102046,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: maxHp
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: expValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: wanderArea
       value: 
       objectReference: {fileID: 1899683525}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: questCategory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: useStaggerAnimation
@@ -102619,7 +103655,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1916553882
 RectTransform:
   m_ObjectHideFlags: 0
@@ -102917,6 +103953,81 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1921482511}
   m_Mesh: {fileID: 4300000, guid: 867f1cc5928fabc4d95a37c0e2fdcb36, type: 3}
+--- !u!1 &1925842131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1925842132}
+  - component: {fileID: 1925842134}
+  - component: {fileID: 1925842133}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1925842132
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925842131}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00015068057}
+  m_LocalScale: {x: 1.0493702, y: 1.0493702, z: 1.0493702}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 271656183}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 13.000113, y: -448}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1925842133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925842131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 3efb4860adc32644f8bc4f1e00210a07, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1925842134
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925842131}
+  m_CullTransparentMesh: 1
 --- !u!1 &1931428884
 GameObject:
   m_ObjectHideFlags: 0
@@ -103155,6 +104266,81 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1933574868}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1940539677
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1940539678}
+  - component: {fileID: 1940539680}
+  - component: {fileID: 1940539679}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1940539678
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940539677}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.000045776378}
+  m_LocalScale: {x: 0.94038975, y: 0.94038975, z: 0.94038975}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 271656183}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -170.00008, y: -447}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1940539679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940539677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 3efb4860adc32644f8bc4f1e00210a07, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1940539680
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940539677}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1940980363
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -105291,8 +106477,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -105802,8 +107019,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -107507,8 +108755,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: maxHp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: expValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: attackRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: questCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -110483,9 +111762,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: maxHp
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: expValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: wanderArea
       value: 
       objectReference: {fileID: 583151642}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: lootBagPrefab
+      value: 
+      objectReference: {fileID: 9121789452700959331, guid: 2680d62925964fc40b965ed470cfacde,
+        type: 3}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: questCategory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: detectionRange
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: useStaggerAnimation
@@ -112602,81 +113912,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2137073812}
   m_Mesh: {fileID: 4300000, guid: 867f1cc5928fabc4d95a37c0e2fdcb36, type: 3}
---- !u!1 &2137901070
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2137901071}
-  - component: {fileID: 2137901073}
-  - component: {fileID: 2137901072}
-  m_Layer: 3
-  m_Name: Image (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2137901071
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137901070}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1891320329}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2137901072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137901070}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &2137901073
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137901070}
-  m_CullTransparentMesh: 1
 --- !u!1 &2142125744
 GameObject:
   m_ObjectHideFlags: 0

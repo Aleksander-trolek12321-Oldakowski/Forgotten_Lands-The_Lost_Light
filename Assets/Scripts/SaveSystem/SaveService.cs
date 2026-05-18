@@ -68,6 +68,7 @@ namespace GameSave
             string activeSceneName = SceneManager.GetActiveScene().name;
 
             CapturePlayerState(data);
+            CaptureSkillTreeState(data);
             CaptureInventoryState(data);
             CaptureSideQuestState(data);
 
@@ -120,6 +121,15 @@ namespace GameSave
 
             if (player != null && data.player != null)
                 player.ApplySaveSnapshot(data.player);
+
+            SkillTree skillTree = UnityEngine.Object.FindObjectOfType<SkillTree>();
+            if (skillTree != null && data.skillTree != null)
+            {
+                if (player != null && skillTree.playerBase == null)
+                    skillTree.playerBase = player;
+
+                skillTree.ApplySaveSnapshot(data.skillTree);
+            }
 
             if (inventory != null)
                 ApplyInventoryState(inventory, data);
@@ -176,6 +186,14 @@ namespace GameSave
                     data.equipmentSlots.Add(slot);
                 }
             }
+        }
+
+        private static void CaptureSkillTreeState(GameSaveData data)
+        {
+            SkillTree skillTree = UnityEngine.Object.FindObjectOfType<SkillTree>();
+            if (skillTree == null) return;
+
+            data.skillTree = skillTree.CreateSaveSnapshot();
         }
 
         private static void ApplyInventoryState(InventoryManager inventory, GameSaveData data)

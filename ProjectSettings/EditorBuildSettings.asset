@@ -7,12 +7,15 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/Menu.unity
-    guid: 1db2dd876cf6a0743b5283161b49b55c
+    guid: 08c9f5b1ca98f6c49b288a63e364f00f
   - enabled: 1
     path: Assets/Scenes/HUB.unity
-    guid: 87d755bd8a36add409f79b887bebbbcf
+    guid: 30f8505ffb3100a48b37fbf29bd68457
   - enabled: 1
     path: Assets/Scenes/Level1.unity
-    guid: 6c7166ae109d0114a8db2a20bef8f2ed
+    guid: 56154a4503935334dbe6e2b0b54935e2
+  - enabled: 1
+    path: Assets/Scenes/DEATH.unity
+    guid: 3fc56901a79889b4c9fb86c2cb8d8455
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

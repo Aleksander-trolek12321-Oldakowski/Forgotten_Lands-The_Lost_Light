@@ -22,6 +22,11 @@ public class BossEncounterZone : MonoBehaviour
     public Transform encounterCenterPoint;
     public float portalHeightOffset = 0f;
 
+    [Header("Boss Music")]
+    public AudioClip bossMusicClip;
+    [Range(0f, 1f)] public float bossMusicVolume = 1f;
+    public bool restoreSceneMusicOnBossDeath = true;
+
     public EnemyBase spawnedBoss;
     private bool encounterStarted;
     private bool encounterCompleted;
@@ -44,6 +49,9 @@ public class BossEncounterZone : MonoBehaviour
     {
         if (spawnedBoss != null)
             spawnedBoss.Died -= OnBossDied;
+
+        if (restoreSceneMusicOnBossDeath && encounterStarted && !encounterCompleted && SceneMusicManager.Instance != null)
+            SceneMusicManager.Instance.StopBossMusic();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -77,6 +85,9 @@ public class BossEncounterZone : MonoBehaviour
 
         if (bossHealthBar != null)
             bossHealthBar.Show(spawnedBoss, bossDisplayName);
+
+        if (bossMusicClip != null && SceneMusicManager.Instance != null)
+            SceneMusicManager.Instance.PlayBossMusic(bossMusicClip, bossMusicVolume);
     }
 
     private void OnBossDied(EnemyBase enemy)
@@ -92,6 +103,9 @@ public class BossEncounterZone : MonoBehaviour
 
         if (disableBlockerAfterBossDeath && arenaBlocker != null)
             arenaBlocker.SetActive(false);
+
+        if (restoreSceneMusicOnBossDeath && SceneMusicManager.Instance != null)
+            SceneMusicManager.Instance.StopBossMusic();
 
         SpawnPortal();
         portalPrefab.SetActive(true);
