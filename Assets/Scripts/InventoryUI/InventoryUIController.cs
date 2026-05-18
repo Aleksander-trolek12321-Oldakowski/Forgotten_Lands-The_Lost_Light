@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Item;
 using Player;
+using TMPro;
 
 namespace Inventory
 {
@@ -18,6 +19,14 @@ namespace Inventory
         public GameObject inventoryRoot;
         public RectTransform equipPanel;
         public RectTransform backpackPanel;
+
+        [Header("Player Stats Texts (TMP)")]
+        [Tooltip("Optional parent object for all stats texts. If assigned, it will be shown only for normal inventory open.")]
+        public GameObject playerStatsPanel;
+        public TextMeshProUGUI maxHpText;
+        public TextMeshProUGUI maxManaText;
+        public TextMeshProUGUI damageText;
+        public TextMeshProUGUI defenseText;
 
         [Header("Equip slot fallback order")]
         public List<ItemType> equipmentOrderFallback = new List<ItemType>
@@ -205,6 +214,8 @@ namespace Inventory
                         slot.Refresh(new InventoryItem(null, 0));
                 }
             }
+
+            RefreshPlayerStatsTexts();
         }
 
         public void ToggleInventory()
@@ -221,6 +232,11 @@ namespace Inventory
 
         public void OpenInventory()
         {
+            OpenInventory(true);
+        }
+
+        public void OpenInventory(bool showPlayerStats)
+        {
             if (inventoryRoot == null) return;
             inventoryRoot.SetActive(true);
             InputBlocker.Block(player);
@@ -231,7 +247,9 @@ namespace Inventory
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
 
+            SetPlayerStatsVisibility(showPlayerStats);
             RefreshAllSlots();
+            RefreshPlayerStatsTexts();
         }
 
         public void CloseInventory()
@@ -246,6 +264,8 @@ namespace Inventory
 
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+
+            SetPlayerStatsVisibility(false);
         }
 
         private bool TryParseItemTypeFromName(string goName, out ItemType result)
@@ -264,6 +284,31 @@ namespace Inventory
 
             if (Enum.TryParse<ItemType>(goName, true, out result)) return true;
             return false;
+        }
+
+        private void RefreshPlayerStatsTexts()
+        {
+            if (player == null) player = inventoryManager?.player ?? FindObjectOfType<PlayerBase>();
+            if (player == null) return;
+
+            if (maxHpText != null) maxHpText.text = $"Max HP: {player.MaxHP:0}";
+            if (maxManaText != null) maxManaText.text = $"Max Mana: {player.MaxMP:0}";
+            if (damageText != null) damageText.text = $"Damage: {player.Damage:0}";
+            if (defenseText != null) defenseText.text = $"Defense: {player.Defense:0}";
+        }
+
+        private void SetPlayerStatsVisibility(bool isVisible)
+        {
+            if (playerStatsPanel != null)
+            {
+                playerStatsPanel.SetActive(isVisible);
+                return;
+            }
+
+            if (maxHpText != null) maxHpText.gameObject.SetActive(isVisible);
+            if (maxManaText != null) maxManaText.gameObject.SetActive(isVisible);
+            if (damageText != null) damageText.gameObject.SetActive(isVisible);
+            if (defenseText != null) defenseText.gameObject.SetActive(isVisible);
         }
 
     #if UNITY_EDITOR

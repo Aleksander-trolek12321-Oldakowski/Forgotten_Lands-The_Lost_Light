@@ -444,7 +444,7 @@ GameObject:
   - component: {fileID: 6865561941001320634}
   - component: {fileID: 3439401595928979620}
   m_Layer: 0
-  m_Name: worek
+  m_Name: worek legendarny
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -459,7 +459,7 @@ Transform:
   m_GameObject: {fileID: 9121789452700959331}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7380979, z: -0, w: -0.67469364}
-  m_LocalPosition: {x: 6.75, y: 0.86, z: 3.19}
+  m_LocalPosition: {x: 5.713, y: 0.86, z: 3.283}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -503,30 +503,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootTable:
-  - {fileID: 11400000, guid: f00181322cdfbc7449a0ba59e36f6038, type: 2}
-  - {fileID: 11400000, guid: 94e9ef9d56439254ca5ec0c61340b642, type: 2}
-  - {fileID: 11400000, guid: 3263b881534bb7d48b2a1198f5d7676e, type: 2}
-  - {fileID: 11400000, guid: 85556ce2f40a3974c9e18684aafeecf6, type: 2}
-  - {fileID: 11400000, guid: c570cdf7e007b0d4fa180d65e277d9b8, type: 2}
-  - {fileID: 11400000, guid: c0f65186bd1e4964c990d3d839a414d9, type: 2}
-  - {fileID: 11400000, guid: 20db0fccc6288d64f84f7eb0430bd5c1, type: 2}
-  - {fileID: 11400000, guid: 5e51fdcdd6910944fbe1cee087517283, type: 2}
-  - {fileID: 11400000, guid: 748c1c5e8aa35bf4a932a16e57caff81, type: 2}
-  - {fileID: 11400000, guid: d6fdb618eb8d51045bc5a0f2823fbb51, type: 2}
-  - {fileID: 11400000, guid: f7ef521c6f5676d4a8eac5fd074d6c78, type: 2}
-  - {fileID: 11400000, guid: 04e87066c9009f847a26935f836c0806, type: 2}
-  - {fileID: 11400000, guid: 2c8d6ffd1254ec64598963efdffee0d6, type: 2}
-  - {fileID: 11400000, guid: ffe981a69f577064aaa5ecf402c39b59, type: 2}
-  - {fileID: 11400000, guid: 75fb771b2f78f814cab756efe0984a5b, type: 2}
-  - {fileID: 11400000, guid: 394fc11f13d3c4548840e46193f33312, type: 2}
-  - {fileID: 11400000, guid: 6a19f78ecdb67ab49851ded512f198bc, type: 2}
-  - {fileID: 11400000, guid: 553bbcfeace16da4bba3c93118c1424b, type: 2}
-  - {fileID: 11400000, guid: 6e6e8933247d72d48af8aa368dd5858c, type: 2}
-  - {fileID: 11400000, guid: 5a038fb53fe5c5b4bb8a27e664dcf80d, type: 2}
-  - {fileID: 11400000, guid: 6ecddedc05c7f024fb0451e58237b219, type: 2}
-  - {fileID: 11400000, guid: ae4193271f712e646b07692f950f9668, type: 2}
-  - {fileID: 11400000, guid: 4d0eeeba215985943b61ffb3abb4c42b, type: 2}
-  - {fileID: 11400000, guid: a41f5ad762c878b40b7246585c384426, type: 2}
-  - {fileID: 11400000, guid: 47fa5438fc5807b4b8159b7267b3e32d, type: 2}
+  - {fileID: 11400000, guid: 57693f7f905abd44085f5ac99eb421f7, type: 2}
+  - {fileID: 11400000, guid: ce014a0e6e5731d40bca123d724ef46a, type: 2}
+  - {fileID: 11400000, guid: 545eac702b3656c4fb2fa48f9b9abdc5, type: 2}
+  - {fileID: 11400000, guid: 07afe795b43af714a8f52ff0b03c931c, type: 2}
+  - {fileID: 11400000, guid: c31c8bffb21d29340995661d0009a249, type: 2}
+  - {fileID: 11400000, guid: 700906c4cfe35494391631abefe9b093, type: 2}
   promptMessage: "Naci\u015Bnij E, aby otworzy\u0107 worek."
   toolTip: {fileID: 0}
