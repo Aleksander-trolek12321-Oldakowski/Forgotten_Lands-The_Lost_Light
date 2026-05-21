@@ -12,6 +12,9 @@ public class EnemyRotateFix : MonoBehaviour
 
     void Update()
     {
+        if (agent == null || !agent.enabled)
+            return;
+
         Vector3 dir = agent.velocity;
 
         dir.y = 0f;

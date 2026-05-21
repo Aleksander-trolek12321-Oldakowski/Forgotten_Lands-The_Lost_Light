@@ -73,6 +73,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 75493480999110893, guid: 2ce36082595ef8a458ceaa3d23f0807c,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d253849c33f64b04998d893428dcf0b2, type: 2}
     - target: {fileID: 919132149155446097, guid: 2ce36082595ef8a458ceaa3d23f0807c,
         type: 3}
       propertyPath: m_Name
@@ -149,6 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 20
+  currentHp: 0
   expValue: 50
   attackDamage: 5
   attackRange: 3
@@ -156,6 +162,13 @@ MonoBehaviour:
   hitWindowStart: 0.3
   hitWindowEnd: 0.8
   detectionRange: 10
+  fallbackChaseSpeed: 10
+  fallbackWanderSpeed: 4
+  fallbackWanderReachDistance: 0.25
+  minimumEnemySeparation: 1.1
+  minimumPlayerSeparation: 1
+  separationResolveSpeed: 4
+  forceSolidBodyCollider: 1
   useWander: 1
   wanderArea: {fileID: 0}
   wanderInterval: 4

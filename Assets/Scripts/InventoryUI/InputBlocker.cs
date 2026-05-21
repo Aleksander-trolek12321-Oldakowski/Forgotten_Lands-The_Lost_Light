@@ -9,9 +9,20 @@ namespace Inventory
 public static class InputBlocker
 {
         static int blockCount = 0;
+        static int lastEscapeHandledFrame = -1;
 
         static FieldInfo cinemachineGetInputField = null;
         static object prevCinemachineDelegate = null;
+
+        public static void NotifyEscapeHandledByUi()
+        {
+            lastEscapeHandledFrame = Time.frameCount;
+        }
+
+        public static bool WasEscapeHandledByUiThisFrame()
+        {
+            return lastEscapeHandledFrame == Time.frameCount;
+        }
 
         public static void Block(PlayerBase player)
         {

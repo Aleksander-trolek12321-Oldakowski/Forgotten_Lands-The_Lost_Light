@@ -33,6 +33,7 @@ namespace Menu
         private static PauseMenuController activeController;
 
         private bool isOpen = false;
+        private bool wasShopOrChestUiOpenLastFrame = false;
         private PlayerBase player;
         private bool runtimeButtonsWired = false;
         private Canvas pauseCanvas;
@@ -75,11 +76,28 @@ namespace Menu
 
         private void Update()
         {
+            bool shopOrChestUiOpenNow = IsShopOrChestUiOpen();
+
             if (Input.GetKeyDown(pauseKey))
             {
-                if (IsShopOrChestUiOpen())
+                if (pauseKey == KeyCode.Escape && InputBlocker.WasEscapeHandledByUiThisFrame())
                 {
-                    Log("Update: pause key ignored because shop/chest UI is open");
+                    Log("Update: pause key ignored because Escape was already handled by UI this frame");
+                    wasShopOrChestUiOpenLastFrame = shopOrChestUiOpenNow;
+                    return;
+                }
+
+                // Build/editor can differ in script Update order.
+                // If shop/chest UI was open in previous frame and now is closed, this Escape likely just closed that UI.
+                bool escapeLikelyClosedUiThisFrame =
+                    pauseKey == KeyCode.Escape &&
+                    !shopOrChestUiOpenNow &&
+                    wasShopOrChestUiOpenLastFrame;
+
+                if (shopOrChestUiOpenNow || escapeLikelyClosedUiThisFrame)
+                {
+                    Log("Update: pause key ignored because shop/chest UI is open or was just closed");
+                    wasShopOrChestUiOpenLastFrame = shopOrChestUiOpenNow;
                     return;
                 }
 
@@ -93,6 +111,8 @@ namespace Menu
                 Log($"Update: manual mouse down at {Input.mousePosition}");
                 TryHandleManualPauseButtonClick();
             }
+
+            wasShopOrChestUiOpenLastFrame = shopOrChestUiOpenNow;
         }
 
         public void OpenPause()

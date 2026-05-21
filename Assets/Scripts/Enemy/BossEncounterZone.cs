@@ -22,6 +22,11 @@ public class BossEncounterZone : MonoBehaviour
     public Transform encounterCenterPoint;
     public float portalHeightOffset = 0f;
 
+    [Header("Enemy Gatekeeping")]
+    public bool blockNonBossEnemiesFromZone = true;
+    [Tooltip("How far outside the encounter boundary non-boss enemies should be moved.")]
+    public float nonBossEjectOffset = 1.5f;
+
     [Header("Boss Music")]
     public AudioClip bossMusicClip;
     [Range(0f, 1f)] public float bossMusicVolume = 1f;
@@ -31,6 +36,7 @@ public class BossEncounterZone : MonoBehaviour
     private bool encounterStarted;
     private bool encounterCompleted;
     private bool portalSpawned;
+    private Collider zoneCollider;
 
     private void Reset()
     {
@@ -41,6 +47,7 @@ public class BossEncounterZone : MonoBehaviour
 
     private void Start()
     {
+        zoneCollider = GetComponent<Collider>();
         if (arenaBlocker != null)
             arenaBlocker.SetActive(false);
     }
@@ -56,6 +63,8 @@ public class BossEncounterZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        TryEjectNonBoss(other);
+
         if (encounterStarted) return;
 
         PlayerBase player = other.GetComponent<PlayerBase>();
@@ -65,6 +74,11 @@ public class BossEncounterZone : MonoBehaviour
         if (player == null) return;
 
         StartEncounter();
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        TryEjectNonBoss(other);
     }
 
     private void StartEncounter()
@@ -128,5 +142,31 @@ public class BossEncounterZone : MonoBehaviour
 
         Vector3 spawnPos = basePoint.position + Vector3.up * portalHeightOffset;
         Instantiate(portalPrefab, spawnPos, Quaternion.identity);
+    }
+
+    private void TryEjectNonBoss(Collider other)
+    {
+        if (!blockNonBossEnemiesFromZone || other == null)
+            return;
+
+        EnemyBase enemy = other.GetComponentInParent<EnemyBase>();
+        if (enemy == null || enemy.isBoss || enemy.IsDead)
+            return;
+
+        Vector3 center = encounterCenterPoint != null ? encounterCenterPoint.position : transform.position;
+        Vector3 enemyPos = enemy.transform.position;
+
+        Vector3 dir = enemyPos - center;
+        dir.y = 0f;
+        if (dir.sqrMagnitude < 0.0001f)
+            dir = transform.forward;
+        dir.Normalize();
+
+        Vector3 boundaryPoint = center + dir;
+        if (zoneCollider != null)
+            boundaryPoint = zoneCollider.ClosestPoint(center + dir * 1000f);
+
+        Vector3 ejectTarget = boundaryPoint + dir * Mathf.Max(0.1f, nonBossEjectOffset);
+        enemy.ForceRelocate(ejectTarget, keepCurrentY: true);
     }
 }

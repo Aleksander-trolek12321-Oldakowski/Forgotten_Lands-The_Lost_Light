@@ -40,6 +40,7 @@ namespace shop
         {
             if (inventoryRoot != null && inventoryRoot.activeSelf && Input.GetKeyDown(KeyCode.Escape))
             {
+                InputBlocker.NotifyEscapeHandledByUi();
                 Close();
             }
         }

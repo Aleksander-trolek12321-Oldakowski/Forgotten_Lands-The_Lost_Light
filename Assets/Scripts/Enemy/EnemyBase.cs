@@ -11,7 +11,7 @@ public class EnemyBase : MonoBehaviour
 {
     [Header("Stats")]
     public float maxHp = 20f;
-    private float currentHp;
+    public float currentHp;
 
     [SerializeField] private float expValue = 50f;
 
@@ -26,6 +26,23 @@ public class EnemyBase : MonoBehaviour
 
     [Header("Detection")]
     public float detectionRange = 10f;
+    [Tooltip("Fallback chase speed used when NavMeshAgent is unavailable in build/runtime.")]
+    public float fallbackChaseSpeed = 10f;
+    [Tooltip("Fallback wander speed used when NavMeshAgent is unavailable in build/runtime.")]
+    public float fallbackWanderSpeed = 4f;
+    public float fallbackWanderReachDistance = 0.25f;
+
+    [Header("Spacing / Collision")]
+    [Tooltip("Minimum separation between enemies.")]
+    public float minimumEnemySeparation = 1.1f;
+    [Tooltip("Minimum separation between enemy and player body.")]
+    public float minimumPlayerSeparation = 1.0f;
+    [Tooltip("Maximum separation correction per second.")]
+    public float separationResolveSpeed = 4f;
+    [Tooltip("Force main enemy collider to be solid (not trigger) so player cannot pass through.")]
+    public bool forceSolidBodyCollider = true;
+    [Tooltip("Lock enemy movement to Y value captured at start.")]
+    public bool lockYToStartHeight = true;
 
     [Header("Wander")]
     public bool useWander = true;
@@ -33,6 +50,8 @@ public class EnemyBase : MonoBehaviour
     public float wanderInterval = 4f;
 
     private float wanderTimer;
+    private Vector3 fallbackWanderTarget;
+    private bool hasFallbackWanderTarget;
 
     [Header("Stagger")]
     public bool canBeStaggered = true;
@@ -81,7 +100,14 @@ public class EnemyBase : MonoBehaviour
     private PlayerBase player;
     private NavMeshAgent agent;
     private Animator animator;
+    private Rigidbody rb;
+    private bool rigidbodyConfiguredForNavMesh;
+    private Collider bodyCollider;
+    private bool bodyColliderConfigured;
+    private float lockedY;
+    private bool hasLockedY;
     [SerializeField] private GameObject Target;
+    private float nextPlayerLookupTime = 0f;
 
     public event Action<EnemyBase> Died;
 
@@ -107,12 +133,10 @@ public class EnemyBase : MonoBehaviour
     void Start()
     {
         currentHp = maxHp;
+        lockedY = transform.position.y;
+        hasLockedY = true;
 
-        player = FindObjectOfType<PlayerBase>();
-
-        agent = GetComponent<NavMeshAgent>();
-
-        animator = GetComponent<Animator>();
+        ResolveRuntimeReferences(forcePlayerLookup: true);
 
         if (agent != null)
         {
@@ -128,12 +152,16 @@ public class EnemyBase : MonoBehaviour
     void Update()
     {
         if (isDead) return;
-        if (player == null || agent == null) return;
+        ResolveRuntimeReferences(forcePlayerLookup: false);
 
-        float distance =
-            Vector3.Distance(
-                transform.position,
-                player.transform.position);
+        float distance = float.PositiveInfinity;
+        if (player != null)
+        {
+            distance =
+                Vector3.Distance(
+                    transform.position,
+                    player.transform.position);
+        }
 
         switch (currentState)
         {
@@ -167,11 +195,15 @@ public class EnemyBase : MonoBehaviour
 
                 break;
         }
+
+        ResolvePersonalSpace();
+        EnforceLockedY();
     }
 
     void IdleBehaviour(float distance)
     {
-        agent.isStopped = true;
+        if (CanUseNavAgent())
+            agent.isStopped = true;
 
         SetSpeed(0f);
 
@@ -192,57 +224,64 @@ public class EnemyBase : MonoBehaviour
         if (wanderArea == null)
             return;
 
-        agent.isStopped = false;
-
         wanderTimer += Time.deltaTime;
 
-        LookAtMovementDirection();
-
-        SetSpeed(agent.desiredVelocity.magnitude);
-
-        if (wanderTimer >= wanderInterval)
+        if (CanUseNavAgent())
         {
-            Bounds bounds = wanderArea.bounds;
+            agent.isStopped = false;
+            LookAtMovementDirection();
+            SetSpeed(agent.desiredVelocity.magnitude);
 
-            Vector3 randomPoint =
-                new Vector3(
-                    UnityEngine.Random.Range(
-                        bounds.min.x,
-                        bounds.max.x),
-
-                    transform.position.y,
-
-                    UnityEngine.Random.Range(
-                        bounds.min.z,
-                        bounds.max.z)
-                );
-
-            NavMeshHit hit;
-
-            if (NavMesh.SamplePosition(
-                randomPoint,
-                out hit,
-                2f,
-                NavMesh.AllAreas))
+            if (wanderTimer >= wanderInterval || !agent.hasPath || agent.remainingDistance <= agent.stoppingDistance + 0.1f)
             {
-                agent.SetDestination(hit.position);
+                PickNewWanderTarget(useNavMesh: true);
+                wanderTimer = 0f;
             }
 
+            return;
+        }
+
+        if (wanderTimer >= wanderInterval || !hasFallbackWanderTarget || IsNearPosition(transform.position, fallbackWanderTarget, fallbackWanderReachDistance))
+        {
+            PickNewWanderTarget(useNavMesh: false);
             wanderTimer = 0f;
         }
+
+        if (!hasFallbackWanderTarget)
+        {
+            SetSpeed(0f);
+            return;
+        }
+
+        Vector3 move = MoveTowardsPointFallback(fallbackWanderTarget, fallbackWanderSpeed);
+        LookAtDirection(move);
+
+        if (move.sqrMagnitude > 0.0001f) SetSpeed(fallbackWanderSpeed);
+        else SetSpeed(0f);
     }
 
     void ChaseBehaviour(float distance)
     {
         if (isStaggered) return;
+        if (player == null)
+        {
+            currentState = useWander ? State.Wander : State.Idle;
+            return;
+        }
 
-        agent.isStopped = false;
-
-        agent.SetDestination(player.transform.position);
+        if (CanUseNavAgent())
+        {
+            agent.isStopped = false;
+            agent.SetDestination(player.transform.position);
+            SetSpeed(agent.velocity.magnitude);
+        }
+        else
+        {
+            MoveTowardsPlayerFallback();
+            SetSpeed(fallbackChaseSpeed);
+        }
 
         LookAtPlayer();
-
-        SetSpeed(agent.velocity.magnitude);
 
         if (distance <= attackRange)
         {
@@ -253,10 +292,17 @@ public class EnemyBase : MonoBehaviour
     void AttackBehaviour(float distance)
     {
         if (isStaggered) return;
+        if (player == null)
+        {
+            currentState = useWander ? State.Wander : State.Idle;
+            return;
+        }
 
-        agent.isStopped = true;
-
-        agent.velocity = Vector3.zero;
+        if (CanUseNavAgent())
+        {
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+        }
 
         LookAtPlayer();
 
@@ -273,9 +319,11 @@ public class EnemyBase : MonoBehaviour
 
     void StaggerBehaviour()
     {
-        agent.isStopped = true;
-
-        agent.velocity = Vector3.zero;
+        if (CanUseNavAgent())
+        {
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+        }
 
         SetSpeed(0f);
     }
@@ -607,5 +655,285 @@ public class EnemyBase : MonoBehaviour
                 targetRot,
                 8f * Time.deltaTime
             );
+    }
+
+    void ResolveRuntimeReferences(bool forcePlayerLookup)
+    {
+        if (agent == null)
+            agent = GetComponent<NavMeshAgent>();
+        if (agent != null)
+        {
+            agent.updateRotation = false;
+            if (minimumEnemySeparation > 0.01f)
+                agent.radius = Mathf.Max(agent.radius, minimumEnemySeparation * 0.5f);
+            if (minimumPlayerSeparation > 0.01f)
+                agent.stoppingDistance = Mathf.Max(agent.stoppingDistance, minimumPlayerSeparation);
+        }
+        if (rb == null)
+            rb = GetComponent<Rigidbody>();
+
+        ConfigureRigidbodyForNavMesh();
+        ConfigureBodyCollider();
+
+        if (animator == null)
+            animator = GetComponent<Animator>();
+        if (animator != null)
+            animator.applyRootMotion = false;
+
+        bool shouldLookupPlayer =
+            forcePlayerLookup ||
+            player == null ||
+            !player.gameObject.activeInHierarchy;
+
+        if (shouldLookupPlayer && Time.unscaledTime >= nextPlayerLookupTime)
+        {
+            player = FindObjectOfType<PlayerBase>();
+            nextPlayerLookupTime = Time.unscaledTime + 0.5f;
+        }
+
+        if (agent != null && agent.enabled && !agent.isOnNavMesh)
+        {
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(transform.position, out hit, 4f, NavMesh.AllAreas))
+            {
+                agent.Warp(hit.position);
+            }
+        }
+    }
+
+    void ConfigureRigidbodyForNavMesh()
+    {
+        if (rigidbodyConfiguredForNavMesh)
+            return;
+
+        if (agent == null || rb == null)
+            return;
+
+        // NavMeshAgent + dynamic Rigidbody commonly blocks movement.
+        //rb.isKinematic = true;
+        rb.useGravity = false;
+        rigidbodyConfiguredForNavMesh = true;
+    }
+
+    void ConfigureBodyCollider()
+    {
+        if (bodyColliderConfigured)
+            return;
+
+        if (bodyCollider == null)
+            bodyCollider = GetComponent<Collider>();
+        if (bodyCollider == null)
+            bodyCollider = GetComponentInChildren<Collider>();
+
+        if (forceSolidBodyCollider && bodyCollider != null)
+            bodyCollider.isTrigger = false;
+
+        bodyColliderConfigured = true;
+    }
+
+    bool CanUseNavAgent()
+    {
+        return agent != null && agent.enabled && agent.isOnNavMesh;
+    }
+
+    void ResolvePersonalSpace()
+    {
+        Vector3 totalPush = Vector3.zero;
+
+        if (minimumEnemySeparation > 0.01f)
+        {
+            Collider[] overlaps = Physics.OverlapSphere(
+                transform.position,
+                minimumEnemySeparation,
+                ~0,
+                QueryTriggerInteraction.Ignore);
+
+            for (int i = 0; i < overlaps.Length; i++)
+            {
+                Collider c = overlaps[i];
+                if (c == null) continue;
+
+                EnemyBase other = c.GetComponentInParent<EnemyBase>();
+                if (other == null || other == this || other.IsDead) continue;
+
+                Vector3 diff = transform.position - other.transform.position;
+                diff.y = 0f;
+                float dist = diff.magnitude;
+                if (dist < 0.001f)
+                {
+                    diff = UnityEngine.Random.insideUnitSphere;
+                    diff.y = 0f;
+                    dist = Mathf.Max(0.001f, diff.magnitude);
+                }
+
+                float overlap = minimumEnemySeparation - dist;
+                if (overlap > 0f)
+                {
+                    totalPush += diff.normalized * overlap;
+                }
+            }
+        }
+
+        if (player != null && minimumPlayerSeparation > 0.01f)
+        {
+            Vector3 diff = transform.position - player.transform.position;
+            diff.y = 0f;
+            float dist = diff.magnitude;
+            if (dist < 0.001f)
+            {
+                diff = transform.forward;
+                diff.y = 0f;
+                dist = Mathf.Max(0.001f, diff.magnitude);
+            }
+
+            float overlap = minimumPlayerSeparation - dist;
+            if (overlap > 0f)
+            {
+                totalPush += diff.normalized * overlap;
+            }
+        }
+
+        if (totalPush.sqrMagnitude < 0.0001f)
+            return;
+
+        float maxStep = Mathf.Max(0.01f, separationResolveSpeed) * Time.deltaTime;
+        Vector3 step = Vector3.ClampMagnitude(totalPush, maxStep);
+        Vector3 target = transform.position + step;
+
+        ForceRelocate(target, keepCurrentY: true);
+    }
+
+    void MoveTowardsPlayerFallback()
+    {
+        if (player == null)
+            return;
+
+        Vector3 from = transform.position;
+        Vector3 to = player.transform.position;
+        to.y = from.y;
+
+        Vector3 dir = to - from;
+        float sqr = dir.sqrMagnitude;
+        if (sqr < 0.0001f)
+            return;
+
+        float speed = Mathf.Max(0.1f, fallbackChaseSpeed);
+        Vector3 next = from + dir.normalized * speed * Time.deltaTime;
+        ForceRelocate(next, keepCurrentY: true);
+    }
+
+    bool PickNewWanderTarget(bool useNavMesh)
+    {
+        if (wanderArea == null)
+        {
+            hasFallbackWanderTarget = false;
+            return false;
+        }
+
+        Bounds bounds = wanderArea.bounds;
+        Vector3 randomPoint =
+            new Vector3(
+                UnityEngine.Random.Range(bounds.min.x, bounds.max.x),
+                transform.position.y,
+                UnityEngine.Random.Range(bounds.min.z, bounds.max.z)
+            );
+
+        if (useNavMesh && CanUseNavAgent())
+        {
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(randomPoint, out hit, 2f, NavMesh.AllAreas))
+            {
+                agent.SetDestination(hit.position);
+                return true;
+            }
+        }
+
+        fallbackWanderTarget = randomPoint;
+        hasFallbackWanderTarget = true;
+        return true;
+    }
+
+    Vector3 MoveTowardsPointFallback(Vector3 target, float speed)
+    {
+        Vector3 from = transform.position;
+        Vector3 to = target;
+        to.y = from.y;
+
+        Vector3 dir = to - from;
+        if (dir.sqrMagnitude < 0.0001f)
+            return Vector3.zero;
+
+        float step = Mathf.Max(0.1f, speed) * Time.deltaTime;
+        if (dir.magnitude <= step)
+        {
+            ForceRelocate(to, keepCurrentY: true);
+            return dir;
+        }
+
+        Vector3 move = dir.normalized * step;
+        ForceRelocate(from + move, keepCurrentY: true);
+        return move;
+    }
+
+    bool IsNearPosition(Vector3 a, Vector3 b, float distance)
+    {
+        Vector3 da = a;
+        Vector3 db = b;
+        da.y = 0f;
+        db.y = 0f;
+        return (da - db).sqrMagnitude <= distance * distance;
+    }
+
+    void LookAtDirection(Vector3 dir)
+    {
+        dir.y = 0f;
+        if (dir.sqrMagnitude < 0.01f)
+            return;
+
+        Quaternion targetRot = Quaternion.LookRotation(dir);
+        if (invertModelForward)
+            targetRot *= Quaternion.Euler(0f, 180f, 0f);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, 8f * Time.deltaTime);
+    }
+
+    public void ForceRelocate(Vector3 worldPosition, bool keepCurrentY = false)
+    {
+        Vector3 target = worldPosition;
+        if (lockYToStartHeight && hasLockedY)
+            target.y = lockedY;
+        else if (keepCurrentY)
+            target.y = transform.position.y;
+
+        if (CanUseNavAgent())
+        {
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(target, out hit, 2f, NavMesh.AllAreas))
+            {
+                Vector3 warpPos = hit.position;
+                if (lockYToStartHeight && hasLockedY)
+                    warpPos.y = lockedY;
+                agent.Warp(warpPos);
+                return;
+            }
+        }
+
+        transform.position = target;
+    }
+
+    void EnforceLockedY()
+    {
+        if (!lockYToStartHeight || !hasLockedY)
+            return;
+
+        Vector3 p = transform.position;
+        if (Mathf.Abs(p.y - lockedY) <= 0.0001f)
+            return;
+
+        p.y = lockedY;
+        transform.position = p;
+
+        if (agent != null && agent.enabled)
+            agent.nextPosition = p;
     }
 }

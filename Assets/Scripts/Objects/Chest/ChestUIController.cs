@@ -237,6 +237,7 @@ namespace chest
         {
             if (inventoryRoot != null && inventoryRoot.activeSelf && Input.GetKeyDown(KeyCode.Escape))
             {
+                InputBlocker.NotifyEscapeHandledByUi();
                 Close();
             }
         }

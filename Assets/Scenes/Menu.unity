@@ -1813,9 +1813,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: dedc504bf22eb854c8d1ed3b0651912a, type: 3}
     volume: 0.2
   - sceneName: DEATH
-    clip: {fileID: 8300000, guid: 63a563c3f1cf1ee41a787193a8e51c43, type: 3}
+    clip: {fileID: 8300000, guid: 695983676d16af94c86e366ef3637358, type: 3}
     volume: 0.2
   musicSource: {fileID: 269172836}
+  attachAudioSourceToPlayer: 1
 --- !u!4 &1682763427
 Transform:
   m_ObjectHideFlags: 0
