@@ -1,8 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class AttackHitbox : MonoBehaviour
 {
+    public static event Action<Vector3, Vector3> AttackWindowOpened;
+    public static float LastAttackWindowOpenTime { get; private set; } = -999f;
+    public static Vector3 LastAttackOrigin { get; private set; }
+    public static Vector3 LastAttackForward { get; private set; }
+
     [Header("Damage")]
     public float damage = 30f;
 
@@ -21,6 +27,12 @@ public class AttackHitbox : MonoBehaviour
     {
         hitboxActive = true;
         alreadyHit.Clear();
+
+        LastAttackWindowOpenTime = Time.time;
+        LastAttackOrigin = transform.position;
+        LastAttackForward = transform.forward;
+        AttackWindowOpened?.Invoke(LastAttackOrigin, LastAttackForward);
+
         Debug.Log("Hitbox ON");
     }
 
