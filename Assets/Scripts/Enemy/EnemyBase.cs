@@ -20,6 +20,19 @@ public class EnemyBase : MonoBehaviour
     public float attackRange = 2f;
     public float attackCooldown = 2f;
 
+    [Header("Combat Brain")]
+    public bool useAdvancedCombat = true;
+    [Range(0f, 1f)] public float attackCommitChance = 0.65f;
+    [Range(0f, 1f)] public float dodgeChanceOnPlayerSwing = 0.55f;
+    public float strafeStartDistance = 4f;
+    public float strafeOrbitMinDistance = 1.8f;
+    public float strafeOrbitMaxDistance = 3.4f;
+    public float strafeMoveSpeed = 3.2f;
+    public Vector2 strafeDurationRange = new Vector2(0.5f, 1.25f);
+    public float dodgeDistance = 2f;
+    public float dodgeMoveSpeed = 7f;
+    public float dodgeCooldown = 1.5f;
+
     [Header("Attack Window")]
     public float hitWindowStart = 0.3f;
     public float hitWindowEnd = 0.8f;
@@ -96,6 +109,15 @@ public class EnemyBase : MonoBehaviour
     private bool isDead = false;
     private bool isAttacking = false;
     private bool isStaggered = false;
+    private bool isDodging = false;
+    private float dodgeUntilTime = -999f;
+    private float nextAllowedDodgeTime = -999f;
+    private Vector3 dodgeTarget;
+    private bool isStrafing = false;
+    private float strafeUntilTime = -999f;
+    private int strafeDirection = 1;
+    private float nextCombatDecisionTime = -999f;
+    private float lastProcessedPlayerSwingTime = -999f;
 
     private PlayerBase player;
     private NavMeshAgent agent;
@@ -269,6 +291,9 @@ public class EnemyBase : MonoBehaviour
             return;
         }
 
+        if (useAdvancedCombat && TryHandleCombatBrain(distance))
+            return;
+
         if (CanUseNavAgent())
         {
             agent.isStopped = false;
@@ -298,6 +323,9 @@ public class EnemyBase : MonoBehaviour
             return;
         }
 
+        if (useAdvancedCombat && TryHandleCombatBrain(distance))
+            return;
+
         if (CanUseNavAgent())
         {
             agent.isStopped = true;
@@ -314,11 +342,20 @@ public class EnemyBase : MonoBehaviour
             return;
         }
 
-        TryAttack();
+        if (useAdvancedCombat && Time.time < lastAttackTime + attackCooldown)
+            return;
+
+        if (!useAdvancedCombat || UnityEngine.Random.value <= attackCommitChance)
+            TryAttack();
+        else
+            StartStrafe();
     }
 
     void StaggerBehaviour()
     {
+        isDodging = false;
+        isStrafing = false;
+
         if (CanUseNavAgent())
         {
             agent.isStopped = true;
@@ -470,6 +507,8 @@ public class EnemyBase : MonoBehaviour
             yield break;
 
         isStaggered = true;
+        isDodging = false;
+        isStrafing = false;
 
         currentState = State.Stagger;
 
@@ -517,6 +556,8 @@ public class EnemyBase : MonoBehaviour
         if (isDead) return;
 
         isDead = true;
+        isDodging = false;
+        isStrafing = false;
 
         currentState = State.Dead;
 
@@ -657,6 +698,168 @@ public class EnemyBase : MonoBehaviour
             );
     }
 
+    bool TryHandleCombatBrain(float distanceToPlayer)
+    {
+        if (player == null)
+            return false;
+        if (isAttacking)
+            return false;
+
+        if (Time.time >= nextCombatDecisionTime)
+        {
+            nextCombatDecisionTime = Time.time + UnityEngine.Random.Range(0.18f, 0.45f);
+            ProcessIncomingPlayerSwing(distanceToPlayer);
+        }
+
+        if (isDodging)
+        {
+            ExecuteDodge();
+            return true;
+        }
+
+        if (distanceToPlayer <= strafeStartDistance)
+        {
+            if (!isStrafing && UnityEngine.Random.value < 0.38f)
+                StartStrafe();
+
+            if (isStrafing)
+            {
+                ExecuteStrafe(distanceToPlayer);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    void ProcessIncomingPlayerSwing(float distanceToPlayer)
+    {
+        if (isAttacking)
+            return;
+
+        if (distanceToPlayer > strafeStartDistance + 1.5f)
+            return;
+
+        if (Time.time < nextAllowedDodgeTime)
+            return;
+
+        if (AttackHitbox.LastAttackWindowOpenTime <= lastProcessedPlayerSwingTime)
+            return;
+
+        lastProcessedPlayerSwingTime = AttackHitbox.LastAttackWindowOpenTime;
+
+        Vector3 fromAttackToEnemy = transform.position - AttackHitbox.LastAttackOrigin;
+        fromAttackToEnemy.y = 0f;
+        if (fromAttackToEnemy.sqrMagnitude < 0.0001f)
+            return;
+
+        Vector3 attackForward = AttackHitbox.LastAttackForward;
+        attackForward.y = 0f;
+        if (attackForward.sqrMagnitude < 0.0001f)
+            return;
+
+        float facingDot = Vector3.Dot(attackForward.normalized, fromAttackToEnemy.normalized);
+        if (facingDot < 0.25f)
+            return;
+
+        if (UnityEngine.Random.value <= dodgeChanceOnPlayerSwing)
+            StartDodge();
+    }
+
+    void StartStrafe()
+    {
+        isStrafing = true;
+        strafeDirection = UnityEngine.Random.value < 0.5f ? -1 : 1;
+        float min = Mathf.Min(strafeDurationRange.x, strafeDurationRange.y);
+        float max = Mathf.Max(strafeDurationRange.x, strafeDurationRange.y);
+        strafeUntilTime = Time.time + UnityEngine.Random.Range(min, max);
+    }
+
+    void ExecuteStrafe(float distanceToPlayer)
+    {
+        if (player == null)
+        {
+            isStrafing = false;
+            return;
+        }
+
+        if (Time.time >= strafeUntilTime || distanceToPlayer > strafeStartDistance + 0.9f)
+        {
+            isStrafing = false;
+            return;
+        }
+
+        Vector3 playerPos = player.transform.position;
+        Vector3 toEnemy = transform.position - playerPos;
+        toEnemy.y = 0f;
+        if (toEnemy.sqrMagnitude < 0.0001f)
+            toEnemy = -player.transform.forward;
+
+        Vector3 radial = toEnemy.normalized;
+        float orbitRadius = Mathf.Clamp(distanceToPlayer, strafeOrbitMinDistance, strafeOrbitMaxDistance);
+        Vector3 tangent = Vector3.Cross(Vector3.up, radial) * strafeDirection;
+
+        Vector3 target =
+            playerPos +
+            radial * orbitRadius +
+            tangent.normalized * Mathf.Max(0.6f, strafeMoveSpeed * 0.45f);
+
+        MoveTacticallyTowards(target, strafeMoveSpeed);
+        LookAtPlayer();
+    }
+
+    void StartDodge()
+    {
+        if (player == null)
+            return;
+
+        isDodging = true;
+        isStrafing = false;
+        nextAllowedDodgeTime = Time.time + Mathf.Max(0.1f, dodgeCooldown);
+        dodgeUntilTime = Time.time + 0.28f;
+
+        Vector3 toPlayer = player.transform.position - transform.position;
+        toPlayer.y = 0f;
+        if (toPlayer.sqrMagnitude < 0.0001f)
+            toPlayer = transform.forward;
+
+        Vector3 away = -toPlayer.normalized;
+        Vector3 side = Vector3.Cross(Vector3.up, toPlayer.normalized) * (UnityEngine.Random.value < 0.5f ? -1f : 1f);
+        Vector3 dodgeDir = (side * 0.8f + away * 0.6f).normalized;
+
+        dodgeTarget = transform.position + dodgeDir * Mathf.Max(0.4f, dodgeDistance);
+    }
+
+    void ExecuteDodge()
+    {
+        if (!isDodging)
+            return;
+
+        MoveTacticallyTowards(dodgeTarget, dodgeMoveSpeed);
+        LookAtPlayer();
+
+        if (Time.time >= dodgeUntilTime || IsNearPosition(transform.position, dodgeTarget, 0.25f))
+            isDodging = false;
+    }
+
+    void MoveTacticallyTowards(Vector3 worldTarget, float speed)
+    {
+        if (CanUseNavAgent())
+        {
+            agent.isStopped = false;
+            agent.speed = Mathf.Max(0.1f, speed);
+            agent.SetDestination(worldTarget);
+            SetSpeed(agent.velocity.magnitude);
+            return;
+        }
+
+        Vector3 move = MoveTowardsPointFallback(worldTarget, speed);
+        if (move.sqrMagnitude > 0.0001f)
+            SetSpeed(speed);
+        else
+            SetSpeed(0f);
+    }
+
     void ResolveRuntimeReferences(bool forcePlayerLookup)
     {
         if (agent == null)
@@ -709,7 +912,6 @@ public class EnemyBase : MonoBehaviour
         if (agent == null || rb == null)
             return;
 
-        // NavMeshAgent + dynamic Rigidbody commonly blocks movement.
         //rb.isKinematic = true;
         rb.useGravity = false;
         rigidbodyConfiguredForNavMesh = true;

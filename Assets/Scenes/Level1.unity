@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.2981131, g: 0.2981131, b: 0.2981131, a: 0}
   m_FogMode: 3
   m_FogDensity: 0.005
@@ -166,7 +166,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -221,12 +221,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -256,8 +261,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -697,7 +742,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -752,12 +797,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -787,8 +837,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -871,7 +961,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -926,12 +1016,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -961,8 +1056,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -2563,7 +2698,7 @@ PrefabInstance:
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.831
+      value: 5.25
       objectReference: {fileID: 0}
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -2627,8 +2762,23 @@ PrefabInstance:
       objectReference: {fileID: 1703219516}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: attackRange
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: attackDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeCooldown
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -2653,13 +2803,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: useStaggerAnimation
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13040,7 +13230,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -13095,12 +13285,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -13130,8 +13325,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -15456,7 +15691,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -15511,12 +15746,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -15546,8 +15786,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -16698,7 +16978,7 @@ MonoBehaviour:
   priority: 1
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 89ffbfd648c9dea42a9d529259c7ce57, type: 2}
+  sharedProfile: {fileID: 11400000, guid: a75c455d0c90ff544ac491a0d5c6bb02, type: 2}
 --- !u!4 &357951745
 Transform:
   m_ObjectHideFlags: 0
@@ -16854,7 +17134,7 @@ PrefabInstance:
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.831
+      value: 5.25
       objectReference: {fileID: 0}
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -16918,8 +17198,23 @@ PrefabInstance:
       objectReference: {fileID: 407936977}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: attackRange
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: attackDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeCooldown
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -16944,13 +17239,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: useStaggerAnimation
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416080973665675530, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.00023448719
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416080973665675530, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.23893252
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17826,7 +18171,7 @@ PrefabInstance:
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.831
+      value: 5.25
       objectReference: {fileID: 0}
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -17890,8 +18235,23 @@ PrefabInstance:
       objectReference: {fileID: 1781979682}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: attackRange
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: attackDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeCooldown
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -17916,13 +18276,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: useStaggerAnimation
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19279,6 +19679,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4394976490010106611, guid: 9c0165d15659b704aa79037d8e978e26,
         type: 3}
+      propertyPath: dodgeCooldown
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394976490010106611, guid: 9c0165d15659b704aa79037d8e978e26,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394976490010106611, guid: 9c0165d15659b704aa79037d8e978e26,
+        type: 3}
       propertyPath: lootBagPrefab
       value: 
       objectReference: {fileID: 9121789452700959331, guid: f2fc9f5c3f84d484fa230f6b15383ae5,
@@ -19300,8 +19710,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4394976490010106611, guid: 9c0165d15659b704aa79037d8e978e26,
         type: 3}
+      propertyPath: attackCommitChance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394976490010106611, guid: 9c0165d15659b704aa79037d8e978e26,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394976490010106611, guid: 9c0165d15659b704aa79037d8e978e26,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394976490010106611, guid: 9c0165d15659b704aa79037d8e978e26,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394976490010106611, guid: 9c0165d15659b704aa79037d8e978e26,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394976490010106611, guid: 9c0165d15659b704aa79037d8e978e26,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5358539839332363104, guid: 9c0165d15659b704aa79037d8e978e26,
         type: 3}
@@ -32093,7 +32528,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -32148,12 +32583,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -32183,8 +32623,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -33731,7 +34211,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -33786,12 +34266,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -33821,8 +34306,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -34737,7 +35262,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -34792,12 +35317,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -34827,8 +35357,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -35071,7 +35641,7 @@ PrefabInstance:
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.831
+      value: 5.25
       objectReference: {fileID: 0}
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -35135,8 +35705,23 @@ PrefabInstance:
       objectReference: {fileID: 31331666}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: attackRange
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: attackDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeCooldown
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -35161,13 +35746,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: useStaggerAnimation
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416080973665675530, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.00023448719
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416080973665675530, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.23893252
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -39055,7 +39690,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -39110,12 +39745,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -39145,8 +39785,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -39348,7 +40028,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -39403,12 +40083,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -39438,8 +40123,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -41653,7 +42378,7 @@ PrefabInstance:
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.831
+      value: 5.25
       objectReference: {fileID: 0}
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -41717,8 +42442,23 @@ PrefabInstance:
       objectReference: {fileID: 1615859493}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: attackRange
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: attackDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeCooldown
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -41743,13 +42483,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: useStaggerAnimation
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416080973665675530, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.00023448719
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416080973665675530, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.23893252
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -48213,7 +49003,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -48268,12 +49058,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -48303,8 +49098,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -49902,7 +50737,7 @@ PrefabInstance:
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.831
+      value: 5.25
       objectReference: {fileID: 0}
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -49966,8 +50801,23 @@ PrefabInstance:
       objectReference: {fileID: 2002818428}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: attackRange
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: attackDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeCooldown
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -49992,13 +50842,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: useStaggerAnimation
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416080973665675530, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.00023448719
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416080973665675530, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.23893252
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -58614,7 +59514,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -58669,12 +59569,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -58704,8 +59609,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -61340,7 +62285,7 @@ PrefabInstance:
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.831
+      value: 5.25
       objectReference: {fileID: 0}
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -61404,8 +62349,23 @@ PrefabInstance:
       objectReference: {fileID: 518026842}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: attackRange
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: attackDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeCooldown
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -61430,13 +62390,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: useStaggerAnimation
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416080973665675530, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.00023448719
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416080973665675530, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.23893252
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -69335,7 +70345,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -69390,12 +70400,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -69425,8 +70440,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -73457,7 +74512,7 @@ PrefabInstance:
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.831
+      value: 5.25
       objectReference: {fileID: 0}
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -73521,8 +74576,23 @@ PrefabInstance:
       objectReference: {fileID: 2086838632}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: attackRange
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: attackDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeCooldown
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -73547,13 +74617,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: useStaggerAnimation
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -73829,7 +74939,7 @@ PrefabInstance:
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.831
+      value: 5.25
       objectReference: {fileID: 0}
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -73893,8 +75003,23 @@ PrefabInstance:
       objectReference: {fileID: 1394719184}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: attackRange
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: attackDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeCooldown
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -73919,13 +75044,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: useStaggerAnimation
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416080973665675530, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.00023448719
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416080973665675530, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.23893252
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -76047,7 +77222,7 @@ PrefabInstance:
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.831
+      value: 5.25
       objectReference: {fileID: 0}
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -76111,8 +77286,23 @@ PrefabInstance:
       objectReference: {fileID: 896425440}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: attackRange
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: attackDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeCooldown
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -76137,13 +77327,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: useStaggerAnimation
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -78890,7 +80120,7 @@ PrefabInstance:
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.831
+      value: 5.25
       objectReference: {fileID: 0}
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -78954,8 +80184,23 @@ PrefabInstance:
       objectReference: {fileID: 1263418568}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: attackRange
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: attackDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeCooldown
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -78980,13 +80225,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: useStaggerAnimation
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -79658,7 +80943,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -79713,12 +80998,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -79748,8 +81038,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -79807,7 +81137,7 @@ PrefabInstance:
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.831
+      value: 5.25
       objectReference: {fileID: 0}
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -79871,8 +81201,23 @@ PrefabInstance:
       objectReference: {fileID: 1156293311}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: attackRange
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: attackDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeCooldown
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -79897,13 +81242,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: useStaggerAnimation
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -80801,7 +82186,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -80856,12 +82241,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -80891,8 +82281,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -82064,7 +83494,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -82119,12 +83549,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -82154,8 +83589,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -86638,7 +88113,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.21
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -86693,12 +88168,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -86723,13 +88203,58 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: lootDropChance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: staggerDuration
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -90248,7 +91773,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -90303,12 +91828,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -90338,8 +91868,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -93178,7 +94748,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -93233,12 +94803,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -93268,8 +94843,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -97122,7 +98737,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -97177,12 +98792,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -97212,8 +98832,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -99703,7 +101363,7 @@ PrefabInstance:
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.831
+      value: 5.25
       objectReference: {fileID: 0}
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -99767,8 +101427,23 @@ PrefabInstance:
       objectReference: {fileID: 1899683525}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: attackRange
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: attackDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeCooldown
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -99793,13 +101468,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: useStaggerAnimation
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416080973665675530, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.00023448719
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416080973665675530, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.23893252
       objectReference: {fileID: 0}
     - target: {fileID: 9147906971781265869, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -104154,7 +105879,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -104209,12 +105934,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -104244,8 +105974,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -104711,7 +106481,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -104766,12 +106536,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -104801,8 +106576,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -106462,7 +108277,7 @@ PrefabInstance:
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8258
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7063485695276516717, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -106517,12 +108332,17 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: attackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -106552,8 +108372,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -109386,17 +111246,17 @@ PrefabInstance:
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 226
+      value: -740.2
       objectReference: {fileID: 0}
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.831
+      value: 5.25
       objectReference: {fileID: 0}
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 188
+      value: 436
       objectReference: {fileID: 0}
     - target: {fileID: 2691464903546561552, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -109455,8 +111315,23 @@ PrefabInstance:
       objectReference: {fileID: 583151642}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: attackRange
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: attackDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeCooldown
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeDistance
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
@@ -109481,13 +111356,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: attackCommitChance
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: fallbackChaseSpeed
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
         type: 3}
+      propertyPath: strafeStartDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
       propertyPath: useStaggerAnimation
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeDurationRange.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMaxDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: strafeOrbitMinDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193564845796777522, guid: dfa7eaba91fd59f4db95a37fc48173d5,
+        type: 3}
+      propertyPath: dodgeChanceOnPlayerSwing
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
