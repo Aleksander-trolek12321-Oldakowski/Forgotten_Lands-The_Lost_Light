@@ -16978,7 +16978,7 @@ MonoBehaviour:
   priority: 1
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 89ffbfd648c9dea42a9d529259c7ce57, type: 2}
+  sharedProfile: {fileID: 11400000, guid: a75c455d0c90ff544ac491a0d5c6bb02, type: 2}
 --- !u!4 &357951745
 Transform:
   m_ObjectHideFlags: 0
@@ -88158,7 +88158,7 @@ PrefabInstance:
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: maxHp
-      value: 1
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 7369379361316453056, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
@@ -88264,7 +88264,7 @@ PrefabInstance:
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7587820436980948951, guid: 72939dfbc778a5b4caf0f1d1ebeb0556,
         type: 3}

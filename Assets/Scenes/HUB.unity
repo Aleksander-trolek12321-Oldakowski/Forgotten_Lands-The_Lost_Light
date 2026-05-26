@@ -31406,7 +31406,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 93fdf5ab1e5a01d4496ec839650e215e, type: 2}
+  sharedProfile: {fileID: 11400000, guid: a75c455d0c90ff544ac491a0d5c6bb02, type: 2}
 --- !u!4 &1302351593
 Transform:
   m_ObjectHideFlags: 0
@@ -32919,7 +32919,7 @@ GameObject:
   - component: {fileID: 1323826195}
   - component: {fileID: 1323826194}
   - component: {fileID: 1323826193}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Camera (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

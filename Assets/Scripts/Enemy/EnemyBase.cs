@@ -912,7 +912,6 @@ public class EnemyBase : MonoBehaviour
         if (agent == null || rb == null)
             return;
 
-        // NavMeshAgent + dynamic Rigidbody commonly blocks movement.
         //rb.isKinematic = true;
         rb.useGravity = false;
         rigidbodyConfiguredForNavMesh = true;
