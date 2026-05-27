@@ -57,6 +57,15 @@ namespace Player
         public float velocitySmoothTime = 0.12f;
         public float deadZone = 0.1f;
 
+        [Header("Step Assist")]
+        public bool enableStepAssist = true;
+        public float stepCheckDistance = 0.35f;
+        public float stepHeight = 0.4f;
+        public float stepMinHeight = 0.08f;
+        public float stepUpSpeed = 4.5f;
+        public LayerMask stepMask = ~0;
+        public float stepGroundProbeExtraHeight = 0.25f;
+
         float cachedHorizontal;
         float cachedVertical;
         Vector3 moveDir = Vector3.zero;
@@ -85,11 +94,13 @@ namespace Player
         private bool controlsEnabled = true;
         private bool zeroVelocityWhenControlsDisabled = true;
         private float lastCombatActivityTime = -999f;
+        private Collider movementCollider;
 
         private void Awake()
         {
             Cursor.visible = false;
             if (rb == null) rb = GetComponent<Rigidbody>();
+            movementCollider = GetComponent<Collider>();
 
             if (rb != null)
             {
@@ -181,6 +192,7 @@ namespace Player
             Vector3 smoothedVelXZ = Vector3.SmoothDamp(currentVelXZ, new Vector3(desiredVel.x, 0f, desiredVel.z), ref velocityRef, velocitySmoothTime);
 
             rb.velocity = new Vector3(smoothedVelXZ.x, rb.velocity.y, smoothedVelXZ.z);
+            TryStepAssist(desiredVel);
 
             if (moveDir.magnitude >= deadZone)
             {
@@ -524,7 +536,6 @@ namespace Player
                 currentExp = currentExp,
                 expToNextLevel = expToNextLevel,
                 skillPoints = skillPoints,
-                speed = speed,
                 money = Money
             };
         }
@@ -552,7 +563,6 @@ namespace Player
             currentExp = Mathf.Max(0f, state.currentExp);
             expToNextLevel = Mathf.Max(1f, state.expToNextLevel);
             skillPoints = Mathf.Max(0, state.skillPoints);
-            speed = state.speed;
             Money = Mathf.Max(0f, state.money);
 
             UpdateHpOrb();
@@ -618,6 +628,119 @@ namespace Player
 
             if (hpChanged) UpdateHpOrb();
             if (mpChanged) UpdateMpOrb();
+        }
+
+        private void TryStepAssist(Vector3 desiredVelocity)
+        {
+            if (movementCollider == null)
+                movementCollider = GetComponent<Collider>();
+
+            if (!enableStepAssist || rb == null || movementCollider == null)
+                return;
+
+            Vector3 planarMove = new Vector3(desiredVelocity.x, 0f, desiredVelocity.z);
+            if (planarMove.sqrMagnitude < 0.0001f)
+                return;
+
+            if (rb.velocity.y > 1f)
+                return;
+
+            Vector3 moveDirNormalized = planarMove.normalized;
+            Bounds bounds = movementCollider.bounds;
+            float radiusFromBounds = Mathf.Min(bounds.extents.x, bounds.extents.z) * 0.8f;
+            float probeRadius = Mathf.Clamp(radiusFromBounds, 0.05f, 0.5f);
+
+            float bottomY = bounds.min.y + 0.02f;
+            float lowProbeY = bottomY + 0.05f;
+            float highProbeY = bottomY + Mathf.Max(0.1f, stepHeight);
+            float checkDistance = Mathf.Max(0.05f, stepCheckDistance);
+
+            Vector3 lowOrigin = new Vector3(bounds.center.x, lowProbeY, bounds.center.z);
+            Vector3 highOrigin = new Vector3(bounds.center.x, highProbeY, bounds.center.z);
+
+            if (!HasObstacleAtHeight(lowOrigin, moveDirNormalized, probeRadius, checkDistance))
+                return;
+
+            if (HasObstacleAtHeight(highOrigin, moveDirNormalized, probeRadius, checkDistance))
+                return;
+
+            Vector3 forwardEdge = lowOrigin + moveDirNormalized * (checkDistance + probeRadius + 0.02f);
+            Vector3 groundProbeStart = new Vector3(forwardEdge.x, highProbeY + stepGroundProbeExtraHeight, forwardEdge.z);
+            float groundProbeDistance = Mathf.Max(stepHeight + stepGroundProbeExtraHeight + 0.1f, 0.2f);
+
+            if (!Physics.Raycast(groundProbeStart, Vector3.down, out RaycastHit groundHit, groundProbeDistance, stepMask, QueryTriggerInteraction.Ignore))
+                return;
+
+            if (groundHit.collider == null)
+                return;
+
+            if (groundHit.collider.transform == transform || groundHit.collider.transform.IsChildOf(transform))
+                return;
+
+            if (!TryGetGroundY(bounds.center, out float currentGroundY))
+                return;
+
+            float stepRise = groundHit.point.y - currentGroundY;
+            if (stepRise < Mathf.Max(0.001f, stepMinHeight))
+                return;
+
+            if (stepRise > stepHeight + 0.05f)
+                return;
+
+            Vector3 stepOffset = Vector3.up * (stepUpSpeed * Time.fixedDeltaTime);
+            rb.MovePosition(rb.position + stepOffset);
+        }
+
+        private bool HasObstacleAtHeight(Vector3 origin, Vector3 dir, float radius, float distance)
+        {
+            RaycastHit[] hits = Physics.SphereCastAll(origin, radius, dir, distance, stepMask, QueryTriggerInteraction.Ignore);
+
+            for (int i = 0; i < hits.Length; i++)
+            {
+                Collider c = hits[i].collider;
+                if (c == null)
+                    continue;
+
+                if (c.transform == transform || c.transform.IsChildOf(transform))
+                    continue;
+
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool TryGetGroundY(Vector3 worldCenter, out float groundY)
+        {
+            groundY = 0f;
+            float probeStartY = worldCenter.y + 0.25f;
+            float probeDistance = Mathf.Max(stepHeight + 0.75f, 1.0f);
+            Vector3 probeStart = new Vector3(worldCenter.x, probeStartY, worldCenter.z);
+
+            RaycastHit[] hits = Physics.RaycastAll(probeStart, Vector3.down, probeDistance, stepMask, QueryTriggerInteraction.Ignore);
+            if (hits == null || hits.Length == 0)
+                return false;
+
+            float bestDistance = float.MaxValue;
+            bool found = false;
+            for (int i = 0; i < hits.Length; i++)
+            {
+                Collider c = hits[i].collider;
+                if (c == null)
+                    continue;
+
+                if (c.transform == transform || c.transform.IsChildOf(transform))
+                    continue;
+
+                if (hits[i].distance < bestDistance)
+                {
+                    bestDistance = hits[i].distance;
+                    groundY = hits[i].point.y;
+                    found = true;
+                }
+            }
+
+            return found;
         }
     }
 }

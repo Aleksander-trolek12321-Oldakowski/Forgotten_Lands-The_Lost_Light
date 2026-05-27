@@ -137,7 +137,7 @@ namespace Menu
 
             Time.timeScale = 0f;
             Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.Confined;
 
             UpdateHubButtonState();
             Log("OpenPause complete: timeScale=0, cursor visible/unlocked");
@@ -205,7 +205,7 @@ namespace Menu
             TryPrepareAndSaveForExit();
 
             Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.Confined;
 
             Log($"ReturnToMenu: LoadScene('{menuSceneName}')");
             SceneManager.LoadScene(menuSceneName);

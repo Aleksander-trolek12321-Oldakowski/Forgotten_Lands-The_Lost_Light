@@ -10,7 +10,7 @@ namespace Menu
         {
             Time.timeScale = 1f;
             Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.Confined;
         }
 
         public void Game()

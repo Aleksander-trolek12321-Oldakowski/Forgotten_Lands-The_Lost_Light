@@ -25348,6 +25348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCd: 0.5
+  attackSpeedMultiplier: 2
   hitboxStart: 0.2
   hitboxEnd: 5
   hitbox: {fileID: 1320131650}
@@ -25382,10 +25383,19 @@ MonoBehaviour:
   skillPoints: 0
   rb: {fileID: 1050305937}
   cam: {fileID: 1323826192}
-  speed: 20
+  speed: 10
   rotationSpeed: 1
   velocitySmoothTime: 0.12
   deadZone: 0.1
+  enableStepAssist: 1
+  stepCheckDistance: 0.35
+  stepHeight: 1
+  stepMinHeight: 0.1
+  stepUpSpeed: 4.5
+  stepMask:
+    serializedVersion: 2
+    m_Bits: 256
+  stepGroundProbeExtraHeight: 0.25
   player: {fileID: 1050305929}
   HpOrb: {fileID: 1432580856}
   MpOrb: {fileID: 1531917909}
@@ -37998,6 +38008,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fe867486ee95e644cb914a482fb85d03,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

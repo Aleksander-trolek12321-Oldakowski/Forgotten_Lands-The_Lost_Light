@@ -45,7 +45,6 @@ namespace GameSave
         public float currentExp = 0f;
         public float expToNextLevel = 100f;
         public int skillPoints = 0;
-        public float speed = 3f;
         public float money = 0f;
     }
 

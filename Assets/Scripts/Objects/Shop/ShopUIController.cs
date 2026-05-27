@@ -6,8 +6,6 @@ using UnityEngine.UI;
 using Player;
 using Item;
 using Inventory;
-using Cinemachine;
-
 namespace shop
 {
     public class ShopUIController : MonoBehaviour
@@ -23,8 +21,6 @@ namespace shop
         private PlayerBase interactingPlayer;
         private InventoryManager playerInventoryManager;
         private List<ShopSlotUI> shopSlotUIs = new List<ShopSlotUI>();
-
-        private CinemachineCore.AxisInputDelegate prevCinemachineGetAxis = null;
 
         [Header("Respawn")]
         [Tooltip("How long to block lootbag respawn after a sale (seconds)")]
@@ -47,13 +43,18 @@ namespace shop
 
         public void Open(Shop shop, PlayerBase player)
         {
-            InputBlocker.Block(player);
+            if (inventoryRoot != null && inventoryRoot.activeSelf)
+                return;
 
             if (inventoryRoot == null)
             {
                 Debug.LogWarning("ShopUIController: inventoryRoot not assigned.");
+                if (shop != null)
+                    shop.CloseShopUI();
                 return;
             }
+
+            InputBlocker.Block(player);
 
             currentShop = shop;
             interactingPlayer = player;
@@ -67,7 +68,7 @@ namespace shop
 
             if (interactingPlayer != null) interactingPlayer.SetControlsEnabled(false);
             Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.Confined;
         }
 
         public void Close()
@@ -75,6 +76,10 @@ namespace shop
             bool isShopOpen = inventoryRoot != null && inventoryRoot.activeSelf;
             if (!isShopOpen && currentShop == null && interactingPlayer == null)
                 return;
+
+            Shop shopToClose = currentShop;
+            if (shopToClose != null)
+                shopToClose.CloseShopUI();
 
             InputBlocker.Restore(interactingPlayer);
             

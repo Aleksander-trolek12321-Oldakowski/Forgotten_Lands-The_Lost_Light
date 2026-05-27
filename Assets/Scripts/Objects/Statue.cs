@@ -1,5 +1,6 @@
 using UnityEngine;
 using Player;
+using Inventory;
 
 namespace Objects
 {
@@ -17,10 +18,7 @@ namespace Objects
 
         private string level1 = "Level1";
         private string level2 = "Level2";
-
-        private bool prevCursorVisible;
-        private CursorLockMode prevCursorLockState;
-        private Behaviour savedCinemachineBrain = null;
+        private PlayerBase interactingPlayer;
         private bool isUiOpen = false;
         private float reopenBlockUntilUnscaledTime = 0f;
 
@@ -62,54 +60,34 @@ namespace Objects
 
         public void OpenStatueUI()
         {
+            if (isUiOpen)
+                return;
+
             if (StatueUI == null)
             {
                 Debug.LogWarning("Statue: not assignes StatueUI!");
                 return;
             }
 
+            interactingPlayer = nearbyPlayer;
             StatueUI.SetActive(true);
             isUiOpen = true;
-
-            prevCursorVisible = Cursor.visible;
-            prevCursorLockState = Cursor.lockState;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-
-            if (nearbyPlayer != null)
-            {
-                nearbyPlayer.SetControlsEnabled(false);
-                var brainComp = nearbyPlayer.cam.GetComponent("CinemachineBrain") as Behaviour;
-                if (brainComp != null && brainComp.enabled)
-                {
-                    savedCinemachineBrain = brainComp;
-                    savedCinemachineBrain.enabled = false;
-                }
-            }
+            InputBlocker.Block(interactingPlayer);
         }
 
         public void CloseStatueUI()
         {
+            if (!isUiOpen)
+                return;
+
             if (StatueUI != null)
                 StatueUI.SetActive(false);
 
             isUiOpen = false;
             // Prevent immediate re-open in the same / next frame on some build input orders.
             reopenBlockUntilUnscaledTime = Time.unscaledTime + 0.15f;
-
-            Cursor.visible = prevCursorVisible;
-            Cursor.lockState = prevCursorLockState;
-
-            if (nearbyPlayer != null)
-            {
-                nearbyPlayer.SetControlsEnabled(true);
-            }
-
-            if (savedCinemachineBrain != null)
-            {
-                savedCinemachineBrain.enabled = true;
-                savedCinemachineBrain = null;
-            }
+            InputBlocker.Restore(interactingPlayer);
+            interactingPlayer = null;
         }
 
         public void Level1()
@@ -126,11 +104,8 @@ namespace Objects
 
         private void OnDisable()
         {
-            isUiOpen = false;
-            if (nearbyPlayer != null)
-            {
-                nearbyPlayer.SetControlsEnabled(true);
-            }
+            if (isUiOpen)
+                CloseStatueUI();
         }
     }
 }

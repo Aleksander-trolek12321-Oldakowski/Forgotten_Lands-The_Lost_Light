@@ -238,6 +238,14 @@ namespace Inventory
         public void OpenInventory(bool showPlayerStats)
         {
             if (inventoryRoot == null) return;
+            if (inventoryRoot.activeSelf)
+            {
+                SetPlayerStatsVisibility(showPlayerStats);
+                RefreshAllSlots();
+                RefreshPlayerStatsTexts();
+                return;
+            }
+
             inventoryRoot.SetActive(true);
             InputBlocker.Block(player);
 
@@ -245,7 +253,7 @@ namespace Inventory
             if (player != null) player.SetControlsEnabled(false);
 
             Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.Confined;
 
             SetPlayerStatsVisibility(showPlayerStats);
             RefreshAllSlots();
@@ -255,6 +263,8 @@ namespace Inventory
         public void CloseInventory()
         {
             if (inventoryRoot == null) return;
+            if (!inventoryRoot.activeSelf) return;
+
             tooltip?.Hide();
             inventoryRoot.SetActive(false);
             InputBlocker.Restore(player);
