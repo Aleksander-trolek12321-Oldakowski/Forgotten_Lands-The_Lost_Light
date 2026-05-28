@@ -557,14 +557,12 @@ namespace Player
         {
             level++;
 
-            // EXP grows x1.5
             expToNextLevel *= 1.5f;
 
-            // Stats grow x1.3
-            MaxHp *= 1.3f;
-            MaxMp *= 1.3f;
-            Strength *= 1.3f;
-            Def *= 1.3f;
+            MaxHp *= 1.2f;
+            MaxMp *= 1.2f;
+            Strength *= 1.2f;
+            Def *= 1.2f;
 
             currentHp = MaxHp;
             currentMp = MaxMp;
@@ -572,8 +570,7 @@ namespace Player
             UpdateHpOrb();
             UpdateMpOrb();
 
-            // Skill point every 5 levels
-            if (level % 5 == 0)
+            if (level % 3 == 0)
             {
                 skillPoints++;
                 Debug.Log("Skill Point Gained!");
