@@ -122,6 +122,8 @@ namespace GameSave
             if (player != null && data.player != null)
                 player.ApplySaveSnapshot(data.player);
 
+            ApplyEnemyLevelScaling(player);
+
             SkillTree skillTree = UnityEngine.Object.FindObjectOfType<SkillTree>();
             if (skillTree != null && data.skillTree != null)
             {
@@ -150,6 +152,22 @@ namespace GameSave
             }
 
             inventory?.NotifyInventoryChanged();
+        }
+
+        private static void ApplyEnemyLevelScaling(PlayerBase player)
+        {
+            int playerLevel = player != null ? player.Level : 1;
+            EnemyBase[] enemies = UnityEngine.Object.FindObjectsOfType<EnemyBase>();
+            if (enemies == null || enemies.Length == 0)
+                return;
+
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                if (enemies[i] == null)
+                    continue;
+
+                enemies[i].ApplyPlayerLevelScaling(playerLevel, refillHealth: true);
+            }
         }
 
         private static void CapturePlayerState(GameSaveData data)

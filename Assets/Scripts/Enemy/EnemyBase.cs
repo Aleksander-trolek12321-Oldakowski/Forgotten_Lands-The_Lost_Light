@@ -20,6 +20,10 @@ public class EnemyBase : MonoBehaviour
     public float attackRange = 2f;
     public float attackCooldown = 2f;
 
+    [Header("Player Level Scaling")]
+    [SerializeField] private bool scaleStatsWithPlayerLevel = true;
+    [SerializeField] private float statMultiplierPerPlayerLevel = 1.1f;
+
     [Header("Combat Brain")]
     public bool useAdvancedCombat = true;
     [Range(0f, 1f)] public float attackCommitChance = 0.65f;
@@ -130,6 +134,10 @@ public class EnemyBase : MonoBehaviour
     private bool hasLockedY;
     [SerializeField] private GameObject Target;
     private float nextPlayerLookupTime = 0f;
+    private float baseMaxHp;
+    private float baseAttackDamage;
+    private bool hasCapturedBaseStats;
+    private int appliedPlayerLevel = -1;
 
     public event Action<EnemyBase> Died;
 
@@ -152,13 +160,19 @@ public class EnemyBase : MonoBehaviour
 
     private State currentState;
 
+    void Awake()
+    {
+        CaptureBaseStats();
+    }
+
     void Start()
     {
+        ResolveRuntimeReferences(forcePlayerLookup: true);
+        ApplyPlayerLevelScalingFromCurrentPlayer(refillHealth: true);
+
         currentHp = maxHp;
         lockedY = transform.position.y;
         hasLockedY = true;
-
-        ResolveRuntimeReferences(forcePlayerLookup: true);
 
         if (agent != null)
         {
@@ -483,6 +497,42 @@ public class EnemyBase : MonoBehaviour
         Debug.Log(name + " attacked player");
     }
 
+    public void ApplyPlayerLevelScalingFromCurrentPlayer(bool refillHealth)
+    {
+        PlayerBase currentPlayer = player;
+        if (currentPlayer == null)
+            currentPlayer = FindObjectOfType<PlayerBase>();
+
+        int playerLevel = currentPlayer != null ? currentPlayer.Level : 1;
+        ApplyPlayerLevelScaling(playerLevel, refillHealth);
+    }
+
+    public void ApplyPlayerLevelScaling(int playerLevel, bool refillHealth)
+    {
+        CaptureBaseStats();
+
+        if (!scaleStatsWithPlayerLevel)
+            return;
+
+        playerLevel = Mathf.Max(1, playerLevel);
+
+        if (appliedPlayerLevel == playerLevel)
+            return;
+
+        float healthPercent = maxHp > 0f ? Mathf.Clamp01(currentHp / maxHp) : 1f;
+        float multiplier = Mathf.Pow(Mathf.Max(0f, statMultiplierPerPlayerLevel), playerLevel - 1);
+
+        maxHp = baseMaxHp * multiplier;
+        attackDamage = baseAttackDamage * multiplier;
+
+        if (refillHealth || currentHp <= 0f)
+            currentHp = maxHp;
+        else
+            currentHp = Mathf.Clamp(maxHp * healthPercent, 0f, maxHp);
+
+        appliedPlayerLevel = playerLevel;
+    }
+
     public void TakeDamage(float dmg)
     {
         if (isDead) return;
@@ -499,6 +549,16 @@ public class EnemyBase : MonoBehaviour
         {
             StartCoroutine(StaggerRoutine());
         }
+    }
+
+    private void CaptureBaseStats()
+    {
+        if (hasCapturedBaseStats)
+            return;
+
+        baseMaxHp = maxHp;
+        baseAttackDamage = attackDamage;
+        hasCapturedBaseStats = true;
     }
 
     IEnumerator StaggerRoutine()

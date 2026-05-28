@@ -33,6 +33,7 @@ namespace Player
         public float MaxMP => MaxMp;
         public float Damage => Strength;
         public float Defense => Def;
+        public float DefenseDamageReduction => Mathf.Clamp(Mathf.Max(0f, Def) * 0.001f, 0f, 0.3f);
         public float HpPercent => MaxHp > 0 ? currentHp / MaxHp : 0f;
         public float HpRestorePercentage = 0.2f;
         public float MpRestorePercentage = 0.5f;
@@ -302,7 +303,12 @@ namespace Player
             if (IsDead) return;
             RegisterCombatActivity();
 
-            currentHp -= damage;
+            float incomingDamage = Mathf.Max(0f, damage);
+            float defenseMultiplier = 1f - DefenseDamageReduction;
+            float damageTakenMultiplier = Mathf.Max(0f, PercentDmgTaken);
+            float finalDamage = incomingDamage * defenseMultiplier * damageTakenMultiplier;
+
+            currentHp -= finalDamage;
             currentHp = math.clamp(currentHp, 0, MaxHp);
             UpdateHpOrb();
 
