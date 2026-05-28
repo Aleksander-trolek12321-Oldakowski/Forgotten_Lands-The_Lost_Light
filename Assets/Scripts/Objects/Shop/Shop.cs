@@ -95,6 +95,7 @@ namespace shop
         private void Update()
         {
             if (!playerInRange || nearbyPlayer == null) return;
+            if (isUIOpen) return;
 
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -104,6 +105,9 @@ namespace shop
 
         public void OpenShopUI()
         {
+            if (isUIOpen)
+                return;
+
             if (shopUIController == null)
                 shopUIController = FindObjectOfType<ShopUIController>();
 

@@ -37,7 +37,7 @@ public static class InputBlocker
                 if (blockCount == 0)
                 {
                     Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.lockState = CursorLockMode.Confined;
 
                     TryBlockCinemachine();
                 }

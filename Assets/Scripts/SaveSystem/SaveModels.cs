@@ -39,13 +39,12 @@ namespace GameSave
         public float hpRestorePercentage = 0.2f;
         public float mpRestorePercentage = 0.5f;
         public float potionCooldown = 3f;
-        public int currentStack = 0;
-        public int maxStack = 10;
+        public int currentStack = 3;
+        public int maxStack = 3;
         public int level = 1;
         public float currentExp = 0f;
         public float expToNextLevel = 100f;
         public int skillPoints = 0;
-        public float speed = 3f;
         public float money = 0f;
     }
 

@@ -34,6 +34,7 @@ namespace Objects
             }
             
             SideQuestManager.Instance?.ResetActiveTimedQuestTimer();
+            player.RestorePotions();
 
             SaveService.CaptureAndSave(
                 targetSceneName: hubSceneName,

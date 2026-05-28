@@ -137,7 +137,7 @@ namespace Menu
 
             Time.timeScale = 0f;
             Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.Confined;
 
             UpdateHubButtonState();
             Log("OpenPause complete: timeScale=0, cursor visible/unlocked");
@@ -205,7 +205,7 @@ namespace Menu
             TryPrepareAndSaveForExit();
 
             Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.Confined;
 
             Log($"ReturnToMenu: LoadScene('{menuSceneName}')");
             SceneManager.LoadScene(menuSceneName);
@@ -239,6 +239,9 @@ namespace Menu
 
             string currentScene = SceneManager.GetActiveScene().name;
             bool inHub = string.Equals(currentScene, hubSceneName, System.StringComparison.OrdinalIgnoreCase);
+            if (!inHub && player != null)
+                player.RestorePotions();
+
             Log($"PrepareAndSaveForExit: scene='{currentScene}', inHub={inHub}, targetContinue='{hubSceneName}'");
 
             SaveService.CaptureAndSave(

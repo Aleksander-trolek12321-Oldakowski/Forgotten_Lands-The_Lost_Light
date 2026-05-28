@@ -68,6 +68,7 @@ namespace chest
         private void Update()
         {
             if (!playerInRange || nearbyPlayer == null) return;
+            if (chestUIController != null && chestUIController.IsOpen) return;
 
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -85,6 +86,9 @@ namespace chest
                 Debug.LogWarning("Chest: chestUIController is not assigned. Please assign it in inspector (Canvas -> ChestUIController).");
                 return;
             }
+
+            if (chestUIController.IsOpen)
+                return;
 
             chestUIController.Open(this, nearbyPlayer);
         }

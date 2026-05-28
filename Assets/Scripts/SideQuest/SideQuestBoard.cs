@@ -51,6 +51,7 @@ namespace SideQuests
         private void Update()
         {
             if (!playerInRange || nearbyPlayer == null) return;
+            if (boardUI != null && boardUI.IsOpen) return;
 
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -74,6 +75,9 @@ namespace SideQuests
                 Debug.LogWarning("SideQuestBoard: boardUI reference is missing.");
                 return;
             }
+
+            if (boardUI.IsOpen)
+                return;
 
             boardUI.Open(nearbyPlayer);
         }

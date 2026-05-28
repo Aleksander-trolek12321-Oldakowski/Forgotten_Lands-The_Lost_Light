@@ -9,6 +9,7 @@ public class DashSkill : Skill
     public float dashDistance = 4f;
     public float dashDuration = 0.18f;
     public float dashCooldown = 2f;
+    public float manaCost = 20f;
     public float wallPadding = 0.05f;
 
     private float lastUseTime = -999f;
@@ -34,8 +35,6 @@ public class DashSkill : Skill
 
         if (Time.time < lastUseTime + dashCooldown)
             return;
-
-        lastUseTime = Time.time;
 
         Transform dashTransform = rb.transform;
         Vector3 dashDirection = Vector3.zero;
@@ -68,6 +67,10 @@ public class DashSkill : Skill
         if (finalDistance <= 0f)
             return;
 
+        if (!playerBase.TryUseMP(manaCost))
+            return;
+
+        lastUseTime = Time.time;
         playerBase.StartCoroutine(DashRoutine(dashDirection, finalDistance));
     }
 

@@ -5,6 +5,7 @@ public class AttackController : MonoBehaviour
 {
     [Header("Attack Settings")]
     public float attackCd = 0.6f;
+    public float attackSpeedMultiplier = 2f;
 
     [Header("Hitbox Timing")]
     public float hitboxStart = 0.1f;
@@ -15,10 +16,13 @@ public class AttackController : MonoBehaviour
 
     private bool canAttack = true;
     private Animator anim;
+    private float defaultAnimatorSpeed = 1f;
 
     void Start()
     {
         anim = GetComponentInChildren<Animator>();
+        if (anim != null)
+            defaultAnimatorSpeed = anim.speed;
     }
 
     void Update()
@@ -31,7 +35,11 @@ public class AttackController : MonoBehaviour
 
     void Attack()
     {
+        if (anim == null)
+            return;
+
         canAttack = false;
+        ApplyAttackAnimationSpeed(true);
 
         int attackIndex = Random.Range(0, 3);
         anim.SetInteger("AttackIndex", attackIndex);
@@ -42,16 +50,35 @@ public class AttackController : MonoBehaviour
 
     IEnumerator AttackRoutine()
     {
-        yield return new WaitForSeconds(hitboxStart);
+        float safeMultiplier = Mathf.Max(0.01f, attackSpeedMultiplier);
+        yield return new WaitForSeconds(hitboxStart / safeMultiplier);
 
-        hitbox.EnableHitbox();
+        if (hitbox != null)
+            hitbox.EnableHitbox();
 
-        yield return new WaitForSeconds(hitboxEnd - hitboxStart);
+        yield return new WaitForSeconds(Mathf.Max(0f, hitboxEnd - hitboxStart) / safeMultiplier);
 
-        hitbox.DisableHitbox();
+        if (hitbox != null)
+            hitbox.DisableHitbox();
 
-        yield return new WaitForSeconds(attackCd);
+        yield return new WaitForSeconds(attackCd / safeMultiplier);
+
+        ApplyAttackAnimationSpeed(false);
 
         canAttack = true;
+    }
+
+    void OnDisable()
+    {
+        ApplyAttackAnimationSpeed(false);
+        canAttack = true;
+    }
+
+    private void ApplyAttackAnimationSpeed(bool enabled)
+    {
+        if (anim == null)
+            return;
+
+        anim.speed = enabled ? defaultAnimatorSpeed * Mathf.Max(0.01f, attackSpeedMultiplier) : defaultAnimatorSpeed;
     }
 }

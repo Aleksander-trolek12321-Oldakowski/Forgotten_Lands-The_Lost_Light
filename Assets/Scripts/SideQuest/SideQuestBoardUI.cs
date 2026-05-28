@@ -16,6 +16,7 @@ namespace SideQuests
         public SideQuestOfferSlotUI[] offerSlots = new SideQuestOfferSlotUI[3];
 
         private PlayerBase currentPlayer;
+        public bool IsOpen => root != null && root.activeSelf;
 
         private void Awake()
         {
@@ -30,6 +31,8 @@ namespace SideQuests
                 Debug.LogWarning("SideQuestBoardUI: root is not assigned.");
                 return;
             }
+            if (IsOpen)
+                return;
 
             currentPlayer = player;
 
@@ -46,6 +49,9 @@ namespace SideQuests
 
         public void Close()
         {
+            if (!IsOpen && currentPlayer == null)
+                return;
+
             if (root != null)
                 root.SetActive(false);
 
@@ -58,6 +64,7 @@ namespace SideQuests
         {
             if (root != null && root.activeSelf && Input.GetKeyDown(KeyCode.Escape))
             {
+                InputBlocker.NotifyEscapeHandledByUi();
                 Close();
             }
         }

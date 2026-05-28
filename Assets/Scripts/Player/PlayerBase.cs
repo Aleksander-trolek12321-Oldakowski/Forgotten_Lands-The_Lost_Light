@@ -28,16 +28,18 @@ namespace Player
         [SerializeField] float currentMp;
         public float CurrentHp => currentHp;
         public float CurrentMp => currentMp;
+        public float PotionFillAmount => MaxStack > 0 ? (float)currentStack / MaxStack : 0f;
         public float MaxHP => MaxHp;
         public float MaxMP => MaxMp;
         public float Damage => Strength;
         public float Defense => Def;
+        public float DefenseDamageReduction => Mathf.Clamp(Mathf.Max(0f, Def) * 0.001f, 0f, 0.3f);
         public float HpPercent => MaxHp > 0 ? currentHp / MaxHp : 0f;
         public float HpRestorePercentage = 0.2f;
         public float MpRestorePercentage = 0.5f;
         public float cd = 3f;
-        public int currentStack = 0;
-        public int MaxStack = 10;
+        public int currentStack = 3;
+        public int MaxStack = 3;
 
         [Header("Level System")]
         [SerializeField] int level = 1;
@@ -57,6 +59,15 @@ namespace Player
         public float velocitySmoothTime = 0.12f;
         public float deadZone = 0.1f;
 
+        [Header("Step Assist")]
+        public bool enableStepAssist = true;
+        public float stepCheckDistance = 0.35f;
+        public float stepHeight = 0.4f;
+        public float stepMinHeight = 0.08f;
+        public float stepUpSpeed = 4.5f;
+        public LayerMask stepMask = ~0;
+        public float stepGroundProbeExtraHeight = 0.25f;
+
         float cachedHorizontal;
         float cachedVertical;
         Vector3 moveDir = Vector3.zero;
@@ -69,11 +80,17 @@ namespace Player
         public UnityEngine.UI.Image HpOrb;
         public UnityEngine.UI.Image MpOrb;
         public UnityEngine.UI.Image ExpBar;
+        public UnityEngine.UI.Image HpPotionIcon;
+        public UnityEngine.UI.Image MpPotionIcon;
         public TextMeshProUGUI levelText;
 
         [Header("Inventory")]
         public KeyCode inventoryKey = KeyCode.I;
         InventoryUIController inventoryUIController;
+
+        [Header("Potions")]
+        public KeyCode hpPotionKey = KeyCode.Alpha1;
+        public KeyCode mpPotionKey = KeyCode.Alpha2;
 
         [Header("Economy")]
         public float Money = 100f;
@@ -85,11 +102,13 @@ namespace Player
         private bool controlsEnabled = true;
         private bool zeroVelocityWhenControlsDisabled = true;
         private float lastCombatActivityTime = -999f;
+        private Collider movementCollider;
 
         private void Awake()
         {
             Cursor.visible = false;
             if (rb == null) rb = GetComponent<Rigidbody>();
+            movementCollider = GetComponent<Collider>();
 
             if (rb != null)
             {
@@ -99,6 +118,7 @@ namespace Player
 
             currentHp = MaxHp;
             currentMp = MaxMp;
+            RestorePotions();
             UpdateHpOrb();
             UpdateMpOrb();
             UpdateExpBar();
@@ -162,6 +182,16 @@ namespace Player
                     Debug.LogWarning("PlayerBase: InventoryUIController is null - cannot toggle inventory.");
                 }
             }
+
+            if (Input.GetKeyDown(hpPotionKey))
+            {
+                UseHpPotion();
+            }
+
+            if (Input.GetKeyDown(mpPotionKey))
+            {
+                UseMpPotion();
+            }
         }
 
         private void FixedUpdate()
@@ -181,6 +211,7 @@ namespace Player
             Vector3 smoothedVelXZ = Vector3.SmoothDamp(currentVelXZ, new Vector3(desiredVel.x, 0f, desiredVel.z), ref velocityRef, velocitySmoothTime);
 
             rb.velocity = new Vector3(smoothedVelXZ.x, rb.velocity.y, smoothedVelXZ.z);
+            TryStepAssist(desiredVel);
 
             if (moveDir.magnitude >= deadZone)
             {
@@ -272,7 +303,12 @@ namespace Player
             if (IsDead) return;
             RegisterCombatActivity();
 
-            currentHp -= damage;
+            float incomingDamage = Mathf.Max(0f, damage);
+            float defenseMultiplier = 1f - DefenseDamageReduction;
+            float damageTakenMultiplier = Mathf.Max(0f, PercentDmgTaken);
+            float finalDamage = incomingDamage * defenseMultiplier * damageTakenMultiplier;
+
+            currentHp -= finalDamage;
             currentHp = math.clamp(currentHp, 0, MaxHp);
             UpdateHpOrb();
 
@@ -293,6 +329,19 @@ namespace Player
                 Exhaust();
             }
         }
+
+        public bool TryUseMP(float MPUsed)
+        {
+            if (MPUsed <= 0f)
+                return true;
+
+            if (currentMp < MPUsed)
+                return false;
+
+            UseMP(MPUsed);
+            return true;
+        }
+
         private void UpdateHpOrb()
         {
             if (HpOrb != null)
@@ -323,6 +372,38 @@ namespace Player
             {
                 levelText.text = $"LEVEL {level}";
             }
+        }
+
+        private void UpdatePotionIcons()
+        {
+            float fillAmount = PotionFillAmount;
+
+            if (HpPotionIcon != null)
+            {
+                HpPotionIcon.fillAmount = fillAmount;
+            }
+
+            if (MpPotionIcon != null)
+            {
+                MpPotionIcon.fillAmount = fillAmount;
+            }
+        }
+
+        public void RegisterHpPotionIcon(UnityEngine.UI.Image icon)
+        {
+            HpPotionIcon = icon;
+            UpdatePotionIcons();
+        }
+
+        public void RegisterMpPotionIcon(UnityEngine.UI.Image icon)
+        {
+                MpPotionIcon = icon;
+            UpdatePotionIcons();
+        }
+
+        private bool IsInHubScene()
+        {
+            return string.Equals(SceneManager.GetActiveScene().name, SaveService.HubSceneName, System.StringComparison.OrdinalIgnoreCase);
         }
 
         public bool IsFullHp()
@@ -356,6 +437,7 @@ namespace Player
         private void Die()
         {
             IsDead = true;
+            RestorePotions();
             SideQuestManager.Instance?.ResetActiveTimedQuestTimer();
             SaveService.DeleteSave();
             SceneManager.LoadScene("DEATH");
@@ -368,8 +450,17 @@ namespace Player
 
         public void UseHpPotion()
         {
+            if (IsInHubScene())
+                return;
+
             if (!CanUse)
                 return;
+
+            if (currentStack <= 0)
+            {
+                UpdatePotionIcons();
+                return;
+            }
 
             if (IsFullHp())
             {
@@ -379,20 +470,25 @@ namespace Player
             float HealAmount = MaxHp * HpRestorePercentage;
             Heal(HealAmount);
 
-            currentStack--;
-
-            if (currentStack <= 0)
-            {
-                CanUse = false;
-            }
+            currentStack = Mathf.Max(0, currentStack - 1);
+            UpdatePotionIcons();
 
             StartCoroutine(PotionCD());
         }
         
         public void UseMpPotion()
         {
+            if (IsInHubScene())
+                return;
+
             if (!CanUse) 
             return;    
+
+            if (currentStack <= 0)
+            {
+                UpdatePotionIcons();
+                return;
+            }
 
             if (IsFullMp())
             {
@@ -402,12 +498,8 @@ namespace Player
             float RestoreAmount = MaxMp * MpRestorePercentage;
             Restore(RestoreAmount);
 
-            currentStack--;
-
-            if (currentStack <= 0)
-            {
-                CanUse = false;
-            }
+            currentStack = Mathf.Max(0, currentStack - 1);
+            UpdatePotionIcons();
 
             StartCoroutine(PotionCD());
         }
@@ -421,12 +513,22 @@ namespace Player
 
         public bool AddToStack()
         {
-            if (currentStack <= MaxStack)
+            MaxStack = Mathf.Clamp(MaxStack, 1, 3);
+            if (currentStack < MaxStack)
             {
                 currentStack++;
+                UpdatePotionIcons();
                 return true;
             }
             return false; 
+        }
+
+        public void RestorePotions()
+        {
+            MaxStack = Mathf.Clamp(MaxStack, 1, 3);
+            currentStack = MaxStack;
+            CanUse = true;
+            UpdatePotionIcons();
         }
 
         public void AddMoney(float amount)
@@ -455,14 +557,12 @@ namespace Player
         {
             level++;
 
-            // EXP grows x1.5
             expToNextLevel *= 1.5f;
 
-            // Stats grow x1.3
-            MaxHp *= 1.3f;
-            MaxMp *= 1.3f;
-            Strength *= 1.3f;
-            Def *= 1.3f;
+            MaxHp *= 1.2f;
+            MaxMp *= 1.2f;
+            Strength *= 1.2f;
+            Def *= 1.2f;
 
             currentHp = MaxHp;
             currentMp = MaxMp;
@@ -470,8 +570,7 @@ namespace Player
             UpdateHpOrb();
             UpdateMpOrb();
 
-            // Skill point every 5 levels
-            if (level % 5 == 0)
+            if (level % 3 == 0)
             {
                 skillPoints++;
                 Debug.Log("Skill Point Gained!");
@@ -524,7 +623,6 @@ namespace Player
                 currentExp = currentExp,
                 expToNextLevel = expToNextLevel,
                 skillPoints = skillPoints,
-                speed = speed,
                 money = Money
             };
         }
@@ -546,17 +644,18 @@ namespace Player
             MpRestorePercentage = state.mpRestorePercentage;
             cd = Mathf.Max(0f, state.potionCooldown);
             currentStack = Mathf.Max(0, state.currentStack);
-            MaxStack = Mathf.Max(0, state.maxStack);
+            MaxStack = Mathf.Clamp(state.maxStack, 1, 3);
+            currentStack = Mathf.Clamp(currentStack, 0, MaxStack);
 
             level = Mathf.Max(1, state.level);
             currentExp = Mathf.Max(0f, state.currentExp);
             expToNextLevel = Mathf.Max(1f, state.expToNextLevel);
             skillPoints = Mathf.Max(0, state.skillPoints);
-            speed = state.speed;
             Money = Mathf.Max(0f, state.money);
 
             UpdateHpOrb();
             UpdateMpOrb();
+            UpdatePotionIcons();
             UpdateExpBar();
             UpdateLevelText();
         }
@@ -571,6 +670,11 @@ namespace Player
             if (string.Equals(sceneName, SaveService.HubSceneName, System.StringComparison.OrdinalIgnoreCase))
             {
                 bool changed = false;
+
+                if (currentStack < MaxStack)
+                {
+                    RestorePotions();
+                }
 
                 if (currentHp < MaxHp)
                 {
@@ -618,6 +722,119 @@ namespace Player
 
             if (hpChanged) UpdateHpOrb();
             if (mpChanged) UpdateMpOrb();
+        }
+
+        private void TryStepAssist(Vector3 desiredVelocity)
+        {
+            if (movementCollider == null)
+                movementCollider = GetComponent<Collider>();
+
+            if (!enableStepAssist || rb == null || movementCollider == null)
+                return;
+
+            Vector3 planarMove = new Vector3(desiredVelocity.x, 0f, desiredVelocity.z);
+            if (planarMove.sqrMagnitude < 0.0001f)
+                return;
+
+            if (rb.velocity.y > 1f)
+                return;
+
+            Vector3 moveDirNormalized = planarMove.normalized;
+            Bounds bounds = movementCollider.bounds;
+            float radiusFromBounds = Mathf.Min(bounds.extents.x, bounds.extents.z) * 0.8f;
+            float probeRadius = Mathf.Clamp(radiusFromBounds, 0.05f, 0.5f);
+
+            float bottomY = bounds.min.y + 0.02f;
+            float lowProbeY = bottomY + 0.05f;
+            float highProbeY = bottomY + Mathf.Max(0.1f, stepHeight);
+            float checkDistance = Mathf.Max(0.05f, stepCheckDistance);
+
+            Vector3 lowOrigin = new Vector3(bounds.center.x, lowProbeY, bounds.center.z);
+            Vector3 highOrigin = new Vector3(bounds.center.x, highProbeY, bounds.center.z);
+
+            if (!HasObstacleAtHeight(lowOrigin, moveDirNormalized, probeRadius, checkDistance))
+                return;
+
+            if (HasObstacleAtHeight(highOrigin, moveDirNormalized, probeRadius, checkDistance))
+                return;
+
+            Vector3 forwardEdge = lowOrigin + moveDirNormalized * (checkDistance + probeRadius + 0.02f);
+            Vector3 groundProbeStart = new Vector3(forwardEdge.x, highProbeY + stepGroundProbeExtraHeight, forwardEdge.z);
+            float groundProbeDistance = Mathf.Max(stepHeight + stepGroundProbeExtraHeight + 0.1f, 0.2f);
+
+            if (!Physics.Raycast(groundProbeStart, Vector3.down, out RaycastHit groundHit, groundProbeDistance, stepMask, QueryTriggerInteraction.Ignore))
+                return;
+
+            if (groundHit.collider == null)
+                return;
+
+            if (groundHit.collider.transform == transform || groundHit.collider.transform.IsChildOf(transform))
+                return;
+
+            if (!TryGetGroundY(bounds.center, out float currentGroundY))
+                return;
+
+            float stepRise = groundHit.point.y - currentGroundY;
+            if (stepRise < Mathf.Max(0.001f, stepMinHeight))
+                return;
+
+            if (stepRise > stepHeight + 0.05f)
+                return;
+
+            Vector3 stepOffset = Vector3.up * (stepUpSpeed * Time.fixedDeltaTime);
+            rb.MovePosition(rb.position + stepOffset);
+        }
+
+        private bool HasObstacleAtHeight(Vector3 origin, Vector3 dir, float radius, float distance)
+        {
+            RaycastHit[] hits = Physics.SphereCastAll(origin, radius, dir, distance, stepMask, QueryTriggerInteraction.Ignore);
+
+            for (int i = 0; i < hits.Length; i++)
+            {
+                Collider c = hits[i].collider;
+                if (c == null)
+                    continue;
+
+                if (c.transform == transform || c.transform.IsChildOf(transform))
+                    continue;
+
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool TryGetGroundY(Vector3 worldCenter, out float groundY)
+        {
+            groundY = 0f;
+            float probeStartY = worldCenter.y + 0.25f;
+            float probeDistance = Mathf.Max(stepHeight + 0.75f, 1.0f);
+            Vector3 probeStart = new Vector3(worldCenter.x, probeStartY, worldCenter.z);
+
+            RaycastHit[] hits = Physics.RaycastAll(probeStart, Vector3.down, probeDistance, stepMask, QueryTriggerInteraction.Ignore);
+            if (hits == null || hits.Length == 0)
+                return false;
+
+            float bestDistance = float.MaxValue;
+            bool found = false;
+            for (int i = 0; i < hits.Length; i++)
+            {
+                Collider c = hits[i].collider;
+                if (c == null)
+                    continue;
+
+                if (c.transform == transform || c.transform.IsChildOf(transform))
+                    continue;
+
+                if (hits[i].distance < bestDistance)
+                {
+                    bestDistance = hits[i].distance;
+                    groundY = hits[i].point.y;
+                    found = true;
+                }
+            }
+
+            return found;
         }
     }
 }

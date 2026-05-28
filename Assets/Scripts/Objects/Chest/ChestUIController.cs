@@ -24,6 +24,7 @@ namespace chest
         public InventoryUIController inventoryController;
 
         [HideInInspector] public Chest currentChest;
+        public bool IsOpen => inventoryRoot != null && inventoryRoot.activeSelf;
 
         private PlayerBase interactingPlayer;
         private InventoryManager playerInventoryManager;
@@ -43,6 +44,9 @@ namespace chest
 
         public void Open(Chest chest, PlayerBase player)
         {
+            if (IsOpen && currentChest == chest)
+                return;
+
             if (inventoryRoot == null)
             {
                 Debug.LogWarning("ChestUIController: inventoryRoot is not assigned. Assign your UI root in inspector.");
@@ -72,11 +76,14 @@ namespace chest
 
             if (interactingPlayer != null) interactingPlayer.SetControlsEnabled(false);
             Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.Confined;
         }
 
         public void Close()
         {
+            if (!IsOpen && currentChest == null && interactingPlayer == null)
+                return;
+
             if (inventoryRoot != null) inventoryRoot.SetActive(false);
 
             if (interactingPlayer != null) interactingPlayer.SetControlsEnabled(true);
