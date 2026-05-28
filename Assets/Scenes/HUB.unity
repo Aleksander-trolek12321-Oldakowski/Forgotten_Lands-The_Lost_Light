@@ -25278,6 +25278,7 @@ MonoBehaviour:
     dashDistance: 3
     dashDuration: 0.18
     dashCooldown: 2
+    manaCost: 20
     wallPadding: 0.05
   berserkSkill:
     skillId: 
@@ -25400,8 +25401,12 @@ MonoBehaviour:
   HpOrb: {fileID: 1432580856}
   MpOrb: {fileID: 1531917909}
   ExpBar: {fileID: 1054954785}
+  HpPotionIcon: {fileID: 1196412540}
+  MpPotionIcon: {fileID: 1408686018}
   levelText: {fileID: 1538789794}
   inventoryKey: 105
+  hpPotionKey: 49
+  mpPotionKey: 50
   Money: 0
   outOfCombatDelaySeconds: 20
   outOfCombatRegenPercentPerSecond: 0.01
@@ -29030,7 +29035,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1196412538
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29062,6 +29067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2a02ca80d137841a913ff4b69d9726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  potionIcon: {fileID: 1196412540}
 --- !u!114 &1196412540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29083,10 +29089,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: c85af2861db27844b8cbf94947ca8346, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 1
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -35102,7 +35108,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1408686016
 RectTransform:
   m_ObjectHideFlags: 0
@@ -35134,6 +35140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 013fa5a23e5df644db7d6bdbba4414d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  potionIcon: {fileID: 1408686018}
 --- !u!114 &1408686018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35155,10 +35162,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 7be2b89aacd50c94e8493c5c05e52b13, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 1
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0

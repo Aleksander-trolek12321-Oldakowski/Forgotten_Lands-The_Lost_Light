@@ -239,6 +239,9 @@ namespace Menu
 
             string currentScene = SceneManager.GetActiveScene().name;
             bool inHub = string.Equals(currentScene, hubSceneName, System.StringComparison.OrdinalIgnoreCase);
+            if (!inHub && player != null)
+                player.RestorePotions();
+
             Log($"PrepareAndSaveForExit: scene='{currentScene}', inHub={inHub}, targetContinue='{hubSceneName}'");
 
             SaveService.CaptureAndSave(

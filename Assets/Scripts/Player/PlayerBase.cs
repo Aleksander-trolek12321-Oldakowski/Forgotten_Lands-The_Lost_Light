@@ -28,6 +28,7 @@ namespace Player
         [SerializeField] float currentMp;
         public float CurrentHp => currentHp;
         public float CurrentMp => currentMp;
+        public float PotionFillAmount => MaxStack > 0 ? (float)currentStack / MaxStack : 0f;
         public float MaxHP => MaxHp;
         public float MaxMP => MaxMp;
         public float Damage => Strength;
@@ -36,8 +37,8 @@ namespace Player
         public float HpRestorePercentage = 0.2f;
         public float MpRestorePercentage = 0.5f;
         public float cd = 3f;
-        public int currentStack = 0;
-        public int MaxStack = 10;
+        public int currentStack = 3;
+        public int MaxStack = 3;
 
         [Header("Level System")]
         [SerializeField] int level = 1;
@@ -78,11 +79,17 @@ namespace Player
         public UnityEngine.UI.Image HpOrb;
         public UnityEngine.UI.Image MpOrb;
         public UnityEngine.UI.Image ExpBar;
+        public UnityEngine.UI.Image HpPotionIcon;
+        public UnityEngine.UI.Image MpPotionIcon;
         public TextMeshProUGUI levelText;
 
         [Header("Inventory")]
         public KeyCode inventoryKey = KeyCode.I;
         InventoryUIController inventoryUIController;
+
+        [Header("Potions")]
+        public KeyCode hpPotionKey = KeyCode.Alpha1;
+        public KeyCode mpPotionKey = KeyCode.Alpha2;
 
         [Header("Economy")]
         public float Money = 100f;
@@ -110,6 +117,7 @@ namespace Player
 
             currentHp = MaxHp;
             currentMp = MaxMp;
+            RestorePotions();
             UpdateHpOrb();
             UpdateMpOrb();
             UpdateExpBar();
@@ -172,6 +180,16 @@ namespace Player
                 {
                     Debug.LogWarning("PlayerBase: InventoryUIController is null - cannot toggle inventory.");
                 }
+            }
+
+            if (Input.GetKeyDown(hpPotionKey))
+            {
+                UseHpPotion();
+            }
+
+            if (Input.GetKeyDown(mpPotionKey))
+            {
+                UseMpPotion();
             }
         }
 
@@ -305,6 +323,19 @@ namespace Player
                 Exhaust();
             }
         }
+
+        public bool TryUseMP(float MPUsed)
+        {
+            if (MPUsed <= 0f)
+                return true;
+
+            if (currentMp < MPUsed)
+                return false;
+
+            UseMP(MPUsed);
+            return true;
+        }
+
         private void UpdateHpOrb()
         {
             if (HpOrb != null)
@@ -335,6 +366,38 @@ namespace Player
             {
                 levelText.text = $"LEVEL {level}";
             }
+        }
+
+        private void UpdatePotionIcons()
+        {
+            float fillAmount = PotionFillAmount;
+
+            if (HpPotionIcon != null)
+            {
+                HpPotionIcon.fillAmount = fillAmount;
+            }
+
+            if (MpPotionIcon != null)
+            {
+                MpPotionIcon.fillAmount = fillAmount;
+            }
+        }
+
+        public void RegisterHpPotionIcon(UnityEngine.UI.Image icon)
+        {
+            HpPotionIcon = icon;
+            UpdatePotionIcons();
+        }
+
+        public void RegisterMpPotionIcon(UnityEngine.UI.Image icon)
+        {
+                MpPotionIcon = icon;
+            UpdatePotionIcons();
+        }
+
+        private bool IsInHubScene()
+        {
+            return string.Equals(SceneManager.GetActiveScene().name, SaveService.HubSceneName, System.StringComparison.OrdinalIgnoreCase);
         }
 
         public bool IsFullHp()
@@ -368,6 +431,7 @@ namespace Player
         private void Die()
         {
             IsDead = true;
+            RestorePotions();
             SideQuestManager.Instance?.ResetActiveTimedQuestTimer();
             SaveService.DeleteSave();
             SceneManager.LoadScene("DEATH");
@@ -380,8 +444,17 @@ namespace Player
 
         public void UseHpPotion()
         {
+            if (IsInHubScene())
+                return;
+
             if (!CanUse)
                 return;
+
+            if (currentStack <= 0)
+            {
+                UpdatePotionIcons();
+                return;
+            }
 
             if (IsFullHp())
             {
@@ -391,20 +464,25 @@ namespace Player
             float HealAmount = MaxHp * HpRestorePercentage;
             Heal(HealAmount);
 
-            currentStack--;
-
-            if (currentStack <= 0)
-            {
-                CanUse = false;
-            }
+            currentStack = Mathf.Max(0, currentStack - 1);
+            UpdatePotionIcons();
 
             StartCoroutine(PotionCD());
         }
         
         public void UseMpPotion()
         {
+            if (IsInHubScene())
+                return;
+
             if (!CanUse) 
             return;    
+
+            if (currentStack <= 0)
+            {
+                UpdatePotionIcons();
+                return;
+            }
 
             if (IsFullMp())
             {
@@ -414,12 +492,8 @@ namespace Player
             float RestoreAmount = MaxMp * MpRestorePercentage;
             Restore(RestoreAmount);
 
-            currentStack--;
-
-            if (currentStack <= 0)
-            {
-                CanUse = false;
-            }
+            currentStack = Mathf.Max(0, currentStack - 1);
+            UpdatePotionIcons();
 
             StartCoroutine(PotionCD());
         }
@@ -433,12 +507,22 @@ namespace Player
 
         public bool AddToStack()
         {
-            if (currentStack <= MaxStack)
+            MaxStack = Mathf.Clamp(MaxStack, 1, 3);
+            if (currentStack < MaxStack)
             {
                 currentStack++;
+                UpdatePotionIcons();
                 return true;
             }
             return false; 
+        }
+
+        public void RestorePotions()
+        {
+            MaxStack = Mathf.Clamp(MaxStack, 1, 3);
+            currentStack = MaxStack;
+            CanUse = true;
+            UpdatePotionIcons();
         }
 
         public void AddMoney(float amount)
@@ -557,7 +641,8 @@ namespace Player
             MpRestorePercentage = state.mpRestorePercentage;
             cd = Mathf.Max(0f, state.potionCooldown);
             currentStack = Mathf.Max(0, state.currentStack);
-            MaxStack = Mathf.Max(0, state.maxStack);
+            MaxStack = Mathf.Clamp(state.maxStack, 1, 3);
+            currentStack = Mathf.Clamp(currentStack, 0, MaxStack);
 
             level = Mathf.Max(1, state.level);
             currentExp = Mathf.Max(0f, state.currentExp);
@@ -567,6 +652,7 @@ namespace Player
 
             UpdateHpOrb();
             UpdateMpOrb();
+            UpdatePotionIcons();
             UpdateExpBar();
             UpdateLevelText();
         }
@@ -581,6 +667,11 @@ namespace Player
             if (string.Equals(sceneName, SaveService.HubSceneName, System.StringComparison.OrdinalIgnoreCase))
             {
                 bool changed = false;
+
+                if (currentStack < MaxStack)
+                {
+                    RestorePotions();
+                }
 
                 if (currentHp < MaxHp)
                 {
