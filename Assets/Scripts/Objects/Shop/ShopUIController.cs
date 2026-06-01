@@ -136,7 +136,7 @@ namespace shop
             }
 
             if (playerMoneyText != null && interactingPlayer != null)
-                playerMoneyText.text = $"Money: {interactingPlayer.GetMoney():F1}";
+                playerMoneyText.text = $"{interactingPlayer.GetMoney():F1}";
         }
 
         public bool SellFromPlayerToShop(int playerBackpackIndex, int shopDestIndex)

@@ -16,9 +16,9 @@ MonoBehaviour:
   itemSprite: {fileID: 21300000, guid: 3304fecefd5615940a5e7d48d86a5675, type: 3}
   itemType: 2
   HP: 0
-  Mana: 0
+  Mana: 20
   Damage: 0
   Defense: 40
-  Speed: 2
+  Speed: 0
   stackSize: 1
   Price: 0

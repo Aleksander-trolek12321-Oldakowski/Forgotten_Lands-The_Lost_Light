@@ -117,6 +117,18 @@ public class SceneMusicManager : MonoBehaviour
         PlaySceneMusic(SceneManager.GetActiveScene().name);
     }
 
+    public static bool TryGetSharedAudioSource(out AudioSource source)
+    {
+        source = null;
+
+        if (Instance == null)
+            return false;
+
+        Instance.EnsureMusicSourceAvailable();
+        source = Instance.musicSource;
+        return source != null;
+    }
+
     public void RebuildSceneTrackMap()
     {
         sceneTrackMap.Clear();

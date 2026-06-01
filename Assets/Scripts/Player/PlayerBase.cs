@@ -22,13 +22,20 @@ namespace Player
         [SerializeField] float Def = 1f;
         public float DamageMultiplier = 1f;
         public float PercentDmgTaken = 1f;
-        
+
         [Header("Runtime")]
         [SerializeField] float currentHp;
         [SerializeField] float currentMp;
+        [SerializeField] private int currentHpStack = 3;
+        [SerializeField] private int currentMpStack = 3;
+        [SerializeField] private int maxHpStack = 3;
+        [SerializeField] private int maxMpStack = 3;
+
         public float CurrentHp => currentHp;
         public float CurrentMp => currentMp;
-        public float PotionFillAmount => MaxStack > 0 ? (float)currentStack / MaxStack : 0f;
+        public float PotionFillAmount => HpPotionFillAmount;
+        public float HpPotionFillAmount => maxHpStack > 0 ? (float)currentHpStack / maxHpStack : 0f;
+        public float MpPotionFillAmount => maxMpStack > 0 ? (float)currentMpStack / maxMpStack : 0f;
         public float MaxHP => MaxHp;
         public float MaxMP => MaxMp;
         public float Damage => Strength;
@@ -38,6 +45,8 @@ namespace Player
         public float HpRestorePercentage = 0.2f;
         public float MpRestorePercentage = 0.5f;
         public float cd = 3f;
+
+        // Legacy fields kept for compatibility with older code paths and save data.
         public int currentStack = 3;
         public int MaxStack = 3;
 
@@ -58,6 +67,12 @@ namespace Player
         public float rotationSpeed = 10f;
         public float velocitySmoothTime = 0.12f;
         public float deadZone = 0.1f;
+
+        [Header("Audio")]
+        public AudioSource audioSource;
+        public AudioClip[] footstepClips;
+        [Range(0f, 1f)] public float footstepVolume = 0.75f;
+        public float footstepInterval = 0.45f;
 
         [Header("Step Assist")]
         public bool enableStepAssist = true;
@@ -103,10 +118,12 @@ namespace Player
         private bool zeroVelocityWhenControlsDisabled = true;
         private float lastCombatActivityTime = -999f;
         private Collider movementCollider;
+        private float nextFootstepTime = -999f;
 
         private void Awake()
         {
             Cursor.visible = false;
+
             if (rb == null) rb = GetComponent<Rigidbody>();
             movementCollider = GetComponent<Collider>();
 
@@ -118,9 +135,12 @@ namespace Player
 
             currentHp = MaxHp;
             currentMp = MaxMp;
-            RestorePotions();
+
+            SyncLegacyPotionFields();
+            ResolveAudioSource();
             UpdateHpOrb();
             UpdateMpOrb();
+            UpdatePotionIcons();
             UpdateExpBar();
             UpdateLevelText();
         }
@@ -131,6 +151,9 @@ namespace Player
             {
                 cam = Camera.main.transform;
             }
+
+            ClampPotionStacks();
+            SyncLegacyPotionFields();
         }
 
         private void Update()
@@ -169,6 +192,8 @@ namespace Player
 
                 moveDir = (forward * cachedVertical + right * cachedHorizontal).normalized;
             }
+
+            HandleFootstepAudio();
 
             if (Input.GetKeyDown(inventoryKey))
             {
@@ -275,6 +300,7 @@ namespace Player
                     {
                         rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
                     }
+
                     cachedHorizontal = 0f;
                     cachedVertical = 0f;
                     moveDir = Vector3.zero;
@@ -376,16 +402,14 @@ namespace Player
 
         private void UpdatePotionIcons()
         {
-            float fillAmount = PotionFillAmount;
-
             if (HpPotionIcon != null)
             {
-                HpPotionIcon.fillAmount = fillAmount;
+                HpPotionIcon.fillAmount = HpPotionFillAmount;
             }
 
             if (MpPotionIcon != null)
             {
-                MpPotionIcon.fillAmount = fillAmount;
+                MpPotionIcon.fillAmount = MpPotionFillAmount;
             }
         }
 
@@ -397,7 +421,7 @@ namespace Player
 
         public void RegisterMpPotionIcon(UnityEngine.UI.Image icon)
         {
-                MpPotionIcon = icon;
+            MpPotionIcon = icon;
             UpdatePotionIcons();
         }
 
@@ -456,7 +480,7 @@ namespace Player
             if (!CanUse)
                 return;
 
-            if (currentStack <= 0)
+            if (currentHpStack <= 0)
             {
                 UpdatePotionIcons();
                 return;
@@ -467,24 +491,25 @@ namespace Player
                 return;
             }
 
-            float HealAmount = MaxHp * HpRestorePercentage;
-            Heal(HealAmount);
+            float healAmount = MaxHp * HpRestorePercentage;
+            Heal(healAmount);
 
-            currentStack = Mathf.Max(0, currentStack - 1);
+            currentHpStack = Mathf.Max(0, currentHpStack - 1);
+            SyncLegacyPotionFields();
             UpdatePotionIcons();
 
             StartCoroutine(PotionCD());
         }
-        
+
         public void UseMpPotion()
         {
             if (IsInHubScene())
                 return;
 
-            if (!CanUse) 
-            return;    
+            if (!CanUse)
+                return;
 
-            if (currentStack <= 0)
+            if (currentMpStack <= 0)
             {
                 UpdatePotionIcons();
                 return;
@@ -495,10 +520,10 @@ namespace Player
                 return;
             }
 
-            float RestoreAmount = MaxMp * MpRestorePercentage;
-            Restore(RestoreAmount);
+            float restoreAmount = MaxMp * MpRestorePercentage;
+            Restore(restoreAmount);
 
-            currentStack = Mathf.Max(0, currentStack - 1);
+            currentMpStack = Mathf.Max(0, currentMpStack - 1);
             UpdatePotionIcons();
 
             StartCoroutine(PotionCD());
@@ -513,20 +538,87 @@ namespace Player
 
         public bool AddToStack()
         {
-            MaxStack = Mathf.Clamp(MaxStack, 1, 3);
-            if (currentStack < MaxStack)
+            return AddHpPotionStack();
+        }
+
+        public bool AddHpPotionStack()
+        {
+            ClampPotionStacks();
+
+            if (currentHpStack < maxHpStack)
             {
-                currentStack++;
+                currentHpStack++;
+                SyncLegacyPotionFields();
                 UpdatePotionIcons();
                 return true;
             }
-            return false; 
+
+            return false;
+        }
+
+        public bool AddMpPotionStack()
+        {
+            ClampPotionStacks();
+
+            if (currentMpStack < maxMpStack)
+            {
+                currentMpStack++;
+                UpdatePotionIcons();
+                return true;
+            }
+
+            return false;
+        }
+
+        private void ResolveAudioSource()
+        {
+            if (audioSource == null)
+                audioSource = GetComponent<AudioSource>();
+
+            if (audioSource == null)
+                audioSource = gameObject.AddComponent<AudioSource>();
+
+            audioSource.playOnAwake = false;
+            audioSource.loop = false;
+            audioSource.spatialBlend = 0f;
+        }
+
+        private void HandleFootstepAudio()
+        {
+            if (footstepClips == null || footstepClips.Length == 0)
+                return;
+
+            if (moveDir.sqrMagnitude < deadZone * deadZone)
+                return;
+
+            if (rb != null)
+            {
+                Vector3 horizontalVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+                if (horizontalVelocity.sqrMagnitude < 0.01f)
+                    return;
+            }
+
+            if (Time.time < nextFootstepTime)
+                return;
+
+            ResolveAudioSource();
+
+            if (audioSource == null)
+                return;
+
+            AudioClip clip = footstepClips[UnityEngine.Random.Range(0, footstepClips.Length)];
+            if (clip != null)
+                audioSource.PlayOneShot(clip, footstepVolume);
+
+            nextFootstepTime = Time.time + Mathf.Max(0.05f, footstepInterval);
         }
 
         public void RestorePotions()
         {
-            MaxStack = Mathf.Clamp(MaxStack, 1, 3);
-            currentStack = MaxStack;
+            ClampPotionStacks();
+            currentHpStack = maxHpStack;
+            currentMpStack = maxMpStack;
+            SyncLegacyPotionFields();
             CanUse = true;
             UpdatePotionIcons();
         }
@@ -585,12 +677,14 @@ namespace Player
         public bool TrySpend(float amount)
         {
             if (amount <= 0f) return true;
+
             if (Money + 0.0001f >= amount)
             {
                 Money -= amount;
                 Debug.Log($"PlayerBase: Spent {amount:F1}. New balance: {Money:F1}");
                 return true;
             }
+
             Debug.Log($"PlayerBase: Not enough money to spend {amount:F1}. Balance: {Money:F1}");
             return false;
         }
@@ -604,6 +698,8 @@ namespace Player
 
         public SavedPlayerStats CreateSaveSnapshot()
         {
+            SyncLegacyPotionFields();
+
             return new SavedPlayerStats
             {
                 maxHp = MaxHp,
@@ -643,9 +739,14 @@ namespace Player
             HpRestorePercentage = state.hpRestorePercentage;
             MpRestorePercentage = state.mpRestorePercentage;
             cd = Mathf.Max(0f, state.potionCooldown);
-            currentStack = Mathf.Max(0, state.currentStack);
-            MaxStack = Mathf.Clamp(state.maxStack, 1, 3);
-            currentStack = Mathf.Clamp(currentStack, 0, MaxStack);
+
+            maxHpStack = Mathf.Clamp(state.maxStack, 1, 3);
+            currentHpStack = Mathf.Clamp(Mathf.Max(0, state.currentStack), 0, maxHpStack);
+
+            maxMpStack = 3;
+            currentMpStack = maxMpStack;
+
+            SyncLegacyPotionFields();
 
             level = Mathf.Max(1, state.level);
             currentExp = Mathf.Max(0f, state.currentExp);
@@ -671,7 +772,7 @@ namespace Player
             {
                 bool changed = false;
 
-                if (currentStack < MaxStack)
+                if (currentHpStack < maxHpStack || currentMpStack < maxMpStack)
                 {
                     RestorePotions();
                 }
@@ -722,6 +823,21 @@ namespace Player
 
             if (hpChanged) UpdateHpOrb();
             if (mpChanged) UpdateMpOrb();
+        }
+
+        private void ClampPotionStacks()
+        {
+            maxHpStack = Mathf.Clamp(maxHpStack, 1, 3);
+            maxMpStack = Mathf.Clamp(maxMpStack, 1, 3);
+            currentHpStack = Mathf.Clamp(currentHpStack, 0, maxHpStack);
+            currentMpStack = Mathf.Clamp(currentMpStack, 0, maxMpStack);
+        }
+
+        private void SyncLegacyPotionFields()
+        {
+            ClampPotionStacks();
+            currentStack = currentHpStack;
+            MaxStack = maxHpStack;
         }
 
         private void TryStepAssist(Vector3 desiredVelocity)

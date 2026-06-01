@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b078039943a9c94c914f965b3f5417b, type: 3}
   m_Name: "Pier\u015Bcie\u0144 szybko\u015Bci"
   m_EditorClassIdentifier: 
-  itemName: "Pier\u015Bcie\u0144 szybko\u015Bci"
+  itemName: "Pier\u015Bcie\u0144 Many"
   itemSprite: {fileID: 21300000, guid: 4764fde59b5d5c74cb27f6cb1cfb24f8, type: 3}
   itemType: 7
   HP: 0
-  Mana: 0
+  Mana: 50
   Damage: 0
   Defense: 0
-  Speed: 1
+  Speed: 0
   stackSize: 1
   Price: 150

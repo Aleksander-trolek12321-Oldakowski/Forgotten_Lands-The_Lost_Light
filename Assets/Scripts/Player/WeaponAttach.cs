@@ -33,10 +33,8 @@ public class WeaponAttach : MonoBehaviour
 
         Transform weaponBone = FindChildRecursive(weaponRig, weaponBoneName);
 
-        // jeśli nie znajdzie bone w broni → używa roota
         Transform attachTarget = (weaponBone != null) ? weaponBone : weaponRig;
 
-        // 🔥 NAJWAŻNIEJSZE
         weaponRig.SetParent(handBone);
 
         weaponRig.localPosition = positionOffset;

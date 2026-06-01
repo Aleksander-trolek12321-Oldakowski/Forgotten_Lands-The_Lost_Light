@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Item;
 using Player;
 using TMPro;
@@ -40,6 +41,8 @@ namespace Inventory
 
         [NonSerialized] public List<ItemSlotUI> equipSlotUIs = new List<ItemSlotUI>();
         [NonSerialized] public List<ItemSlotUI> backpackSlotUIs = new List<ItemSlotUI>();
+
+        public Text playerMoneyText;
 
         PlayerBase player;
 
@@ -186,6 +189,8 @@ namespace Inventory
         [ContextMenu("Refresh All Slots")]
         public void RefreshAllSlots()
         {
+            playerMoneyText.text = $"{player.GetMoney():F1}";
+
             if (inventoryManager == null)
             {
                 Debug.LogWarning("InventoryUIController: inventoryManager is null - cannot refresh.");

@@ -97,6 +97,17 @@ public class EnemyBase : MonoBehaviour
     [Header("Death")]
     public float destroyAfterDeath = 3f;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip[] randomIdleClips;
+    [Range(0f, 1f)] public float randomIdleVolume = 0.8f;
+    public Vector2 randomIdleIntervalRange = new Vector2(3f, 7f);
+    public float audioMinDistance = 1.5f;
+    public float audioMaxDistance = 10f;
+    public AudioRolloffMode audioRolloffMode = AudioRolloffMode.Logarithmic;
+    public AudioClip bossDeathClip;
+    [Range(0f, 1f)] public float bossDeathVolume = 1f;
+
     [Header("Loot Drop")]
     [Range(0f, 1f)]
     public float lootDropChance = 0.25f;
@@ -107,6 +118,8 @@ public class EnemyBase : MonoBehaviour
         new List<ItemData>();
 
     public float lootSpawnHeightOffset = 0.2f;
+    [Tooltip("Delay before spawning loot after death. 0 uses destroyAfterDeath, so loot appears near the end of the death animation.")]
+    public float lootSpawnDelayAfterDeath = 0f;
 
     private float lastAttackTime = -999f;
 
@@ -138,6 +151,7 @@ public class EnemyBase : MonoBehaviour
     private float baseAttackDamage;
     private bool hasCapturedBaseStats;
     private int appliedPlayerLevel = -1;
+    private float nextRandomIdleSoundTime = -999f;
 
     public event Action<EnemyBase> Died;
 
@@ -180,6 +194,7 @@ public class EnemyBase : MonoBehaviour
         }
 
         wanderTimer = wanderInterval;
+        ScheduleNextRandomIdleSound();
 
         currentState =
             useWander ? State.Wander : State.Idle;
@@ -234,6 +249,7 @@ public class EnemyBase : MonoBehaviour
 
         ResolvePersonalSpace();
         EnforceLockedY();
+        HandleRandomIdleAudio();
     }
 
     void IdleBehaviour(float distance)
@@ -652,11 +668,34 @@ public class EnemyBase : MonoBehaviour
             animator.SetTrigger(deathTrigger);
         }
 
-        TryDropLootBag();
+        PlayBossDeathAudio();
+
+        StartCoroutine(DropLootBagAfterDeathRoutine());
 
         Died?.Invoke(this);
 
-        Destroy(gameObject, destroyAfterDeath);
+        float lootDelay = GetLootSpawnDelayAfterDeath();
+        Destroy(gameObject, Mathf.Max(destroyAfterDeath, lootDelay + 0.1f));
+    }
+
+    IEnumerator DropLootBagAfterDeathRoutine()
+    {
+        float delay = GetLootSpawnDelayAfterDeath();
+        if (delay > 0f)
+            yield return new WaitForSeconds(delay);
+
+        while (!LootBagRespawnManager.AllowRespawn)
+            yield return null;
+
+        TryDropLootBag();
+    }
+
+    float GetLootSpawnDelayAfterDeath()
+    {
+        if (lootSpawnDelayAfterDeath > 0f)
+            return lootSpawnDelayAfterDeath;
+
+        return Mathf.Max(0f, destroyAfterDeath - 0.05f);
     }
 
     void TryDropLootBag()
@@ -690,6 +729,72 @@ public class EnemyBase : MonoBehaviour
                 new List<ItemData>(
                     lootDropTable);
         }
+    }
+
+    void ResolveAudioSource()
+    {
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        ConfigureEnemyAudioSource(audioSource);
+    }
+
+    void ConfigureEnemyAudioSource(AudioSource source)
+    {
+        if (source == null)
+            return;
+
+        source.playOnAwake = false;
+        source.loop = false;
+        source.spatialBlend = 1f;
+        source.rolloffMode = audioRolloffMode;
+        source.minDistance = Mathf.Max(0.01f, audioMinDistance);
+        source.maxDistance = Mathf.Max(source.minDistance + 0.01f, audioMaxDistance);
+    }
+
+    void HandleRandomIdleAudio()
+    {
+        if (randomIdleClips == null || randomIdleClips.Length == 0)
+            return;
+
+        ResolveAudioSource();
+
+        if (audioSource == null || Time.time < nextRandomIdleSoundTime)
+            return;
+
+        PlayRandomClip(randomIdleClips, audioSource, randomIdleVolume);
+        ScheduleNextRandomIdleSound();
+    }
+
+    void ScheduleNextRandomIdleSound()
+    {
+        float min = Mathf.Min(randomIdleIntervalRange.x, randomIdleIntervalRange.y);
+        float max = Mathf.Max(randomIdleIntervalRange.x, randomIdleIntervalRange.y);
+        nextRandomIdleSoundTime = Time.time + UnityEngine.Random.Range(Mathf.Max(0.1f, min), Mathf.Max(0.1f, max));
+    }
+
+    void PlayBossDeathAudio()
+    {
+        if (!isBoss || bossDeathClip == null)
+            return;
+
+        ResolveAudioSource();
+
+        if (audioSource != null)
+            audioSource.PlayOneShot(bossDeathClip, bossDeathVolume);
+    }
+
+    static void PlayRandomClip(AudioClip[] clips, AudioSource source, float volume)
+    {
+        if (clips == null || clips.Length == 0 || source == null)
+            return;
+
+        AudioClip clip = clips[UnityEngine.Random.Range(0, clips.Length)];
+        if (clip != null)
+            source.PlayOneShot(clip, volume);
     }
 
     void SetSpeed(float value)
@@ -937,6 +1042,7 @@ public class EnemyBase : MonoBehaviour
 
         ConfigureRigidbodyForNavMesh();
         ConfigureBodyCollider();
+        ResolveAudioSource();
 
         if (animator == null)
             animator = GetComponent<Animator>();

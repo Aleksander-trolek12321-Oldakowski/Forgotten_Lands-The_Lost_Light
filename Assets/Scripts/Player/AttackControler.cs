@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Player;
 
 public class AttackController : MonoBehaviour
 {
@@ -14,6 +15,11 @@ public class AttackController : MonoBehaviour
     [Header("References")]
     public AttackHitbox hitbox;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip[] attackClips;
+    [Range(0f, 1f)] public float attackVolume = 0.8f;
+
     private bool canAttack = true;
     private Animator anim;
     private float defaultAnimatorSpeed = 1f;
@@ -23,6 +29,7 @@ public class AttackController : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         if (anim != null)
             defaultAnimatorSpeed = anim.speed;
+
     }
 
     void Update()
@@ -44,6 +51,7 @@ public class AttackController : MonoBehaviour
         int attackIndex = Random.Range(0, 3);
         anim.SetInteger("AttackIndex", attackIndex);
         anim.SetTrigger("Attack");
+        PlayAttackAudio();
 
         StartCoroutine(AttackRoutine());
     }
@@ -80,5 +88,40 @@ public class AttackController : MonoBehaviour
             return;
 
         anim.speed = enabled ? defaultAnimatorSpeed * Mathf.Max(0.01f, attackSpeedMultiplier) : defaultAnimatorSpeed;
+    }
+
+    private void ResolveAudioSource()
+    {
+        if (audioSource == null)
+        {
+            PlayerBase player = GetComponentInParent<PlayerBase>();
+            if (player != null)
+                audioSource = player.audioSource;
+        }
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.playOnAwake = false;
+        audioSource.loop = false;
+        audioSource.spatialBlend = 0f;
+    }
+
+    private void PlayAttackAudio()
+    {
+        if (attackClips == null || attackClips.Length == 0)
+            return;
+
+        ResolveAudioSource();
+
+        if (audioSource == null)
+            return;
+
+        AudioClip clip = attackClips[Random.Range(0, attackClips.Length)];
+        if (clip != null)
+            audioSource.PlayOneShot(clip, attackVolume);
     }
 }
